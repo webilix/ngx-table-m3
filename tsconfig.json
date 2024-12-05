@@ -9,6 +9,7 @@
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
+        "paths": { "@webilix/ngx-table-m3": ["./ngx-table-m3/src/public-api"] },
         "skipLibCheck": true,
         "isolatedModules": true,
         "esModuleInterop": true,
