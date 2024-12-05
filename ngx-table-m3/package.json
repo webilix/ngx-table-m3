@@ -1,6 +1,25 @@
 {
     "name": "ngx-table-m3",
     "version": "0.0.0",
+    "author": "Ali Amirnezhad",
+    "description": "Responsive table view component for Angular and Material 3",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/webilix/ngx-table-m3.git"
+    },
+    "keywords": [
+        "angular",
+        "table",
+        "responsive",
+        "persian",
+        "farsi",
+        "material 3"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/webilix/ngx-table-m3/issues"
+    },
+    "homepage": "https://github.com/webilix/ngx-table-m3#readme",
     "peerDependencies": {
         "@angular/common": "^19.0.0",
         "@angular/core": "^19.0.0",
