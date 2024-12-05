@@ -1,0 +1,97 @@
+﻿/**
+*
+*	Name:			IRANYekan Font
+*	Version:			3.0
+*	Author:			Moslem Ebrahimi (moslemebrahimi.com)
+*	Created on:		Dec 20, 2018
+*	Updated on:		Dec 20, 2018
+*	Website:			http://fontiran.com
+*	Copyright:		Commercial/Proprietary Software
+--------------------------------------------------------------------------------------
+فونت ایران یکان یک نرم افزار مالکیتی محسوب می شود. جهت آگاهی از قوانین استفاده از این فونت ها لطفا به وب سایت (فونت ایران دات کام) مراجعه نمایید
+--------------------------------------------------------------------------------------
+IRANYekan fonts are considered a proprietary software. To gain information about the laws regarding the use of these fonts, please visit www.fontiran.com 
+--------------------------------------------------------------------------------------
+This set of fonts are used in this project under the license: (.....)
+--------------------------------------------------------------------------------------
+*	
+**/
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: bold;
+    src: url('./iran-yekan-bold.eot');
+    src: url('./iran-yekan-bold.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-bold.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 100;
+    src: url('./iran-yekan-thin.eot');
+    src: url('./iran-yekan-thin.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-thin.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 300;
+    src: url('./iran-yekan-light.eot');
+    src: url('./iran-yekan-light.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-light.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: normal;
+    src: url('./iran-yekan-regular.eot');
+    src: url('./iran-yekan-regular.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-regular.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 500;
+    src: url('./iran-yekan-medium.eot');
+    src: url('./iran-yekan-medium.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-medium.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 800;
+    src: url('./iran-yekan-extra-bold.eot');
+    src: url('./iran-yekan-extra-bold.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-extra-bold.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-extra-bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 900;
+    src: url('./iran-yekan-black.eot');
+    src: url('./iran-yekan-black.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-black.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-black.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 950;
+    src: url('./iran-yekan-extra-black.eot');
+    src: url('./iran-yekan-extra-black.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./iran-yekan-extra-black.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./iran-yekan-extra-black.ttf') format('truetype');
+}

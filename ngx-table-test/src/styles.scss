@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+// Fonts
+@use './theme/fonts/icon/material-icons-outlined.css';
+@use './theme/fonts/iran-yekan/iran-yekan.css';
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use './theme/material/theme-m3';
+@use './theme/material/override';
+
+// Global Styles
+html,
+body {
+    color: var(--on-surface);
+    background-color: var(--surface-container-low);
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Yekan;
+}
+
+.en {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+// Material Styles
+.mat-icon {
+    font-family: 'Material Icons Outlined';
+    font-size: 20px;
+    width: auto !important;
+    height: auto !important;
+}
+
+body.dark .cdk-overlay-backdrop {
+    background-color: rgba(255, 255, 255, 0.25);
+}

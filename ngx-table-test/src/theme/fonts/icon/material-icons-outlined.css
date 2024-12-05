@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Material Icons Outlined';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./material-icons-outlined.eot');
+    src: url('./material-icons-outlined.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */ url('./material-icons-outlined.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('./material-icons-outlined.ttf') format('truetype');
+}

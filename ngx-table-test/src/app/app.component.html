@@ -1,1 +1,14 @@
-<router-outlet />
+<header>
+    <div class="header">
+        <div class="library en">ngx-calendar-m3</div>
+        <div [style.flex]="1"></div>
+        <div class="icon">
+            <mat-icon>{{ colorMode === 'LIGHT' ? 'dark_mode' : 'light_mode' }}</mat-icon>
+            <div class="key en">CTRL + SHIFT + ALT + C</div>
+        </div>
+    </div>
+</header>
+
+<content>
+    <div class="content"><router-outlet /></div>
+</content>

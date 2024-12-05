@@ -1,3 +1,8 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { PageIndexComponent } from './pages';
+
+export const routes: Routes = [
+    { path: '', component: PageIndexComponent },
+    { path: '**', redirectTo: '/' },
+];
