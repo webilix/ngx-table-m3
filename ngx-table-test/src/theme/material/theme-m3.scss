@@ -114,3 +114,12 @@ body.dark {
 body.dark {
     @include materialRoleColorToVariable($dark-theme);
 }
+
+$typography-config: mat.m2-define-typography-config(
+    $font-family: Yekan,
+    $body-2: mat.m2-define-typography-level(14px, 24px, 500),
+    $body-1: mat.m2-define-typography-level(14px, 20px, 400),
+    $button: mat.m2-define-typography-level(14px, 36px, 500, $letter-spacing: 0.014rem),
+);
+
+@include mat.typography-hierarchy($typography-config);

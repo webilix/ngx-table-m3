@@ -1,4 +1,4 @@
-import { Component, OnInit, RendererFactory2 } from '@angular/core';
+import { Component, HostBinding, OnInit, RendererFactory2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { MatIcon } from '@angular/material/icon';
@@ -7,12 +7,15 @@ type ColorMode = 'LIGHT' | 'DARK';
 
 @Component({
     selector: 'app-root',
-    host: { '(window:keydown)': 'onKeydown($event)' },
+    host: { '(window:keydown)': 'onKeydown($event)', '(window:resize)': 'onResize($event)' },
     imports: [RouterOutlet, MatIcon],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+    @HostBinding('style.--header-height') headerHeight: string = '95px';
+
+    public isMobile!: boolean;
     public colorMode!: ColorMode;
 
     constructor(private readonly rendererFactory: RendererFactory2) {}
@@ -24,6 +27,8 @@ export class AppComponent implements OnInit {
         if (mode === 'DARK') colorMode = 'DARK';
         if (mode === 'LIGHT') colorMode = 'LIGHT';
         this.toggleMode(colorMode);
+
+        this.onResize();
     }
 
     onKeydown(event: any): void {
@@ -34,6 +39,11 @@ export class AppComponent implements OnInit {
             event.preventDefault();
             this.toggleMode();
         }
+    }
+
+    onResize(): void {
+        this.isMobile = window.innerWidth <= 600;
+        this.headerHeight = this.isMobile ? '55px' : '95px';
     }
 
     toggleMode(colorMode?: ColorMode): void {

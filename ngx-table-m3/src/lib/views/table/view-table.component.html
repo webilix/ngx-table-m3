@@ -1,0 +1,54 @@
+<table [cellPadding]="0" [cellSpacing]="0" [width]="'100%'" [border]="0">
+    <!-- HEADER -->
+    <thead
+        [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
+        [style.top]="viewConfig.stickyView?.headerTop?.desktopView || undefined"
+    >
+        <tr>
+            @for (group of columns; track $index) {
+            <!-- COLUMN GROUP -->
+            @if (group.columns.length > 1) {
+            <th [colSpan]="group.columns.length" class="group">{{ group.title }}</th>
+            }
+            <!-- COLUMN -->
+            @if (group.columns.length === 1) {
+            <th [rowSpan]="hasGroup ? 2 : 1">{{ group.columns[0].title }}</th>
+            } }
+        </tr>
+        <!-- CHILDS -->
+        @if (hasGroup) {
+        <tr>
+            @for (group of columns; track $index) {
+            <!-- COLUMN GROUP -->
+            @if (group.columns.length > 1) {
+            <!-- COLUMNS -->
+            @for (column of group.columns; track $index) {
+            <th class="child">{{ column.title }}</th>
+            } } }
+        </tr>
+        }
+    </thead>
+
+    <!-- DATA -->
+    <tbody>
+        @for (item of data; track $index; let dataIndex = $index) {
+        <tr>
+            @for (group of columns; track $index; let groupIndex = $index) {
+            <!-- COLUMN GROUP -->
+            @for (column of group.columns; track $index) {
+            <td
+                [style.backgroundColor]="
+                    groupIndex === 2
+                        ? dataIndex % 2 === 0
+                            ? 'var(--surface-container)'
+                            : 'var(--surface-container-high)'
+                        : ''
+                "
+            >
+                <view-value [column]="column" [item]="item"></view-value>
+            </td>
+            } }
+        </tr>
+        }
+    </tbody>
+</table>

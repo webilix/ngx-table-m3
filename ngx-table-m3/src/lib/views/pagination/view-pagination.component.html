@@ -1,0 +1,29 @@
+<content [class.desktop]="!isMobile" [class.mobile]="isMobile" [class.shadow]="hasShadow">
+    <section>
+        <div class="title">صفحه {{ pagination.page.current | number }} از {{ pagination.page.total | number }}</div>
+        <div class="total">{{ pagination.total | number }} {{ type }}</div>
+    </section>
+
+    <button mat-icon-button type="button" [disabled]="pagination.page.current === pagination.page.total">
+        <mat-icon>keyboard_double_arrow_right</mat-icon>
+    </button>
+    <button mat-icon-button type="button" [disabled]="pagination.page.current === pagination.page.total">
+        <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="pageMenu"><mat-icon>tag</mat-icon></button>
+    <mat-menu #pageMenu="matMenu">
+        @for (page of pages; track $index) {
+        <button mat-menu-item [disabled]="page === pagination.page.current" class="pagination-menu-item">
+            {{ page | number }}
+        </button>
+        }
+    </mat-menu>
+
+    <button mat-icon-button type="button" [disabled]="pagination.page.current === 1">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button mat-icon-button type="button" [disabled]="pagination.page.current === 1">
+        <mat-icon>keyboard_double_arrow_left</mat-icon>
+    </button>
+</content>

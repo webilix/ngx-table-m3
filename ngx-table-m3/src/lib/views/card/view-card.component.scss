@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    section {
+        border: 1px solid var(--surface-container-highest);
+
+        header {
+            display: flex;
+            align-items: center;
+
+            height: 55px;
+            background-color: var(--surface-container-highest);
+        }
+
+        content {
+            display: block;
+            height: 200px;
+        }
+    }
+}

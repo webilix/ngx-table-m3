@@ -1,0 +1,11 @@
+@for (item of data; track $index) {
+<section>
+    <header
+        [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
+        [style.top]="viewConfig.stickyView?.headerTop?.mobileView || undefined"
+    >
+        {{ $index }}
+    </header>
+    <content></content>
+</section>
+}

@@ -1,6 +1,6 @@
 <header>
     <div class="header">
-        <div class="library en">ngx-calendar-m3</div>
+        <div class="library en">ngx-table-m3</div>
         <div [style.flex]="1"></div>
         <div class="icon">
             <mat-icon>{{ colorMode === 'LIGHT' ? 'dark_mode' : 'light_mode' }}</mat-icon>
@@ -10,5 +10,10 @@
 </header>
 
 <content>
+    <div class="seperator"></div>
     <div class="content"><router-outlet /></div>
 </content>
+
+@if (isMobile) {
+<footer></footer>
+}
