@@ -16,6 +16,7 @@ export interface INgxTableConfig {
         readonly headerBackground?: string;
         readonly oddRowsBackground?: string;
         readonly evenRowsBackground?: string;
+        readonly cardBackground?: string;
         readonly paginationBackground?: string;
     };
     readonly action: {

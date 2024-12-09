@@ -10,6 +10,7 @@ export interface IViewConfig {
     readonly headerBackgroundColor: string;
     readonly oddRowsBackgroundColor: string;
     readonly evenRowsBackgroundColor: string;
+    readonly cardBackgroundColor: string;
     readonly paginationBackgroundColor: string;
     // ACTION
     readonly actionButtonColor: string;

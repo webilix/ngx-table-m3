@@ -46,7 +46,7 @@
 
     <!-- CONTENT -->
     @if (hasContent) {
-    <content [style.color]="colors[dataIndex]">
+    <content [style.color]="colors[dataIndex]" [style.backgroundColor]="viewConfig.cardBackgroundColor">
         @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
         <!-- CHECK TITLE AND SUBTITLE -->
         @if (columnIndex !== titleIndex && columnIndex !== subTitleIndex) {

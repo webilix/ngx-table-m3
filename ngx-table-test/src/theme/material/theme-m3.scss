@@ -51,6 +51,8 @@ $dark-theme: mat.define-theme(
 }
 
 @mixin materialRoleColorToVariable($theme) {
+    --background: #{mat.get-theme-color($theme, background)};
+    --on-background: #{mat.get-theme-color($theme, on-background)};
     --primary: #{mat.get-theme-color($theme, primary)};
     --on-primary: #{mat.get-theme-color($theme, on-primary)};
     --primary-container: #{mat.get-theme-color($theme, primary-container)};

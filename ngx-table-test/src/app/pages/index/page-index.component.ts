@@ -7,8 +7,8 @@ import { namesList } from './page-index.names';
 
 type DataType = 'MANAGER' | 'ADMIN' | 'USER';
 const DataInfo: { [key in DataType]: { title: string; icon: string; textColor: string; iconColor: string } } = {
-    MANAGER: { title: 'مدیر اصلی', icon: 'badge', textColor: 'var(--primary)', iconColor: 'var(--error)' },
-    ADMIN: { title: 'مدیر', icon: 'account_box', textColor: 'var(--secondary)', iconColor: 'var(--error)' },
+    MANAGER: { title: 'مدیر اصلی', icon: 'badge', textColor: 'var(--error)', iconColor: 'var(--error)' },
+    ADMIN: { title: 'مدیر', icon: 'account_box', textColor: 'var(--secondary)', iconColor: 'var(--secondary)' },
     USER: { title: 'عضو', icon: 'account_circle', textColor: '', iconColor: '' },
 };
 

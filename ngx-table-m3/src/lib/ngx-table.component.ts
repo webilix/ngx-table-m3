@@ -69,9 +69,10 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
             borderColor: this.config?.colors?.border || 'var(--outline-variant)',
             headerTextColor: this.config?.colors?.headerText || '',
             headerBackgroundColor: this.config?.colors?.headerBackground || 'var(--surface-container-highest)',
-            oddRowsBackgroundColor: this.config?.colors?.oddRowsBackground || 'var(--surface-container-low)',
-            evenRowsBackgroundColor: this.config?.colors?.evenRowsBackground || 'var(--surface-container-high)',
-            paginationBackgroundColor: this.config?.colors?.paginationBackground || '',
+            oddRowsBackgroundColor: this.config?.colors?.oddRowsBackground || 'var(--background)',
+            evenRowsBackgroundColor: this.config?.colors?.evenRowsBackground || 'var(--surface-container-low)',
+            cardBackgroundColor: this.config?.colors?.cardBackground || 'var(--surface-container)',
+            paginationBackgroundColor: this.config?.colors?.paginationBackground || 'var(--background)',
 
             actionButtonColor: this.config?.action?.buttonColor || 'var(--primary)',
             actionMenuColor: this.config?.action?.buttonColor || 'var(--on-surface)',
