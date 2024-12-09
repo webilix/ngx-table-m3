@@ -1,53 +1,48 @@
 <table [cellPadding]="0" [cellSpacing]="0" [width]="'100%'" [border]="0">
     <!-- HEADER -->
     <thead
+        [style.color]="viewConfig.headerTextColor"
+        [style.background-color]="viewConfig.headerBackgroundColor"
         [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
         [style.top]="viewConfig.stickyView?.headerTop?.desktopView || undefined"
     >
         <tr>
-            @for (group of columns; track $index) {
-            <!-- COLUMN GROUP -->
-            @if (group.columns.length > 1) {
-            <th [colSpan]="group.columns.length" class="group">{{ group.title }}</th>
+            <!-- ICON -->
+            @if (hasIcon) {
+            <th></th>
             }
-            <!-- COLUMN -->
-            @if (group.columns.length === 1) {
-            <th [rowSpan]="hasGroup ? 2 : 1">{{ group.columns[0].title }}</th>
-            } }
-        </tr>
-        <!-- CHILDS -->
-        @if (hasGroup) {
-        <tr>
-            @for (group of columns; track $index) {
-            <!-- COLUMN GROUP -->
-            @if (group.columns.length > 1) {
+
             <!-- COLUMNS -->
-            @for (column of group.columns; track $index) {
-            <th class="child">{{ column.title }}</th>
-            } } }
+            @for (column of ngxTable.columns; track $index) {
+            <th [style.text-align]="(column.textAlign || 'RIGHT').toLowerCase()">{{ column.title }}</th>
+            }
         </tr>
-        }
     </thead>
 
-    <!-- DATA -->
+    <!-- BODY -->
     <tbody>
         @for (item of data; track $index; let dataIndex = $index) {
-        <tr>
-            @for (group of columns; track $index; let groupIndex = $index) {
-            <!-- COLUMN GROUP -->
-            @for (column of group.columns; track $index) {
-            <td
-                [style.backgroundColor]="
-                    groupIndex === 2
-                        ? dataIndex % 2 === 0
-                            ? 'var(--surface-container)'
-                            : 'var(--surface-container-high)'
-                        : ''
-                "
-            >
-                <view-value [column]="column" [item]="item"></view-value>
+        <tr [style.color]="colors[dataIndex]">
+            <!-- ICON -->
+            @if (hasIcon) {
+            <td class="icon" [style.border-color]="viewConfig.alternateRows ? '' : viewConfig.borderColor">
+                <mat-icon [style.color]="icons[$index].color" [style.font-size]="viewConfig.iconSize">
+                    {{ icons[$index].icon }}
+                </mat-icon>
             </td>
-            } }
+            }
+
+            <!-- DATA -->
+            @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
+            <td [style.border-color]="viewConfig.alternateRows ? '' : viewConfig.borderColor">
+                <view-value
+                    [column]="column"
+                    [item]="item"
+                    [viewConfig]="viewConfig"
+                    [isDeactive]="columnIndex === titleIndex && deactives.includes(dataIndex)"
+                ></view-value>
+            </td>
+            }
         </tr>
         }
     </tbody>

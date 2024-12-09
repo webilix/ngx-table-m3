@@ -6,15 +6,16 @@ import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } fr
 import { namesList } from './page-index.names';
 
 type DataType = 'MANAGER' | 'ADMIN' | 'USER';
-const DataInfo: { [key in DataType]: { title: string; icon: string } } = {
-    MANAGER: { title: 'مدیر اصلی', icon: 'badge' },
-    ADMIN: { title: 'مدیر', icon: 'account_box' },
-    USER: { title: 'عضو', icon: 'account_circle' },
+const DataInfo: { [key in DataType]: { title: string; icon: string; textColor: string; iconColor: string } } = {
+    MANAGER: { title: 'مدیر اصلی', icon: 'badge', textColor: 'var(--primary)', iconColor: 'var(--error)' },
+    ADMIN: { title: 'مدیر', icon: 'account_box', textColor: 'var(--secondary)', iconColor: 'var(--error)' },
+    USER: { title: 'عضو', icon: 'account_circle', textColor: '', iconColor: '' },
 };
 
 interface IData {
     readonly type: DataType;
     readonly name: string;
+    readonly mobile: string;
     readonly birthDay?: Date;
     readonly birthPlace?: { readonly state: string; readonly city: string };
     readonly status: 'ACTIVE' | 'DEACTIVE';
@@ -31,36 +32,53 @@ export class PageIndexComponent {
         type: 'عضو',
         columns: [
             {
-                type: 'STRING',
+                type: 'TEXT',
                 title: 'عضویت',
                 value: (data) => DataInfo[data.type].title,
                 subValue: (data) => ({ value: data.type, english: true }),
             },
-            { type: 'STRING', title: 'نام', value: 'name' },
-            { type: 'DATE', title: 'تاریخ تولد', value: 'birthDay', format: 'FULL' },
             {
-                title: 'محل تولد',
-                columns: [
-                    { type: 'STRING', title: 'استان', value: (data) => data.birthPlace?.state },
-                    { type: 'STRING', title: 'شهر', value: (data) => data.birthPlace?.city },
-                ],
+                type: 'TEXT',
+                title: 'نام',
+                value: 'name',
+                onCopy: (data) => data.name,
+                mode: 'TITLE',
+                color: (data) => DataInfo[data.type].iconColor,
             },
-            { type: 'STRING', title: 'وضعیت', value: (data) => (data.status === 'ACTIVE' ? 'فعال' : 'غیرفعال') },
+            {
+                type: 'MOBILE',
+                value: 'mobile',
+                english: true,
+                onClick: (data) => () => alert(`MOBILE: ${data.mobile}`),
+            },
+            { type: 'DATE', title: 'تاریخ تولد', value: 'birthDay' },
+            { type: 'TEXT', title: 'استان', value: (data) => data.birthPlace?.state },
+            { type: 'TEXT', title: 'شهر', value: (data) => data.birthPlace?.city },
+            {
+                type: 'TEXT',
+                title: 'وضعیت',
+                value: (data) => (data.status === 'ACTIVE' ? 'فعال' : 'غیرفعال'),
+                textAlign: 'LEFT',
+            },
         ],
+        rows: {
+            icon: (data) => ({ icon: DataInfo[data.type].icon, color: DataInfo[data.type].iconColor }),
+            color: (data) => DataInfo[data.type].textColor,
+            isDeactive: (data) => data.status === 'DEACTIVE',
+        },
         actions: [
             { type: 'ACTION', title: 'مشاهده', icon: '', action: (data) => console.log('VIEW DATA', data) },
             'DIVIDER',
             {
                 type: 'STATUS',
                 action: (data) => console.log('STATUS DATA', data),
-                isActive: (data) => data.status === 'ACTIVE',
+                isDeactive: (data) => data.status === 'DEACTIVE',
             },
             { type: 'UPDATE', action: (data) => console.log('UPDATE DATA', data) },
             { type: 'DELETE', action: (data) => console.log('DELETE DATA', data) },
             'DIVIDER',
             { type: 'LOG', action: (data) => console.log('VIEW DATA LOG', data) },
         ],
-        row: { icon: (data) => DataInfo[data.type].icon, isDeactive: (data) => data.status === 'DEACTIVE' },
     };
 
     public loading: boolean = true;
@@ -109,6 +127,7 @@ export class PageIndexComponent {
             .map(() => ({
                 type: dataTypes[Math.floor(Math.random() * dataTypes.length)],
                 name: namesList[Math.floor(Math.random() * namesList.length)],
+                mobile: `09${Helper.STRING.getRandom(9, 'numeric')}`,
                 birthDay: Math.random() > 0.3 ? getBirthDay() : undefined,
                 birthPlace: Math.random() > 0.1 ? getCity() : undefined,
                 status: statusList[Math.floor(Math.random() * statusList.length)],

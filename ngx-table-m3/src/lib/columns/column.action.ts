@@ -3,8 +3,8 @@ export interface IAction<T> {
     readonly title: string;
     readonly icon: string;
     readonly action: (data: T) => string[] | void;
-    readonly color?: 'primary' | 'error';
-    readonly inRow?: boolean;
+    readonly color?: string;
+    readonly inRow?: 'ICON' | 'TITLE' | 'BOTH';
 
     disableOn?: (data: T) => boolean;
     hideOn?: (data: T) => boolean;
@@ -21,7 +21,7 @@ export interface IActionDelete<T> extends Omit<IAction<T>, 'type' | 'title' | 'i
 export interface IActionStatus<T> extends Omit<IAction<T>, 'type' | 'title' | 'icon' | 'action' | 'color'> {
     readonly type: 'STATUS';
     readonly action: (data: T, active: boolean) => string[] | void;
-    readonly isActive: (data: T) => boolean;
+    readonly isDeactive: (data: T) => boolean;
 }
 
 export interface IActionLog<T> extends Omit<IAction<T>, 'type' | 'title' | 'icon' | 'color'> {

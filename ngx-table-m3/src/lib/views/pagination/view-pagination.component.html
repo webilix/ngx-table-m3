@@ -1,4 +1,9 @@
-<content [class.desktop]="!isMobile" [class.mobile]="isMobile" [class.shadow]="hasShadow">
+<content
+    [class.desktop]="!isMobile"
+    [class.mobile]="isMobile"
+    [class.shadow]="hasShadow"
+    [style.backgroundColor]="viewConfig.paginationBackgroundColor"
+>
     <section>
         <div class="title">صفحه {{ pagination.page.current | number }} از {{ pagination.page.total | number }}</div>
         <div class="total">{{ pagination.total | number }} {{ type }}</div>

@@ -1,1 +1,25 @@
-{{ value }}
+<!-- EMPTY VALUE -->
+@if (value === undefined) { &nbsp; }
+
+<!-- SHOW VALUE -->
+@else {
+<div [style.color]="color" [class.card-title]="isCardTitle">
+    <div
+        class="value"
+        [style.cursor]="hasClick || copyText ? 'pointer' : 'default'"
+        (click)="hasClick ? onClick() : copyText ? onCopy() : null"
+        [cdkCopyToClipboard]="copyText || ''"
+    >
+        <ng-container *ngComponentOutlet="columnInfo[column.type].component; injector: injector"></ng-container>
+        <!-- CLICK -->
+        @if (hasClick) { <mat-icon>open_in_new</mat-icon> }
+        <!-- COPY -->
+        @if (copyText) { <mat-icon>{{ isCopied ? 'done_all' : 'copy' }}</mat-icon> }
+    </div>
+
+    <!-- SUB VALUE -->
+    @if (subValue) {
+    <div class="subvalue" [ngClass]="[subValue.isEN ? viewConfig.enClass : '']">{{ subValue.value }}</div>
+    }
+</div>
+}

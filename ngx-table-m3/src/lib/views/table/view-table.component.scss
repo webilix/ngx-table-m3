@@ -4,40 +4,26 @@
 
 table {
     thead {
-        background-color: var(--surface-container-highest);
-
         z-index: 1;
 
         th {
             padding: 1.25rem 1rem;
-            text-align: right;
-        }
-
-        th.group {
-            padding-top: 0.8rem;
-            padding-bottom: 0;
-            text-align: center;
-        }
-
-        th.child {
-            padding-top: 0;
-            padding-bottom: 0.25rem;
-            font-weight: normal;
-            font-size: 85%;
         }
     }
 
     tbody {
-        tr:nth-child(even) {
-            background-color: var(--surface-container-high);
+        tr:nth-child(odd) {
+            background-color: var(--oddRowsBackgroundColor);
         }
 
-        tr:nth-child(odd) {
-            background-color: var(--surface-container-low);
+        tr:nth-child(even) {
+            background-color: var(--evenRowsBackgroundColor);
         }
 
         td {
             padding: 0.75rem 1rem;
+            vertical-align: top;
+            border-top: 1px solid transparent;
         }
     }
 }

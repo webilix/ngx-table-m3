@@ -6,11 +6,10 @@ import {
     IActionUpdate,
     IColumnDate,
     IColumnMobile,
-    IColumnString,
+    IColumnText,
 } from './columns';
 
-export type NgxTableColumn<T> = IColumnDate<T> | IColumnMobile<T> | IColumnString<T>;
-type Columns<T> = NgxTableColumn<T> | { readonly title: string; readonly columns: NgxTableColumn<T>[] };
+export type NgxTableColumn<T> = IColumnDate<T> | IColumnMobile<T> | IColumnText<T>;
 
 export type NgxTableAction<T> =
     | 'DIVIDER'
@@ -22,13 +21,13 @@ export type NgxTableAction<T> =
 
 export interface INgxTable<T> {
     readonly type: string;
-    readonly columns: Columns<T>[];
-    readonly actions?: NgxTableAction<T>[];
-    readonly row?: {
-        readonly description?: (data: T) => string;
+    readonly columns: NgxTableColumn<T>[];
+    readonly rows?: {
         readonly icon?: (data: T) => string | { icon: string; color: string };
+        readonly color?: (data: T) => string;
         readonly isDeactive?: (data: T) => boolean;
     };
+    readonly actions?: NgxTableAction<T>[];
 
     // SETTING
     readonly mobileView?: boolean;

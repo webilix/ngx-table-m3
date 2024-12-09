@@ -1,11 +1,53 @@
-@for (item of data; track $index) {
-<section>
+@for (item of data; track $index; let dataIndex = $index) {
+<section [style.border-color]="viewConfig.borderColor">
     <header
+        [style.background-color]="viewConfig.headerBackgroundColor"
         [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
         [style.top]="viewConfig.stickyView?.headerTop?.mobileView || undefined"
     >
-        {{ $index }}
+        <!-- ICON -->
+        @if (hasIcon) {
+        <mat-icon [style.color]="icons[$index].color" [style.font-size]="viewConfig.iconSize">
+            {{ icons[$index].icon }}
+        </mat-icon>
+        }
+
+        <!-- TITLE -->
+        <div class="title" [style.color]="viewConfig.headerTextColor">
+            <view-value
+                [column]="ngxTable.columns[this.titleIndex]"
+                [item]="item"
+                [viewConfig]="viewConfig"
+                [isDeactive]="deactives.includes(dataIndex)"
+                [isCard]="true"
+                [isCardTitle]="true"
+            ></view-value>
+            <!-- SUB TITLE -->
+            @if (subTitleIndex) {
+            <view-value
+                [column]="ngxTable.columns[this.subTitleIndex]"
+                [item]="item"
+                [viewConfig]="viewConfig"
+                [isCard]="true"
+            ></view-value>
+            }
+        </div>
     </header>
-    <content></content>
+
+    <!-- CONTENT -->
+    @if (hasContent) {
+    <content [style.color]="colors[dataIndex]">
+        @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
+        <!-- CHECK TITLE AND SUBTITLE -->
+        @if (columnIndex !== titleIndex && columnIndex !== subTitleIndex) {
+        <div class="item">
+            <div class="title">{{ column.title }}:</div>
+            <div class="value">
+                <view-value [column]="column" [item]="item" [viewConfig]="viewConfig" [isCard]="true"></view-value>
+            </div>
+        </div>
+        } }
+    </content>
+    }
 </section>
 }

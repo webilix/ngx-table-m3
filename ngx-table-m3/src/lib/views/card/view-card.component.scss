@@ -4,19 +4,44 @@
     row-gap: 1rem;
 
     section {
-        border: 1px solid var(--surface-container-highest);
+        border: 1px solid transparent;
 
         header {
             display: flex;
             align-items: center;
+            z-index: 1;
 
-            height: 55px;
-            background-color: var(--surface-container-highest);
+            padding: 0.75rem 0;
+
+            mat-icon {
+                padding: 0 0.75rem;
+            }
+
+            .title {
+                flex: 1;
+                padding: 0 0.75rem;
+            }
         }
 
         content {
             display: block;
-            height: 200px;
+            padding: 0.5rem 1rem 1rem 1rem;
+
+            .item {
+                display: flex;
+                align-items: flex-start;
+                column-gap: 1rem;
+
+                padding-top: 0.5rem;
+
+                .title {
+                    width: 25%;
+                }
+
+                .value {
+                    flex: 1;
+                }
+            }
         }
     }
 }

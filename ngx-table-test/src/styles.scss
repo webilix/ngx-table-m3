@@ -69,3 +69,12 @@ body.dark .cdk-overlay-backdrop {
     font-weight: 500;
     color: var(--error);
 }
+
+.ngx-table-en {
+    font-family: Roboto, 'Helvetica Neue', sans-serif !important;
+}
+
+.ngx-table-deactive {
+    opacity: 0.6;
+    text-decoration: line-through;
+}

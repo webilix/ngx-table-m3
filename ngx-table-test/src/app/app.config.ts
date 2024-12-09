@@ -12,6 +12,8 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideAnimationsAsync(),
         provideNgxTableConfig({
+            mobileWidth: 900,
+            alternateRows: true,
             stickyView: {
                 headerTop: { desktopView: 'calc(95px + 1rem)', mobileView: 'calc(55px + 1rem)' },
                 paginationBottom: { desktopView: '1rem', mobileView: 'calc(50px + 1rem)' },

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { Helper } from '@webilix/helper-library';
 
 import { IViewConfig, ViewCardComponent, ViewPaginationComponent, ViewTableComponent } from './views';
 
+import { ColumnInfo } from './columns';
 import { INgxTableConfig, NGX_TABLE_CONFIG } from './ngx-table.config';
 import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.interface';
 
@@ -16,7 +17,7 @@ import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.int
     templateUrl: './ngx-table.component.html',
     styleUrl: './ngx-table.component.scss',
 })
-export class NgxTableComponent<T> implements OnInit {
+export class NgxTableComponent<T> implements OnInit, OnChanges {
     @Input({ required: true }) loading!: boolean;
     @Input({ required: true }) ngxTable!: INgxTable<T>;
     @Input({ required: true }) data!: T[];
@@ -35,8 +36,19 @@ export class NgxTableComponent<T> implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.loaderClass = this.config?.loaderClass || 'ngx-table-loader';
-        this.emptyClass = this.config?.emptyClass || 'ngx-table-empty';
+        const queryParams: { [key: string]: any } = { ...this.activatedRoute.snapshot.queryParams };
+        const page: number = Helper.IS.number(+queryParams['ngx-table-page']) ? +queryParams['ngx-table-page'] : 1;
+        this.filterChanged.next({ page });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.ngxTable = {
+            ...this.ngxTable,
+            columns: this.ngxTable.columns.map((column) => ColumnInfo[column.type].methods.column(column)),
+        };
+
+        this.loaderClass = this.config?.cssClasses?.loader || 'ngx-table-loader';
+        this.emptyClass = this.config?.cssClasses?.empty || 'ngx-table-empty';
 
         const getStickyView = (
             config: string | { desktopView: string; mobileView: string },
@@ -48,6 +60,19 @@ export class NgxTableComponent<T> implements OnInit {
         };
 
         this.viewConfig = {
+            alternateRows: !!this.config?.alternateRows,
+            iconSize: `${this.config?.iconSize || 24}px`,
+
+            enClass: this.config?.cssClasses?.en || 'ngx-table-en',
+            deactiveClass: this.config?.cssClasses?.deactive || 'ngx-table-deactive',
+
+            borderColor: this.config?.colors?.border || 'var(--outline-variant)',
+            headerTextColor: this.config?.colors?.headerText || '',
+            headerBackgroundColor: this.config?.colors?.headerBackground || 'var(--surface-container-highest)',
+            oddRowsBackgroundColor: this.config?.colors?.oddRowsBackground || 'var(--surface-container-low)',
+            evenRowsBackgroundColor: this.config?.colors?.evenRowsBackground || 'var(--surface-container-high)',
+            paginationBackgroundColor: this.config?.colors?.paginationBackground || '',
+
             stickyView: this.config?.stickyView
                 ? {
                       headerTop: this.config.stickyView.headerTop
@@ -59,10 +84,6 @@ export class NgxTableComponent<T> implements OnInit {
                   }
                 : undefined,
         };
-
-        const queryParams: { [key: string]: any } = { ...this.activatedRoute.snapshot.queryParams };
-        const page: number = Helper.IS.number(+queryParams['ngx-table-page']) ? +queryParams['ngx-table-page'] : 1;
-        this.filterChanged.next({ page });
 
         this.onResize();
     }

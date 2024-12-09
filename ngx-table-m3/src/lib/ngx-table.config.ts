@@ -2,11 +2,22 @@ import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders, Provide
 
 export interface INgxTableConfig {
     readonly mobileWidth: number;
-    readonly loaderClass: string;
-    readonly emptyClass: string;
-    readonly headerClass: string;
-    readonly subValueClass: string;
-    readonly enClass: string;
+    readonly alternateRows: boolean;
+    readonly iconSize: number;
+    readonly cssClasses: {
+        readonly loader?: string;
+        readonly empty?: string;
+        readonly en?: string;
+        readonly deactive?: string;
+    };
+    readonly colors: {
+        readonly border?: string;
+        readonly headerText?: string;
+        readonly headerBackground?: string;
+        readonly oddRowsBackground?: string;
+        readonly evenRowsBackground?: string;
+        readonly paginationBackground?: string;
+    };
     readonly stickyView: {
         readonly headerTop?:
             | string

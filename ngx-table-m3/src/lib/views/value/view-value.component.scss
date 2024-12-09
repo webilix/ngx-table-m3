@@ -1,0 +1,19 @@
+.value {
+    display: inline-flex;
+    align-items: center;
+
+    mat-icon {
+        padding-right: 0.5rem;
+        font-size: 100%;
+    }
+}
+
+.subvalue {
+    font-size: 85%;
+    font-weight: normal;
+    opacity: 0.5;
+}
+
+.card-title {
+    font-size: 115%;
+}

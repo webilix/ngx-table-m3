@@ -7,6 +7,8 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { INgxTablePagination } from '../../ngx-table.interface';
 
+import { IViewConfig } from '..';
+
 @Component({
     selector: 'view-pagination',
     host: { '(window:scroll)': 'onScroll($event)' },
@@ -20,6 +22,7 @@ export class ViewPaginationComponent implements OnInit, OnChanges {
 
     @Input({ required: true }) type!: string;
     @Input({ required: true }) pagination!: INgxTablePagination;
+    @Input({ required: true }) viewConfig!: IViewConfig;
     @Input({ required: true }) isMobile!: boolean;
     @Input({ required: true }) stickyBottom?: { desktopView: string; mobileView: string };
 
