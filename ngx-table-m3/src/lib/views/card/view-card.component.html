@@ -32,6 +32,16 @@
             ></view-value>
             }
         </div>
+
+        <!-- ACTION -->
+        @if (hasAction) {
+        <view-action
+            [actions]="ngxTable.actions || []"
+            [item]="item"
+            [viewConfig]="viewConfig"
+            [isMobile]="true"
+        ></view-action>
+        }
     </header>
 
     <!-- CONTENT -->

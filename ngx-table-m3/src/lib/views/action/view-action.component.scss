@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    button.desktop {
+        border-radius: 0;
+        z-index: 0;
+    }
+}
+
+::ng-deep .ngx-helper-action-menu {
+    mat-icon {
+        margin: 0 0 0 0.75rem !important;
+    }
+
+    .mat-mdc-menu-content {
+        padding: 0;
+    }
+
+    .mat-mdc-menu-item {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .mat-divider {
+        margin: 0;
+        border-top-color: var(--outline-variant);
+    }
+}

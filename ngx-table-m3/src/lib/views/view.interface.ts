@@ -11,6 +11,11 @@ export interface IViewConfig {
     readonly oddRowsBackgroundColor: string;
     readonly evenRowsBackgroundColor: string;
     readonly paginationBackgroundColor: string;
+    // ACTION
+    readonly actionButtonColor: string;
+    readonly actionMenuColor: string;
+    readonly actionWarnColor: string;
+    readonly actionMenuTitle: string;
     // STICKY
     readonly stickyView?: {
         readonly headerTop?: {

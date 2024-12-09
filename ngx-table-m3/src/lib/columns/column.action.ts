@@ -4,7 +4,7 @@ export interface IAction<T> {
     readonly icon: string;
     readonly action: (data: T) => string[] | void;
     readonly color?: string;
-    readonly inRow?: 'ICON' | 'TITLE' | 'BOTH';
+    readonly standalone?: boolean;
 
     disableOn?: (data: T) => boolean;
     hideOn?: (data: T) => boolean;

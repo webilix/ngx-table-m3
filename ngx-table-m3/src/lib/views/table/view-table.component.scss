@@ -25,5 +25,13 @@ table {
             vertical-align: top;
             border-top: 1px solid transparent;
         }
+
+        td.icon {
+            padding-left: 0;
+        }
+
+        td.action {
+            padding: 0.25rem 0 0 0;
+        }
     }
 }

@@ -1,0 +1,64 @@
+<!-- ROW -->
+@for (item of inRow; track $index) {
+<!-- DESKTOP -->
+@if (!isMobile) {
+<button
+    mat-button
+    type="button"
+    [style.color]="item.isDisabled ? '' : item.color"
+    [disabled]="item.isDisabled"
+    (click)="onClick(item.action)"
+    class="desktop"
+>
+    {{ item.title }}
+</button>
+}
+<!-- MOBILE -->
+@else {
+<button mat-icon-button type="button" [disabled]="item.isDisabled" (click)="onClick(item.action)">
+    <mat-icon [style.color]="item.isDisabled ? '' : item.color">{{ item.icon }}</mat-icon>
+</button>
+} }
+
+<!-- MENU -->
+@if (this.inMenu.length > 0) {
+<!-- DESKTOP -->
+@if (!isMobile) {
+<button
+    mat-button
+    type="button"
+    [matMenuTriggerFor]="actionMenu"
+    [style.color]="viewConfig.actionButtonColor"
+    class="desktop"
+>
+    {{ viewConfig.actionMenuTitle }}
+</button>
+}
+<!-- MOBILE -->
+@else {
+<button mat-icon-button type="button" [matMenuTriggerFor]="actionMenu">
+    <mat-icon [style.color]="viewConfig.actionButtonColor">more_vert</mat-icon>
+</button>
+}
+
+<mat-menu #actionMenu="matMenu" [xPosition]="'after'" class="ngx-helper-action-menu">
+    @for (item of inMenu; track $index) {
+    <!-- DIVIDER -->
+    @if (item === 'DIVIDER') {
+    <mat-divider></mat-divider>
+    }
+
+    <!-- MENU ITEM -->
+    @else {
+    <button
+        mat-menu-item
+        [style.color]="item.isDisabled ? '' : item.color"
+        (click)="onClick(item.action)"
+        [disabled]="item.isDisabled"
+    >
+        <span>{{ item.title }}</span>
+        <mat-icon [style.color]="item.isDisabled ? '' : item.color">{{ item.icon }}</mat-icon>
+    </button>
+    } }
+</mat-menu>
+}

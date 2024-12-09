@@ -16,6 +16,11 @@
             @for (column of ngxTable.columns; track $index) {
             <th [style.text-align]="(column.textAlign || 'RIGHT').toLowerCase()">{{ column.title }}</th>
             }
+
+            <!-- ACTION -->
+            @if (hasAction) {
+            <th></th>
+            }
         </tr>
     </thead>
 
@@ -41,6 +46,18 @@
                     [viewConfig]="viewConfig"
                     [isDeactive]="columnIndex === titleIndex && deactives.includes(dataIndex)"
                 ></view-value>
+            </td>
+            }
+
+            <!-- ACTION -->
+            @if (hasAction) {
+            <td class="action" [style.border-color]="viewConfig.alternateRows ? '' : viewConfig.borderColor">
+                <view-action
+                    [actions]="ngxTable.actions || []"
+                    [item]="item"
+                    [viewConfig]="viewConfig"
+                    [isMobile]="false"
+                ></view-action>
             </td>
             }
         </tr>

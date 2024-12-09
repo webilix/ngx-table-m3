@@ -73,6 +73,11 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
             evenRowsBackgroundColor: this.config?.colors?.evenRowsBackground || 'var(--surface-container-high)',
             paginationBackgroundColor: this.config?.colors?.paginationBackground || '',
 
+            actionButtonColor: this.config?.action?.buttonColor || 'var(--primary)',
+            actionMenuColor: this.config?.action?.buttonColor || 'var(--on-surface)',
+            actionWarnColor: this.config?.action?.warnColor || 'var(--error)',
+            actionMenuTitle: this.config?.action?.menuTitle || 'امکانات',
+
             stickyView: this.config?.stickyView
                 ? {
                       headerTop: this.config.stickyView.headerTop

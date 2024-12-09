@@ -18,6 +18,12 @@ export interface INgxTableConfig {
         readonly evenRowsBackground?: string;
         readonly paginationBackground?: string;
     };
+    readonly action: {
+        readonly buttonColor?: string;
+        readonly menuColor?: string;
+        readonly warnColor?: string;
+        readonly menuTitle?: string;
+    };
     readonly stickyView: {
         readonly headerTop?:
             | string

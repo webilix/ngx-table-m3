@@ -67,17 +67,34 @@ export class PageIndexComponent {
             isDeactive: (data) => data.status === 'DEACTIVE',
         },
         actions: [
-            { type: 'ACTION', title: 'مشاهده', icon: '', action: (data) => console.log('VIEW DATA', data) },
+            'DIVIDER',
+            {
+                type: 'ACTION',
+                title: 'مشاهده',
+                icon: 'perm_contact_calendar',
+                action: (data) => console.log('VIEW DATA', data),
+                standalone: true,
+                disableOn: (data) => data.status === 'DEACTIVE',
+            },
+            'DIVIDER',
             'DIVIDER',
             {
                 type: 'STATUS',
-                action: (data) => console.log('STATUS DATA', data),
+                action: (data, active) => console.log('STATUS DATA', data, active),
                 isDeactive: (data) => data.status === 'DEACTIVE',
             },
             { type: 'UPDATE', action: (data) => console.log('UPDATE DATA', data) },
             { type: 'DELETE', action: (data) => console.log('DELETE DATA', data) },
             'DIVIDER',
-            { type: 'LOG', action: (data) => console.log('VIEW DATA LOG', data) },
+            'DIVIDER',
+            {
+                type: 'LOG',
+                action: (data) => console.log('VIEW DATA LOG', data),
+                disableOn: (data) => data.status === 'DEACTIVE',
+            },
+            'DIVIDER',
+            'DIVIDER',
+            'DIVIDER',
         ],
     };
 
