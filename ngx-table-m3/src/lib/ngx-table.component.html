@@ -24,6 +24,7 @@
         [viewConfig]="viewConfig"
         [isMobile]="isMobile"
         [stickyBottom]="viewConfig.stickyView?.paginationBottom"
+        (pageChanged)="pageChanged($event)"
     ></view-pagination>
     }
 </content>

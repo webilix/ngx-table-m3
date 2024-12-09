@@ -20,6 +20,7 @@ export interface INgxTableConfig {
         readonly paginationBackground?: string;
     };
     readonly action: {
+        readonly buttonSize?: string;
         readonly buttonColor?: string;
         readonly menuColor?: string;
         readonly warnColor?: string;

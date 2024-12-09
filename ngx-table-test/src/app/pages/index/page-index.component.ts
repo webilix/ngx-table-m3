@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Helper } from '@webilix/helper-library';
 import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } from '@webilix/ngx-table-m3';
@@ -8,7 +8,7 @@ import { namesList } from './page-index.names';
 type DataType = 'MANAGER' | 'ADMIN' | 'USER';
 const DataInfo: { [key in DataType]: { title: string; icon: string; textColor: string; iconColor: string } } = {
     MANAGER: { title: 'مدیر اصلی', icon: 'badge', textColor: 'var(--error)', iconColor: 'var(--error)' },
-    ADMIN: { title: 'مدیر', icon: 'account_box', textColor: 'var(--secondary)', iconColor: 'var(--secondary)' },
+    ADMIN: { title: 'مدیر', icon: 'account_box', textColor: '', iconColor: 'var(--secondary)' },
     USER: { title: 'عضو', icon: 'account_circle', textColor: '', iconColor: '' },
 };
 
@@ -27,8 +27,9 @@ interface IData {
     templateUrl: './page-index.component.html',
     styleUrl: './page-index.component.scss',
 })
-export class PageIndexComponent {
+export class PageIndexComponent implements OnInit {
     public ngxTable: INgxTable<IData> = {
+        route: ['/'],
         type: 'عضو',
         columns: [
             {
@@ -83,48 +84,28 @@ export class PageIndexComponent {
                 action: (data, active) => console.log('STATUS DATA', data, active),
                 isDeactive: (data) => data.status === 'DEACTIVE',
             },
-            { type: 'UPDATE', action: (data) => console.log('UPDATE DATA', data) },
+            {
+                type: 'UPDATE',
+                action: (data) => console.log('UPDATE DATA', data),
+                disableOn: (data) => data.status === 'DEACTIVE',
+            },
             { type: 'DELETE', action: (data) => console.log('DELETE DATA', data) },
             'DIVIDER',
             'DIVIDER',
-            {
-                type: 'LOG',
-                action: (data) => console.log('VIEW DATA LOG', data),
-                disableOn: (data) => data.status === 'DEACTIVE',
-            },
+            { type: 'LOG', action: (data) => console.log('VIEW DATA LOG', data) },
             'DIVIDER',
             'DIVIDER',
             'DIVIDER',
         ],
     };
 
+    private list: IData[] = [];
+
     public loading: boolean = true;
     public data: IData[] = [];
     public pagination?: INgxTablePagination;
 
-    filterChanged(filter: INgxTableFilter): void {
-        setTimeout(() => {
-            this.loading = false;
-            this.setPagination(filter.page);
-            this.createData();
-        }, 500);
-    }
-
-    setPagination(page: number): void {
-        const pages: number = 120;
-        const item: number = 25;
-        const extra: number = 13;
-
-        this.pagination = {
-            total: pages * item + extra,
-            item,
-            page: { current: page, total: pages + 1 },
-        };
-    }
-
-    createData(): void {
-        if (!this.pagination) return;
-
+    ngOnInit(): void {
         const cities = Helper.STATE.cities;
         const getCity = (): { state: string; city: string } => {
             const city = cities[Math.floor(Math.random() * cities.length)];
@@ -137,9 +118,7 @@ export class PageIndexComponent {
         const dataTypes: DataType[] = ['MANAGER', ...Array(5).fill('ADMIN'), ...Array(24).fill('USER')];
         const statusList: ('ACTIVE' | 'DEACTIVE')[] = [...Array(5).fill('ACTIVE'), 'DEACTIVE'];
 
-        const lastPage: boolean = this.pagination.page.current === this.pagination.page.total;
-        const length: number = lastPage ? this.pagination.total % this.pagination.item : this.pagination.item;
-        this.data = Array(length)
+        this.list = Array(Math.floor(Math.random() * 5000))
             .fill('')
             .map(() => ({
                 type: dataTypes[Math.floor(Math.random() * dataTypes.length)],
@@ -149,5 +128,33 @@ export class PageIndexComponent {
                 birthPlace: Math.random() > 0.1 ? getCity() : undefined,
                 status: statusList[Math.floor(Math.random() * statusList.length)],
             }));
+    }
+
+    filterChanged(filter: INgxTableFilter): void {
+        setTimeout(
+            () => {
+                this.loading = false;
+                this.setPagination(filter.page);
+            },
+            this.pagination ? 0 : 500,
+        );
+    }
+
+    setPagination(page: number): void {
+        const total: number = this.list.length;
+        const item: number = 25;
+
+        const pages: number = Math.ceil(total / item);
+        if (page < 1) page = 1;
+        else if (page > pages) page = pages;
+
+        this.pagination = {
+            total,
+            item,
+            page: { current: page, total: pages },
+        };
+
+        const skip: number = (page - 1) * item;
+        this.data = this.list.slice(skip, skip + item);
     }
 }

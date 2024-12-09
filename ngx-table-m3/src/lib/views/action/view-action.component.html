@@ -6,6 +6,7 @@
     mat-button
     type="button"
     [style.color]="item.isDisabled ? '' : item.color"
+    [style.font-size]="viewConfig.actionButtonSize"
     [disabled]="item.isDisabled"
     (click)="onClick(item.action)"
     class="desktop"
@@ -29,6 +30,7 @@
     type="button"
     [matMenuTriggerFor]="actionMenu"
     [style.color]="viewConfig.actionButtonColor"
+    [style.font-size]="viewConfig.actionButtonSize"
     class="desktop"
 >
     {{ viewConfig.actionMenuTitle }}

@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit, RendererFactory2 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationError, Router, RouterOutlet } from '@angular/router';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -18,7 +18,12 @@ export class AppComponent implements OnInit {
     public isMobile!: boolean;
     public colorMode!: ColorMode;
 
-    constructor(private readonly rendererFactory: RendererFactory2) {}
+    constructor(private readonly router: Router, private readonly rendererFactory: RendererFactory2) {
+        this.router.events.forEach((event) => {
+            if (event instanceof NavigationError || event instanceof NavigationEnd || event instanceof NavigationCancel)
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        });
+    }
 
     ngOnInit(): void {
         let colorMode: ColorMode = 'LIGHT';

@@ -1,5 +1,15 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +35,7 @@ export class ViewPaginationComponent implements OnInit, OnChanges {
     @Input({ required: true }) viewConfig!: IViewConfig;
     @Input({ required: true }) isMobile!: boolean;
     @Input({ required: true }) stickyBottom?: { desktopView: string; mobileView: string };
+    @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
     public pages: number[] = [];
     public hasShadow: boolean = false;

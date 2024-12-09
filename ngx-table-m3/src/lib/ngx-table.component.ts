@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Helper } from '@webilix/helper-library';
 
@@ -27,18 +27,26 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
     public isMobile: boolean = false;
     public loaderClass!: string;
     public emptyClass!: string;
-
     public viewConfig!: IViewConfig;
+
+    private filter!: INgxTableFilter;
 
     constructor(
         private readonly activatedRoute: ActivatedRoute,
+        private readonly router: Router,
         @Optional() @Inject(NGX_TABLE_CONFIG) private readonly config?: Partial<INgxTableConfig>,
     ) {}
 
     ngOnInit(): void {
         const queryParams: { [key: string]: any } = { ...this.activatedRoute.snapshot.queryParams };
-        const page: number = Helper.IS.number(+queryParams['ngx-table-page']) ? +queryParams['ngx-table-page'] : 1;
-        this.filterChanged.next({ page });
+        const page: number = !!this.ngxTable.route
+            ? Helper.IS.number(+queryParams['ngx-table-page'])
+                ? +queryParams['ngx-table-page']
+                : 1
+            : 1;
+
+        this.filter = { page };
+        this.filterChanged.next(this.filter);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -74,8 +82,9 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
             cardBackgroundColor: this.config?.colors?.cardBackground || 'var(--surface-container)',
             paginationBackgroundColor: this.config?.colors?.paginationBackground || 'var(--background)',
 
+            actionButtonSize: this.config?.action?.buttonSize || '90%',
             actionButtonColor: this.config?.action?.buttonColor || 'var(--primary)',
-            actionMenuColor: this.config?.action?.buttonColor || 'var(--on-surface)',
+            actionMenuColor: this.config?.action?.buttonColor || '',
             actionWarnColor: this.config?.action?.warnColor || 'var(--error)',
             actionMenuTitle: this.config?.action?.menuTitle || 'امکانات',
 
@@ -97,5 +106,21 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
     onResize(): void {
         const mobileWidth: number = this.config?.mobileWidth || 600;
         this.isMobile = this.ngxTable.mobileView || window.innerWidth <= mobileWidth;
+    }
+
+    setFilter(): void {
+        if (!this.ngxTable.route) return;
+
+        const queryParams: { [key: string]: any } = { ...this.activatedRoute.snapshot.queryParams };
+
+        queryParams['ngx-table-page'] = this.filter.page === 1 ? undefined : this.filter.page.toString();
+        this.router.navigate(this.ngxTable.route, { queryParams });
+    }
+
+    pageChanged(page: number): void {
+        this.filter = { ...this.filter, page };
+        this.setFilter();
+
+        this.filterChanged.next(this.filter);
     }
 }

@@ -13,6 +13,7 @@ export interface IViewConfig {
     readonly cardBackgroundColor: string;
     readonly paginationBackgroundColor: string;
     // ACTION
+    readonly actionButtonSize: string;
     readonly actionButtonColor: string;
     readonly actionMenuColor: string;
     readonly actionWarnColor: string;

@@ -20,6 +20,7 @@ export type NgxTableAction<T> =
     | IActionLog<T>;
 
 export interface INgxTable<T> {
+    readonly route?: string[];
     readonly type: string;
     readonly columns: NgxTableColumn<T>[];
     readonly rows?: {
