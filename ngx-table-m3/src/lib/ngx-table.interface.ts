@@ -36,6 +36,11 @@ export interface INgxTable<T> {
 
 export interface INgxTableFilter {
     readonly page: number;
+    readonly order?: {
+        readonly id: string;
+        readonly type: 'ASC' | 'DESC';
+        readonly param: string;
+    };
 }
 
 export interface INgxTablePagination {

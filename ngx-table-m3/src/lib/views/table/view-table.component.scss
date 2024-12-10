@@ -8,6 +8,16 @@ table {
 
         th {
             padding: 1.25rem 1rem;
+
+            .column {
+                display: flex;
+                align-items: center;
+                column-gap: 0.5rem;
+
+                mat-icon {
+                    font-size: 100%;
+                }
+            }
         }
     }
 

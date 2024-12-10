@@ -30,3 +30,8 @@ export interface IViewConfig {
         };
     };
 }
+
+export interface IViewOrder {
+    readonly id: string;
+    readonly type: 'ASC' | 'DESC';
+}

@@ -11,7 +11,14 @@
 @if (!loading && data.length > 0) {
 <content>
     <!-- DESKTOP -->
-    @if (!isMobile) { <view-table [ngxTable]="ngxTable" [data]="data" [viewConfig]="viewConfig"></view-table> }
+    @if (!isMobile) {
+    <view-table
+        [ngxTable]="ngxTable"
+        [data]="data"
+        [viewConfig]="viewConfig"
+        (orderChanged)="orderChanged($event)"
+    ></view-table>
+    }
 
     <!-- MOBILE -->
     @if (isMobile) { <view-card [ngxTable]="ngxTable" [data]="data" [viewConfig]="viewConfig"></view-card> }

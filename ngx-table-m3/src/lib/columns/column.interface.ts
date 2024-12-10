@@ -11,6 +11,15 @@ export interface IColumn<T> {
 
     readonly onClick?: (data: T) => string[] | (() => void);
     readonly onCopy?: (data: T) => string;
+
+    readonly filter?: {
+        readonly id: string;
+        readonly order?: {
+            readonly type?: 'ORDER' | 'ASC' | 'DESC';
+            readonly initial?: 'ASC' | 'DESC';
+            readonly isDefault?: boolean;
+        };
+    };
 }
 
 export abstract class ColumnMethods<C /** COLUMN **/, V /** VALUE **/> {

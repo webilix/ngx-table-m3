@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Helper } from '@webilix/helper-library';
 
-import { IViewConfig, ViewCardComponent, ViewPaginationComponent, ViewTableComponent } from './views';
+import { IViewConfig, IViewOrder, ViewCardComponent, ViewPaginationComponent, ViewTableComponent } from './views';
 
 import { ColumnInfo } from './columns';
+import { ViewService } from './views/view.service';
 import { INgxTableConfig, NGX_TABLE_CONFIG } from './ngx-table.config';
 import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.interface';
 
@@ -14,6 +15,7 @@ import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.int
     selector: 'ngx-table',
     host: { '(window:resize)': 'onResize($event)' },
     imports: [NgClass, ViewCardComponent, ViewPaginationComponent, ViewTableComponent],
+    providers: [ViewService],
     templateUrl: './ngx-table.component.html',
     styleUrl: './ngx-table.component.scss',
 })
@@ -34,6 +36,7 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
     constructor(
         private readonly activatedRoute: ActivatedRoute,
         private readonly router: Router,
+        private readonly viewService: ViewService,
         @Optional() @Inject(NGX_TABLE_CONFIG) private readonly config?: Partial<INgxTableConfig>,
     ) {}
 
@@ -45,7 +48,16 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
                 : 1
             : 1;
 
-        this.filter = { page };
+        const orders = this.viewService.getOrders(this.ngxTable);
+        let order: { id: string; type: 'ASC' | 'DESC'; param: string } | undefined = undefined;
+        Object.keys(orders).forEach((key: string) => {
+            if (!orders[key].current) return;
+
+            const type = orders[key].current;
+            order = { id: key, type: type, param: `${key}:${type}` };
+        });
+
+        this.filter = { page, order };
         this.filterChanged.next(this.filter);
     }
 
@@ -113,12 +125,21 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
 
         const queryParams: { [key: string]: any } = { ...this.activatedRoute.snapshot.queryParams };
 
-        queryParams['ngx-table-page'] = this.filter.page === 1 ? undefined : this.filter.page.toString();
+        queryParams['ngx-table-page'] = this.filter.page !== 1 ? this.filter.page.toString() : undefined;
+        queryParams['ngx-table-order'] = this.filter.order ? this.filter.order.param : undefined;
         this.router.navigate(this.ngxTable.route, { queryParams });
     }
 
     pageChanged(page: number): void {
         this.filter = { ...this.filter, page };
+        this.setFilter();
+
+        this.filterChanged.next(this.filter);
+    }
+
+    orderChanged(order: IViewOrder): void {
+        const param: string = `${order.id}:${order.type}`;
+        this.filter = { ...this.filter, order: { ...order, param } };
         this.setFilter();
 
         this.filterChanged.next(this.filter);

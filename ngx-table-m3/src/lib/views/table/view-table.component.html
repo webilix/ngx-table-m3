@@ -1,5 +1,6 @@
 <table [cellPadding]="0" [cellSpacing]="0" [width]="'100%'" [border]="0">
     <!-- HEADER -->
+
     <thead
         [style.color]="viewConfig.headerTextColor"
         [style.background-color]="viewConfig.headerBackgroundColor"
@@ -14,7 +15,31 @@
 
             <!-- COLUMNS -->
             @for (column of ngxTable.columns; track $index) {
-            <th [style.text-align]="(column.textAlign || 'RIGHT').toLowerCase()">{{ column.title }}</th>
+            <th [style.text-align]="(column.textAlign || 'RIGHT').toLowerCase()">
+                <div class="column">
+                    <div class="title">{{ column.title }}</div>
+
+                    <!-- ORDER -->
+                    @if (column.filter && orders[column.filter.id]) {
+                    <mat-icon
+                        (click)="updateOrder(column.filter.id)"
+                        [style.cursor]="
+                            orders[column.filter.id].type === 'ORDER' || !orders[column.filter.id].current
+                                ? 'pointer'
+                                : 'default'
+                        "
+                    >
+                        {{
+                            orders[column.filter.id].current === 'ASC'
+                                ? 'north'
+                                : orders[column.filter.id].current === 'DESC'
+                                ? 'south'
+                                : 'swap_vert'
+                        }}
+                    </mat-icon>
+                    }
+                </div>
+            </th>
             }
 
             <!-- ACTION -->

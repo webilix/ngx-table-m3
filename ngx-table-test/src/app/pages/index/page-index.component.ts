@@ -6,18 +6,22 @@ import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } fr
 import { namesList } from './page-index.names';
 
 type DataType = 'MANAGER' | 'ADMIN' | 'USER';
-const DataInfo: { [key in DataType]: { title: string; icon: string; textColor: string; iconColor: string } } = {
-    MANAGER: { title: 'مدیر اصلی', icon: 'badge', textColor: 'var(--error)', iconColor: 'var(--error)' },
-    ADMIN: { title: 'مدیر', icon: 'account_box', textColor: '', iconColor: 'var(--secondary)' },
-    USER: { title: 'عضو', icon: 'account_circle', textColor: '', iconColor: '' },
-};
+const DataInfo: { [key in DataType]: { title: string; icon: string; order: number; textColor: string; iconColor: string } } =
+    {
+        MANAGER: { title: 'مدیر اصلی', icon: 'badge', order: 1, textColor: 'var(--error)', iconColor: 'var(--error)' },
+        ADMIN: { title: 'مدیر', icon: 'account_box', order: 2, textColor: '', iconColor: 'var(--secondary)' },
+        USER: { title: 'عضو', icon: 'account_circle', order: 3, textColor: '', iconColor: '' },
+    };
 
 interface IData {
     readonly type: DataType;
     readonly name: string;
     readonly mobile: string;
     readonly birthDay?: Date;
-    readonly birthPlace?: { readonly state: string; readonly city: string };
+    readonly birthPlace?: {
+        readonly state: { readonly id: string; readonly title: string };
+        readonly city: { readonly id: string; readonly title: string };
+    };
     readonly status: 'ACTIVE' | 'DEACTIVE';
 }
 
@@ -37,6 +41,11 @@ export class PageIndexComponent implements OnInit {
                 title: 'عضویت',
                 value: (data) => DataInfo[data.type].title,
                 subValue: (data) => ({ value: data.type, english: true }),
+
+                filter: {
+                    id: 'type',
+                    order: { type: 'DESC' },
+                },
             },
             {
                 type: 'TEXT',
@@ -45,6 +54,11 @@ export class PageIndexComponent implements OnInit {
                 onCopy: (data) => data.name,
                 mode: 'TITLE',
                 color: (data) => DataInfo[data.type].iconColor,
+
+                filter: {
+                    id: 'name',
+                    order: { isDefault: true },
+                },
             },
             {
                 type: 'MOBILE',
@@ -52,9 +66,27 @@ export class PageIndexComponent implements OnInit {
                 english: true,
                 onClick: (data) => () => alert(`MOBILE: ${data.mobile}`),
             },
-            { type: 'DATE', title: 'تاریخ تولد', value: 'birthDay' },
-            { type: 'TEXT', title: 'استان', value: (data) => data.birthPlace?.state },
-            { type: 'TEXT', title: 'شهر', value: (data) => data.birthPlace?.city },
+            {
+                type: 'DATE',
+                title: 'تاریخ تولد',
+                value: 'birthDay',
+
+                filter: {
+                    id: 'birthDay',
+                    order: { initial: 'DESC' },
+                },
+            },
+            {
+                type: 'TEXT',
+                title: 'استان',
+                value: (data) => data.birthPlace?.state.title,
+
+                filter: {
+                    id: 'state',
+                    order: { type: 'ASC' },
+                },
+            },
+            { type: 'TEXT', title: 'شهر', value: (data) => data.birthPlace?.city.title },
             {
                 type: 'TEXT',
                 title: 'وضعیت',
@@ -107,9 +139,9 @@ export class PageIndexComponent implements OnInit {
 
     ngOnInit(): void {
         const cities = Helper.STATE.cities;
-        const getCity = (): { state: string; city: string } => {
+        const getCity = (): { state: { id: string; title: string }; city: { id: string; title: string } } => {
             const city = cities[Math.floor(Math.random() * cities.length)];
-            return { state: city.state.title, city: city.title };
+            return { state: city.state, city: { id: city.id, title: city.title } };
         };
 
         const getBirthDay = (): Date =>
@@ -134,17 +166,20 @@ export class PageIndexComponent implements OnInit {
         setTimeout(
             () => {
                 this.loading = false;
-                this.setPagination(filter.page);
+                this.setPagination(filter);
+                this.setOrder(filter);
+                this.setData();
             },
             this.pagination ? 0 : 500,
         );
     }
 
-    setPagination(page: number): void {
+    setPagination(filter: INgxTableFilter): void {
         const total: number = this.list.length;
         const item: number = 25;
-
         const pages: number = Math.ceil(total / item);
+
+        let page: number = filter.page;
         if (page < 1) page = 1;
         else if (page > pages) page = pages;
 
@@ -153,8 +188,56 @@ export class PageIndexComponent implements OnInit {
             item,
             page: { current: page, total: pages },
         };
+    }
 
-        const skip: number = (page - 1) * item;
-        this.data = this.list.slice(skip, skip + item);
+    setOrder(filter: INgxTableFilter): void {
+        if (!filter.order) return;
+
+        switch (filter.order.id) {
+            case 'type':
+                this.list = this.list.sort(
+                    (d1, d2) => DataInfo[d1.type].order - DataInfo[d2.type].order || d1.name.localeCompare(d2.name),
+                );
+                break;
+            case 'name':
+                switch (filter.order.type) {
+                    case 'ASC':
+                        this.list = this.list.sort((d1, d2) => d1.name.localeCompare(d2.name));
+                        break;
+                    case 'DESC':
+                        this.list = this.list.sort((d1, d2) => d2.name.localeCompare(d1.name));
+                        break;
+                }
+                break;
+            case 'birthDay':
+                switch (filter.order.type) {
+                    case 'ASC':
+                        this.list = this.list.sort(
+                            (d1, d2) => (d1.birthDay?.getTime() || 0) - (d2.birthDay?.getTime() || 0),
+                        );
+                        break;
+                    case 'DESC':
+                        this.list = this.list.sort(
+                            (d1, d2) => (d2.birthDay?.getTime() || 0) - (d1.birthDay?.getTime() || 0),
+                        );
+                        break;
+                }
+                break;
+            case 'state':
+                this.list = this.list.sort(
+                    (d1, d2) =>
+                        (d1.birthPlace?.state.title || '').localeCompare(d2.birthPlace?.state.title || '') ||
+                        (d1.birthPlace?.city.title || '').localeCompare(d2.birthPlace?.city.title || '') ||
+                        d1.name.localeCompare(d2.name),
+                );
+                break;
+        }
+    }
+
+    setData(): void {
+        if (!this.pagination) return;
+
+        const skip: number = (this.pagination.page.current - 1) * this.pagination.item;
+        this.data = this.list.slice(skip, skip + this.pagination.item);
     }
 }

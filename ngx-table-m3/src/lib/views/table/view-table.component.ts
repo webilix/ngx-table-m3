@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -6,8 +6,8 @@ import { INgxTable } from '../../ngx-table.interface';
 
 import { ViewActionComponent } from '../action/view-action.component';
 import { ViewValueComponent } from '../value/view-value.component';
-import { ViewService } from '../view.service';
-import { IViewConfig } from '..';
+import { Order, ViewService } from '../view.service';
+import { IViewConfig, IViewOrder } from '..';
 
 @Component({
     selector: 'view-table',
@@ -23,6 +23,7 @@ export class ViewTableComponent<T> implements OnChanges {
     @Input({ required: true }) ngxTable!: INgxTable<T>;
     @Input({ required: true }) data!: T[];
     @Input({ required: true }) viewConfig!: IViewConfig;
+    @Output() orderChanged: EventEmitter<IViewOrder> = new EventEmitter<IViewOrder>();
 
     public hasIcon: boolean = false;
     public hasAction: boolean = false;
@@ -33,6 +34,8 @@ export class ViewTableComponent<T> implements OnChanges {
     public icons: { icon: string; color?: string }[] = [];
     public colors: string[] = [];
     public deactives: number[] = [];
+
+    public orders!: Order;
 
     constructor(private readonly viewService: ViewService) {}
 
@@ -49,5 +52,12 @@ export class ViewTableComponent<T> implements OnChanges {
         this.icons = this.viewService.getIcons(this.ngxTable, this.data);
         this.colors = this.viewService.getColors(this.ngxTable, this.data);
         this.deactives = this.viewService.getDeactives(this.ngxTable, this.data);
+
+        this.orders = this.viewService.getOrders(this.ngxTable);
+    }
+
+    updateOrder(id: string): void {
+        const order = this.viewService.updateOrder(this.orders, id);
+        if (order) this.orderChanged.next(order);
     }
 }
