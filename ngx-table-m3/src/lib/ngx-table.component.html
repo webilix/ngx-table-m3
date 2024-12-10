@@ -21,7 +21,14 @@
     }
 
     <!-- MOBILE -->
-    @if (isMobile) { <view-card [ngxTable]="ngxTable" [data]="data" [viewConfig]="viewConfig"></view-card> }
+    @if (isMobile) {
+    <view-card
+        [ngxTable]="ngxTable"
+        [data]="data"
+        [viewConfig]="viewConfig"
+        (orderChanged)="orderChanged($event)"
+    ></view-card>
+    }
 
     <!-- PAGINATION -->
     @if (pagination && pagination.page.total> 1) {

@@ -99,12 +99,4 @@ export class ViewService {
 
         return orders;
     }
-
-    updateOrder(orders: Order, id: string): IViewOrder | undefined {
-        const order = orders[id];
-        if (!order || order.type === order.current) return undefined;
-
-        const type: 'ASC' | 'DESC' = order.current ? (order.current === 'ASC' ? 'DESC' : 'ASC') : order.initial;
-        return { id, type };
-    }
 }

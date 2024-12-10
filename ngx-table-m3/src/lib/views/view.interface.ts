@@ -6,6 +6,7 @@ export interface IViewConfig {
     readonly deactiveClass: string;
     // COLORS
     readonly borderColor: string;
+    readonly backgroundColor: string;
     readonly headerTextColor: string;
     readonly headerBackgroundColor: string;
     readonly oddRowsBackgroundColor: string;

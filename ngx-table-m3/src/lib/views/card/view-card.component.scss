@@ -1,10 +1,10 @@
-:host {
+.data {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
 
     section {
-        border: 1px solid transparent;
+        border-bottom: 1px solid transparent;
 
         header {
             display: flex;
@@ -13,6 +13,8 @@
             z-index: 1;
 
             padding-right: 0.75rem;
+            border: 1px solid transparent;
+            border-bottom-width: 0;
 
             .title {
                 flex: 1;
@@ -23,6 +25,9 @@
         content {
             display: block;
             padding: 0.5rem 1rem 1rem 1rem;
+            border: 1px solid transparent;
+            border-top-width: 0;
+            border-bottom-width: 0;
 
             .item {
                 display: flex;
@@ -40,5 +45,30 @@
                 }
             }
         }
+    }
+}
+
+::ng-deep .ngx-helper-order-menu {
+    mat-icon {
+        font-size: 100%;
+        margin: 0 0 0 0.75rem !important;
+    }
+
+    .mat-mdc-menu-content {
+        padding: 0;
+    }
+
+    .mat-mdc-menu-item {
+        direction: rtl;
+        text-align: right;
+
+        .mat-mdc-menu-item-text {
+            font-size: 90% !important;
+        }
+    }
+
+    .mat-divider {
+        margin: 0 !important;
+        border-top-color: var(--outline-variant);
     }
 }

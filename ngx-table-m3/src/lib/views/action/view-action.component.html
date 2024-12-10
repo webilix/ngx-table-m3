@@ -54,6 +54,7 @@
     @else {
     <button
         mat-menu-item
+        type="button"
         [style.color]="item.isDisabled ? '' : item.color"
         (click)="onClick(item.action)"
         [disabled]="item.isDisabled"

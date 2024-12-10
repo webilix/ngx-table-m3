@@ -87,6 +87,7 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
             deactiveClass: this.config?.cssClasses?.deactive || 'ngx-table-deactive',
 
             borderColor: this.config?.colors?.border || 'var(--outline-variant)',
+            backgroundColor: this.config?.colors?.background || 'var(--background)',
             headerTextColor: this.config?.colors?.headerText || '',
             headerBackgroundColor: this.config?.colors?.headerBackground || 'var(--surface-container-highest)',
             oddRowsBackgroundColor: this.config?.colors?.oddRowsBackground || 'var(--background)',

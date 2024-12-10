@@ -1,0 +1,71 @@
+<div
+    class="toolbar"
+    [style.background-color]="viewConfig.paginationBackgroundColor"
+    [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
+    [style.top]="viewConfig.stickyView?.headerTop?.mobileView || undefined"
+    (mousedown)="swipe($event, 'START', toolbar, toolbarContainer)"
+    (mousemove)="swipe($event, 'MOVE', toolbar, toolbarContainer)"
+    (mouseup)="swipe($event, 'END', toolbar, toolbarContainer)"
+    (touchstart)="swipe($event, 'START', toolbar, toolbarContainer)"
+    (touchmove)="swipe($event, 'MOVE', toolbar, toolbarContainer)"
+    (touchend)="swipe($event, 'END', toolbar, toolbarContainer)"
+    #toolbar
+>
+    <div class="toolbar-items" #toolbarContainer>
+        <!-- ORDER -->
+        @if (orderKeys.length > 1) {
+        <div class="item" [style.border-color]="viewConfig.borderColor" [matMenuTriggerFor]="orderMenu">
+            <mat-icon>swap_vert</mat-icon>
+            <span>ترتیب نمایش</span>
+        </div>
+        <mat-menu #orderMenu="matMenu" [xPosition]="'before'" class="ngx-helper-order-menu">
+            @for (item of orderKeys; track $index) {
+            <!-- DIVIDER -->
+            @if ($index !== 0) {<mat-divider></mat-divider>}
+
+            <!-- TYPES -->
+            @switch (orders[item].type) {
+            <!-- ORDR -->
+            @case ('ORDER') {
+            <button
+                mat-menu-item
+                type="button"
+                [disabled]="orders[item].current === 'ASC'"
+                (click)="updateOrder(item, 'ASC')"
+            >
+                <mat-icon>north</mat-icon>
+                <span>{{ orders[item].title }}</span>
+            </button>
+            <button
+                mat-menu-item
+                type="button"
+                [disabled]="orders[item].current === 'DESC'"
+                (click)="updateOrder(item, 'DESC')"
+            >
+                <mat-icon>south</mat-icon>
+                <span>{{ orders[item].title }}</span>
+            </button>
+            }
+            <!-- ASC, DESC -->
+            @default {
+            <button
+                mat-menu-item
+                type="button"
+                [disabled]="orders[item].current"
+                (click)="updateOrder(item, orders[item].type)"
+            >
+                <mat-icon>{{ orders[item].type === 'ASC' ? 'north' : 'south' }}</mat-icon>
+                <span>{{ orders[item].title }}</span>
+            </button>
+            } } }
+        </mat-menu>
+        }
+    </div>
+</div>
+
+<div
+    class="seperator"
+    [style.background-color]="viewConfig.backgroundColor"
+    [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
+    [style.top]="'calc(' + (viewConfig.stickyView?.headerTop?.mobileView || undefined) + ' + var(--toolbarHeight) + 2px)'"
+></div>

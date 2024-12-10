@@ -1,0 +1,39 @@
+.toolbar {
+    z-index: 2;
+    height: calc(var(--toolbarHeight) + 2px);
+    overflow-x: hidden;
+
+    .toolbar-items {
+        display: inline-flex;
+        align-items: center;
+        column-gap: 0.5rem;
+
+        position: relative;
+        left: 0;
+
+        .item {
+            display: flex;
+            align-items: center;
+            column-gap: 0.25rem;
+
+            padding: 0 0.5rem;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            height: var(--toolbarHeight);
+
+            mat-icon {
+                font-size: 100%;
+            }
+
+            span {
+                font-size: 80%;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.seperator {
+    z-index: 2;
+    height: 1rem;
+}

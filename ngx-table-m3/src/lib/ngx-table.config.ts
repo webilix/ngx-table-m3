@@ -12,6 +12,7 @@ export interface INgxTableConfig {
     };
     readonly colors: {
         readonly border?: string;
+        readonly background?: string;
         readonly headerText?: string;
         readonly headerBackground?: string;
         readonly oddRowsBackground?: string;

@@ -57,7 +57,10 @@ export class ViewTableComponent<T> implements OnChanges {
     }
 
     updateOrder(id: string): void {
-        const order = this.viewService.updateOrder(this.orders, id);
-        if (order) this.orderChanged.next(order);
+        const order = this.orders[id];
+        if (!order || order.type === order.current) return;
+
+        const type: 'ASC' | 'DESC' = order.current ? (order.current === 'ASC' ? 'DESC' : 'ASC') : order.initial;
+        this.orderChanged.next({ id, type });
     }
 }
