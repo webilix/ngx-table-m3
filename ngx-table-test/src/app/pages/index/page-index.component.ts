@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Helper } from '@webilix/helper-library';
+import { JalaliDateTime } from '@webilix/jalali-date-time';
 import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } from '@webilix/ngx-table-m3';
 
 import { namesList } from './page-index.names';
@@ -42,9 +43,17 @@ export class PageIndexComponent implements OnInit {
                 value: (data) => DataInfo[data.type].title,
                 subValue: (data) => ({ value: data.type, english: true }),
 
-                filter: {
+                tools: {
                     id: 'type',
                     order: { type: 'DESC' },
+                    filter: {
+                        type: 'SELECT',
+                        options: [
+                            { id: 'MANAGER', title: DataInfo['MANAGER'].title },
+                            { id: 'ADMIN', title: DataInfo['ADMIN'].title },
+                            { id: 'USER', title: DataInfo['USER'].title },
+                        ],
+                    },
                 },
             },
             {
@@ -55,9 +64,10 @@ export class PageIndexComponent implements OnInit {
                 mode: 'TITLE',
                 color: (data) => DataInfo[data.type].iconColor,
 
-                filter: {
+                tools: {
                     id: 'name',
                     order: { isDefault: true },
+                    filter: { type: 'SEARCH' },
                 },
             },
             {
@@ -65,15 +75,20 @@ export class PageIndexComponent implements OnInit {
                 value: 'mobile',
                 english: true,
                 onClick: (data) => () => alert(`MOBILE: ${data.mobile}`),
+                tools: {
+                    id: 'mobile',
+                    filter: { type: 'SEARCH', english: true, mode: 'FULL' },
+                },
             },
             {
                 type: 'DATE',
                 title: 'تاریخ تولد',
                 value: 'birthDay',
 
-                filter: {
+                tools: {
                     id: 'birthDay',
                     order: { initial: 'DESC' },
+                    filter: { type: 'DATE' },
                 },
             },
             {
@@ -81,9 +96,13 @@ export class PageIndexComponent implements OnInit {
                 title: 'استان',
                 value: (data) => data.birthPlace?.state.title,
 
-                filter: {
+                tools: {
                     id: 'state',
                     order: { type: 'ASC' },
+                    filter: {
+                        type: 'MULTI-SELECT',
+                        options: Helper.STATE.states.map((state) => ({ id: state.id, title: state.title })),
+                    },
                 },
             },
             { type: 'TEXT', title: 'شهر', value: (data) => data.birthPlace?.city.title },
@@ -92,6 +111,16 @@ export class PageIndexComponent implements OnInit {
                 title: 'وضعیت',
                 value: (data) => (data.status === 'ACTIVE' ? 'فعال' : 'غیرفعال'),
                 textAlign: 'LEFT',
+                tools: {
+                    id: 'status',
+                    filter: {
+                        type: 'SELECT',
+                        options: [
+                            { id: 'ACTIVE', title: 'فعال' },
+                            { id: 'DEACTIVE', title: 'غیرفعال' },
+                        ],
+                    },
+                },
             },
         ],
         rows: {
@@ -132,6 +161,8 @@ export class PageIndexComponent implements OnInit {
     };
 
     private list: IData[] = [];
+    private filtered: IData[] = [];
+    private jalali = JalaliDateTime();
 
     public loading: boolean = true;
     public data: IData[] = [];
@@ -163,9 +194,14 @@ export class PageIndexComponent implements OnInit {
     }
 
     filterChanged(filter: INgxTableFilter): void {
+        console.clear();
+        console.log('ORDER', filter.order?.param);
+        Object.keys(filter.filter).forEach((id: string) => console.log(`FILTER ${id}: ${filter.filter[id].param}`));
+
         setTimeout(
             () => {
                 this.loading = false;
+                this.setFiltered(filter);
                 this.setPagination(filter);
                 this.setOrder(filter);
                 this.setData();
@@ -174,8 +210,59 @@ export class PageIndexComponent implements OnInit {
         );
     }
 
+    setFiltered(filter: INgxTableFilter): void {
+        this.filtered = this.list.filter((data) => {
+            // TYPE
+            if (filter.filter['type']) {
+                if (data.type !== filter.filter['type'].value) return false;
+            }
+
+            // NAME
+            if (filter.filter['name']) {
+                const words: string[] = filter.filter['name'].value.query.split(' ').filter((word: string) => word !== '');
+                switch (filter.filter['name'].value.mode) {
+                    case 'FULL':
+                        if (data.name.indexOf(words.join(' ')) === -1) return false;
+                        break;
+                    case 'ALL':
+                        const all: boolean[] = words.map((word) => data.name.indexOf(word) !== -1);
+                        if (all.includes(false)) return false;
+                        break;
+                    case 'EACH':
+                        const each: boolean[] = words.map((word) => data.name.indexOf(word) !== -1);
+                        if (!each.includes(true)) return false;
+                        break;
+                }
+            }
+
+            // MOBILE
+            if (filter.filter['mobile']) {
+                if (data.mobile.indexOf(filter.filter['mobile'].value.query) === -1) return false;
+            }
+
+            // BIRTH DAY
+            if (filter.filter['birthDay']) {
+                if (!data.birthDay) return false;
+
+                const birthDay: number = data.birthDay.getTime();
+                const { from, to } = this.jalali.periodDay(1, filter.filter['birthDay'].value);
+                if (birthDay < from.getTime() || birthDay > to.getTime()) return false;
+            }
+
+            // STATE
+            if (filter.filter['state']) {
+                if (!data.birthPlace) return false;
+
+                const states: string[] = filter.filter['state'].value;
+                if (!states.includes(data.birthPlace.state.id)) return false;
+            }
+
+            return true;
+        });
+    }
+
     setPagination(filter: INgxTableFilter): void {
-        const total: number = this.list.length;
+        const total: number = this.filtered.length;
         const item: number = 25;
         const pages: number = Math.ceil(total / item);
 
@@ -195,36 +282,36 @@ export class PageIndexComponent implements OnInit {
 
         switch (filter.order.id) {
             case 'type':
-                this.list = this.list.sort(
+                this.filtered = this.filtered.sort(
                     (d1, d2) => DataInfo[d1.type].order - DataInfo[d2.type].order || d1.name.localeCompare(d2.name),
                 );
                 break;
             case 'name':
                 switch (filter.order.type) {
                     case 'ASC':
-                        this.list = this.list.sort((d1, d2) => d1.name.localeCompare(d2.name));
+                        this.filtered = this.filtered.sort((d1, d2) => d1.name.localeCompare(d2.name));
                         break;
                     case 'DESC':
-                        this.list = this.list.sort((d1, d2) => d2.name.localeCompare(d1.name));
+                        this.filtered = this.filtered.sort((d1, d2) => d2.name.localeCompare(d1.name));
                         break;
                 }
                 break;
             case 'birthDay':
                 switch (filter.order.type) {
                     case 'ASC':
-                        this.list = this.list.sort(
+                        this.filtered = this.filtered.sort(
                             (d1, d2) => (d1.birthDay?.getTime() || 0) - (d2.birthDay?.getTime() || 0),
                         );
                         break;
                     case 'DESC':
-                        this.list = this.list.sort(
+                        this.filtered = this.filtered.sort(
                             (d1, d2) => (d2.birthDay?.getTime() || 0) - (d1.birthDay?.getTime() || 0),
                         );
                         break;
                 }
                 break;
             case 'state':
-                this.list = this.list.sort(
+                this.filtered = this.filtered.sort(
                     (d1, d2) =>
                         (d1.birthPlace?.state.title || '').localeCompare(d2.birthPlace?.state.title || '') ||
                         (d1.birthPlace?.city.title || '').localeCompare(d2.birthPlace?.city.title || '') ||
@@ -238,6 +325,6 @@ export class PageIndexComponent implements OnInit {
         if (!this.pagination) return;
 
         const skip: number = (this.pagination.page.current - 1) * this.pagination.item;
-        this.data = this.list.slice(skip, skip + this.pagination.item);
+        this.data = this.filtered.slice(skip, skip + this.pagination.item);
     }
 }

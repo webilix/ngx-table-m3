@@ -1,0 +1,12 @@
+<content>
+    <ng-container *ngComponentOutlet="filterInfo[data.filter.filter.type].component; injector: injector"></ng-container>
+</content>
+
+<footer>
+    <button mat-stroked-button type="button" [disabled]="!value" (click)="closeContainer({ value: undefined })">
+        لغو فیلتر
+    </button>
+    <button mat-flat-button type="button" class="confirm" [disabled]="!value" (click)="closeContainer({value})">
+        تایید
+    </button>
+</footer>

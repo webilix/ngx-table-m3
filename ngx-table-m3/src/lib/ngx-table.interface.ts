@@ -41,6 +41,12 @@ export interface INgxTableFilter {
         readonly type: 'ASC' | 'DESC';
         readonly param: string;
     };
+    readonly filter: {
+        [id: string]: {
+            readonly value: any;
+            readonly param: string;
+        };
+    };
 }
 
 export interface INgxTablePagination {

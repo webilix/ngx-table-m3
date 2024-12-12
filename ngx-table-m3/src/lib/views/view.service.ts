@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { INgxTable } from '../ngx-table.interface';
 
-import { IViewOrder } from './view.interface';
-
 type OrderType = 'ASC' | 'DESC';
 interface IOrder {
     readonly title: string;
@@ -12,7 +10,7 @@ interface IOrder {
     readonly initial: OrderType;
     readonly current?: OrderType;
 }
-export type Order = { [key: string]: IOrder };
+export type Orders = { [key: string]: IOrder };
 
 @Injectable()
 export class ViewService {
@@ -54,24 +52,23 @@ export class ViewService {
         return deactives;
     }
 
-    getOrders<T>(ngxTable: INgxTable<T>): Order {
+    getOrders<T>(ngxTable: INgxTable<T>): Orders {
         let defaultFound: boolean = false;
-        const orders: Order = {};
+        const orders: Orders = {};
 
         // CHECK COLUMNS
         ngxTable.columns.forEach((column) => {
-            if (!column.filter || !column.filter.order) return;
+            if (!column.tools || !('order' in column.tools) || !column.tools.order) return;
 
             const title: string = column.title || '';
-            const key: string = column.filter.id;
-            const type: 'ORDER' | OrderType = column.filter.order.type || 'ORDER';
-            const initial: OrderType = type !== 'ORDER' ? type : column.filter.order.initial || 'ASC';
-            const isDefault: boolean = !defaultFound && !!column.filter.order.isDefault;
+            const key: string = column.tools.id;
+            const type: 'ORDER' | OrderType = column.tools.order.type || 'ORDER';
+            const initial: OrderType = type !== 'ORDER' ? type : column.tools.order.initial || 'ASC';
+            const isDefault: boolean = !defaultFound && !!column.tools.order.isDefault;
 
             orders[key] = { title, type, initial, current: isDefault ? initial : undefined };
             if (isDefault) defaultFound = true;
         });
-        console.log(orders);
 
         if (Object.keys(orders).length === 0) return {};
 

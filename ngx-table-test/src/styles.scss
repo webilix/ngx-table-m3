@@ -44,6 +44,12 @@ body.dark .cdk-overlay-backdrop {
     background-color: rgba(255, 255, 255, 0.25);
 }
 
+.mat-bottom-sheet-container-medium,
+.mat-bottom-sheet-container-large,
+.mat-bottom-sheet-container-xlarge {
+    min-width: 450px !important;
+}
+
 // NGX-TABLE Style
 .ngx-table-loader {
     width: 30px;

@@ -7,6 +7,57 @@
         [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
         [style.top]="viewConfig.stickyView?.headerTop?.desktopView || undefined"
     >
+        <!-- ACTIVE FILTERS -->
+        @if (activeFilters.length > 0) {
+        <tr>
+            <!-- ICON -->
+            @if (hasIcon) {
+            <th class="active-filters" [style.border-color]="viewConfig.borderColor"></th>
+            }
+
+            <!-- TOOLBAR -->
+            <th
+                class="active-filters"
+                [colSpan]="ngxTable.columns.length + (this.hasAction ? 1 : 0)"
+                [style.border-color]="viewConfig.borderColor"
+            >
+                <div class="container" [@toolbar]>
+                    <div class="items">
+                        @for (item of activeFilters; track $index) {
+                        <div class="item" [style.border-color]="viewConfig.borderColor">
+                            <div class="title" (click)="updateFilter(item.id)">{{ item.title }}:</div>
+                            <div
+                                class="value"
+                                (click)="updateFilter(item.id)"
+                                [ngClass]="item.english ? viewConfig.enClass : ''"
+                            >
+                                {{ item.value }}
+                            </div>
+                            <div class="icon" (click)="clearFilter(item.id)">
+                                <mat-icon>close</mat-icon>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- CLEAR ALL -->
+                    @if (activeFilters.length > 2) {
+                    <div
+                        class="clear"
+                        [style.border-color]="viewConfig.highlight"
+                        [style.color]="viewConfig.highlight"
+                        [style.background-color]="viewConfig.highlightBackground"
+                        (click)="filterCleared.next()"
+                    >
+                        <div class="title">لغو همه</div>
+                        <mat-icon>filter_alt_off</mat-icon>
+                    </div>
+                    }
+                </div>
+            </th>
+        </tr>
+        }
+
         <tr>
             <!-- ICON -->
             @if (hasIcon) {
@@ -20,23 +71,28 @@
                     <div class="title">{{ column.title }}</div>
 
                     <!-- ORDER -->
-                    @if (column.filter && orders[column.filter.id]) {
+                    @if (column.tools && orders[column.tools.id]) {
                     <mat-icon
-                        (click)="updateOrder(column.filter.id)"
+                        (click)="updateOrder(column.tools.id)"
                         [style.cursor]="
-                            orders[column.filter.id].type === 'ORDER' || !orders[column.filter.id].current
+                            orders[column.tools.id].type === 'ORDER' || !orders[column.tools.id].current
                                 ? 'pointer'
                                 : 'default'
                         "
                     >
                         {{
-                            orders[column.filter.id].current === 'ASC'
+                            orders[column.tools.id].current === 'ASC'
                                 ? 'north'
-                                : orders[column.filter.id].current === 'DESC'
+                                : orders[column.tools.id].current === 'DESC'
                                 ? 'south'
                                 : 'swap_vert'
                         }}
                     </mat-icon>
+                    }
+
+                    <!-- FILTER -->
+                    @if (column.tools && filters[column.tools.id]) {
+                    <mat-icon [style.cursor]="'pointer'" (click)="updateFilter(column.tools.id)">filter_alt</mat-icon>
                     }
                 </div>
             </th>

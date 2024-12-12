@@ -3,12 +3,12 @@
 }
 
 <!-- EMPTY -->
-@if (!loading && data.length === 0) {
+@if (!loading && data.length === 0 && !hasFilter) {
 <div [ngClass]="emptyClass" [dir]="'rtl'">{{ ngxTable.type }} ثبت نشده است.</div>
 }
 
 <!-- DATA -->
-@if (!loading && data.length > 0) {
+@if (!loading && (data.length > 0 || hasFilter)) {
 <content>
     <!-- DESKTOP -->
     @if (!isMobile) {
@@ -17,6 +17,8 @@
         [data]="data"
         [viewConfig]="viewConfig"
         (orderChanged)="orderChanged($event)"
+        (filterChanged)="filterItemChanged($event)"
+        (filterCleared)="filterCleared()"
     ></view-table>
     }
 
@@ -27,6 +29,7 @@
         [data]="data"
         [viewConfig]="viewConfig"
         (orderChanged)="orderChanged($event)"
+        (filterChanged)="filterItemChanged($event)"
     ></view-card>
     }
 
@@ -40,6 +43,11 @@
         [stickyBottom]="viewConfig.stickyView?.paginationBottom"
         (pageChanged)="pageChanged($event)"
     ></view-pagination>
+    }
+
+    <!-- EMPTY -->
+    @if ( data.length === 0) {
+    <div [ngClass]="emptyClass" [dir]="'rtl'">{{ ngxTable.type }} ثبت نشده است.</div>
     }
 </content>
 }

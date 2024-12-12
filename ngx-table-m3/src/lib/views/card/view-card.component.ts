@@ -2,19 +2,21 @@ import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleC
 
 import { MatIcon } from '@angular/material/icon';
 
+import { IFilter } from '../../filters';
 import { INgxTable } from '../../ngx-table.interface';
+import { Filters, FilterService } from '../../filters/filter.service';
 
 import { ViewActionComponent } from '../action/view-action.component';
 import { ViewValueComponent } from '../value/view-value.component';
-import { Order, ViewService } from '../view.service';
-import { IViewConfig, IViewOrder } from '..';
+import { Orders, ViewService } from '../view.service';
+import { IViewConfig, IViewFilter, IViewOrder } from '..';
 
 import { ViewCardToolbarComponent } from './toolbar/view-card-toolbar.component';
 
 @Component({
     selector: 'view-card',
     imports: [MatIcon, ViewActionComponent, ViewValueComponent, ViewCardToolbarComponent],
-    providers: [ViewService],
+    providers: [FilterService, ViewService],
     templateUrl: './view-card.component.html',
     styleUrl: './view-card.component.scss',
 })
@@ -25,6 +27,7 @@ export class ViewCardComponent<T> implements OnChanges {
     @Input({ required: true }) data!: T[];
     @Input({ required: true }) viewConfig!: IViewConfig;
     @Output() orderChanged: EventEmitter<IViewOrder> = new EventEmitter<IViewOrder>();
+    @Output() filterChanged: EventEmitter<IViewFilter> = new EventEmitter<IViewFilter>();
 
     public hasIcon: boolean = false;
     public hasAction: boolean = false;
@@ -36,13 +39,14 @@ export class ViewCardComponent<T> implements OnChanges {
     public colors: string[] = [];
     public deactives: number[] = [];
 
-    public orders!: Order;
+    public orders!: Orders;
+    public filters!: Filters;
     public hasToolbar: boolean = false;
     public headerTop: string = '';
 
     public hasContent!: boolean;
 
-    constructor(private readonly viewService: ViewService) {}
+    constructor(private readonly filterService: FilterService, private readonly viewService: ViewService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         this.hasIcon = !!this.ngxTable.rows?.icon;
@@ -56,7 +60,8 @@ export class ViewCardComponent<T> implements OnChanges {
         this.deactives = this.viewService.getDeactives(this.ngxTable, this.data);
 
         this.orders = this.viewService.getOrders(this.ngxTable);
-        this.hasToolbar = Object.keys(this.orders).length > 1;
+        this.filters = this.filterService.getFilters(this.ngxTable);
+        this.hasToolbar = Object.keys(this.orders).length > 1 || Object.keys(this.filters).length > 1;
 
         const top = this.viewConfig.stickyView?.headerTop?.mobileView;
         this.headerTop = top ? (this.hasToolbar ? `calc(${top} + var(--toolbarHeight) + 1rem + 2px)` : top) : '';
@@ -64,5 +69,17 @@ export class ViewCardComponent<T> implements OnChanges {
         this.hasContent = this.ngxTable.columns.some(
             (_, index: number) => index != this.titleIndex && index !== this.subTitleIndex,
         );
+    }
+
+    updateFilter(id: string): void {
+        const filter = this.filters[id];
+        if (!filter) return;
+
+        this.filterService.updateFilter(filter, this.viewConfig).then((filter?: IFilter) => {
+            if (!filter) return;
+
+            this.filters[id] = filter;
+            this.filterChanged.next({ id, value: filter.value });
+        });
     }
 }

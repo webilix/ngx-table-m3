@@ -4,8 +4,10 @@ import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { Filters } from '../../../filters/filter.service';
+
 import { IViewConfig, IViewOrder } from '../../view.interface';
-import { Order } from '../../view.service';
+import { Orders } from '../../view.service';
 
 @Component({
     selector: 'view-card-toolbar',
@@ -14,17 +16,21 @@ import { Order } from '../../view.service';
     styleUrl: './view-card-toolbar.component.scss',
 })
 export class ViewCardToolbarComponent implements OnChanges {
-    @Input({ required: true }) orders!: Order;
+    @Input({ required: true }) orders!: Orders;
+    @Input({ required: true }) filters!: Filters;
     @Input({ required: true }) viewConfig!: IViewConfig;
     @Output() orderChanged: EventEmitter<IViewOrder> = new EventEmitter<IViewOrder>();
+    @Output() updateFilter: EventEmitter<string> = new EventEmitter<string>();
 
     public orderKeys: string[] = [];
+    public filterKeys: string[] = [];
 
     private swipeStart?: number;
     private swipeLeft: number = 0;
 
     ngOnChanges(changes: SimpleChanges): void {
         this.orderKeys = Object.keys(this.orders);
+        this.filterKeys = Object.keys(this.filters);
     }
 
     updateOrder(id: string, type: 'ASC' | 'DESC'): void {

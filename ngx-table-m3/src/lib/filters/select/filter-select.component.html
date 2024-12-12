@@ -1,0 +1,9 @@
+<mat-radio-group (change)="onChange($event.value)">
+    @for (item of data.filter.options; track $index) {
+    <mat-radio-button [value]="item.id" [checked]="item.id === value">
+        <div class="title" [ngClass]="data.filter.english ? data.viewConfig.enClass : ''">
+            {{ item.title }}
+        </div>
+    </mat-radio-button>
+    }
+</mat-radio-group>

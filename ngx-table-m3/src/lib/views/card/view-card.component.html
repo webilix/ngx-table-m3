@@ -2,8 +2,10 @@
 @if (hasToolbar) {
 <view-card-toolbar
     [orders]="orders"
+    [filters]="filters"
     [viewConfig]="viewConfig"
     (orderChanged)="orderChanged.next($event)"
+    (updateFilter)="updateFilter($event)"
 ></view-card-toolbar>
 }
 

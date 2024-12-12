@@ -4,9 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Helper } from '@webilix/helper-library';
 
-import { IViewConfig, IViewOrder, ViewCardComponent, ViewPaginationComponent, ViewTableComponent } from './views';
+import {
+    IViewConfig,
+    IViewFilter,
+    IViewOrder,
+    ViewCardComponent,
+    ViewPaginationComponent,
+    ViewTableComponent,
+} from './views';
 
 import { ColumnInfo } from './columns';
+import { FilterInfo } from './filters/filter.info';
+import { FilterService } from './filters/filter.service';
 import { ViewService } from './views/view.service';
 import { INgxTableConfig, NGX_TABLE_CONFIG } from './ngx-table.config';
 import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.interface';
@@ -15,7 +24,7 @@ import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.int
     selector: 'ngx-table',
     host: { '(window:resize)': 'onResize($event)' },
     imports: [NgClass, ViewCardComponent, ViewPaginationComponent, ViewTableComponent],
-    providers: [ViewService],
+    providers: [FilterService, ViewService],
     templateUrl: './ngx-table.component.html',
     styleUrl: './ngx-table.component.scss',
 })
@@ -32,10 +41,12 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
     public viewConfig!: IViewConfig;
 
     private filter!: INgxTableFilter;
+    public hasFilter: boolean = false;
 
     constructor(
         private readonly activatedRoute: ActivatedRoute,
         private readonly router: Router,
+        private readonly filterService: FilterService,
         private readonly viewService: ViewService,
         @Optional() @Inject(NGX_TABLE_CONFIG) private readonly config?: Partial<INgxTableConfig>,
     ) {}
@@ -50,14 +61,29 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
 
         const orders = this.viewService.getOrders(this.ngxTable);
         let order: { id: string; type: 'ASC' | 'DESC'; param: string } | undefined = undefined;
-        Object.keys(orders).forEach((key: string) => {
-            if (!orders[key].current) return;
+        Object.keys(orders).forEach((id: string) => {
+            if (!orders[id].current) return;
 
-            const type = orders[key].current;
-            order = { id: key, type: type, param: `${key}:${type}` };
+            const type = orders[id].current;
+            order = { id, type: type, param: `${id}:${type}` };
         });
 
-        this.filter = { page, order };
+        const filters = this.filterService.getFilters(this.ngxTable);
+        const filter: { [id: string]: { value: any; param: string } } = {};
+        Object.keys(filters).forEach((id: string) => {
+            if (filters[id].value === undefined) return;
+
+            const column = this.ngxTable.columns.find((column) => column.tools?.id === id);
+            if (!column || !column.tools || !('filter' in column.tools) || !column.tools.filter) return;
+
+            const param: string =
+                column.tools.filter.toParam?.(filters[id].value) ||
+                FilterInfo[column.tools.filter.type].methods.toParam(filters[id].value);
+
+            filter[id] = { value: filters[id].value, param };
+        });
+
+        this.filter = { page, order, filter };
         this.filterChanged.next(this.filter);
     }
 
@@ -94,6 +120,8 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
             evenRowsBackgroundColor: this.config?.colors?.evenRowsBackground || 'var(--surface-container-low)',
             cardBackgroundColor: this.config?.colors?.cardBackground || 'var(--surface-container)',
             paginationBackgroundColor: this.config?.colors?.paginationBackground || 'var(--background)',
+            highlight: this.config?.colors?.highlight || 'var(--secondary)',
+            highlightBackground: this.config?.colors?.highlightBackground || 'var(--secondary-container)',
 
             actionButtonSize: this.config?.action?.buttonSize || '90%',
             actionButtonColor: this.config?.action?.buttonColor || 'var(--primary)',
@@ -113,6 +141,7 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
                 : undefined,
         };
 
+        this.hasFilter = this.filter && Object.keys(this.filter).length !== 0;
         this.onResize();
     }
 
@@ -121,28 +150,60 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
         this.isMobile = this.ngxTable.mobileView || window.innerWidth <= mobileWidth;
     }
 
-    setFilter(): void {
+    setQueryParams(): void {
         if (!this.ngxTable.route) return;
 
         const queryParams: { [key: string]: any } = { ...this.activatedRoute.snapshot.queryParams };
+        const keys: string[] = Object.keys(queryParams);
+        keys.forEach((id: string) => id.substring(0, 17) === 'ngx-table-filter-' && delete queryParams[id]);
 
         queryParams['ngx-table-page'] = this.filter.page !== 1 ? this.filter.page.toString() : undefined;
         queryParams['ngx-table-order'] = this.filter.order ? this.filter.order.param : undefined;
+        Object.keys(this.filter.filter).forEach((id: string) => {
+            const column = this.ngxTable.columns.find((column) => column.tools?.id === id);
+            if (!column || !column.tools || !('filter' in column.tools) || !column.tools.filter) return;
+
+            const param: string = FilterInfo[column.tools.filter.type].methods.query(this.filter.filter[id].value);
+            queryParams[`ngx-table-filter-${id}`] = param;
+        });
         this.router.navigate(this.ngxTable.route, { queryParams });
     }
 
     pageChanged(page: number): void {
         this.filter = { ...this.filter, page };
-        this.setFilter();
 
+        this.setQueryParams();
         this.filterChanged.next(this.filter);
     }
 
     orderChanged(order: IViewOrder): void {
         const param: string = `${order.id}:${order.type}`;
         this.filter = { ...this.filter, order: { ...order, param } };
-        this.setFilter();
 
+        this.setQueryParams();
+        this.filterChanged.next(this.filter);
+    }
+
+    filterItemChanged(filter: IViewFilter): void {
+        const column = this.ngxTable.columns.find((column) => column.tools?.id === filter.id);
+        if (!column || !column.tools || !('filter' in column.tools) || !column.tools.filter) return;
+
+        if (filter.value === undefined) delete this.filter.filter[filter.id];
+        else {
+            const param: string =
+                column.tools.filter.toParam?.(filter.value) ||
+                FilterInfo[column.tools.filter.type].methods.toParam(filter.value);
+            this.filter.filter[filter.id] = { value: filter.value, param };
+        }
+
+        this.setQueryParams();
+        this.filterChanged.next(this.filter);
+    }
+
+    filterCleared(): void {
+        this.filter = { ...this.filter, filter: {} };
+
+        this.setQueryParams();
         this.filterChanged.next(this.filter);
     }
 }

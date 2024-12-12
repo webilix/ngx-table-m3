@@ -13,6 +13,9 @@ export interface IViewConfig {
     readonly evenRowsBackgroundColor: string;
     readonly cardBackgroundColor: string;
     readonly paginationBackgroundColor: string;
+    readonly highlight: string;
+    readonly highlightBackground: string;
+
     // ACTION
     readonly actionButtonSize: string;
     readonly actionButtonColor: string;
@@ -35,4 +38,9 @@ export interface IViewConfig {
 export interface IViewOrder {
     readonly id: string;
     readonly type: 'ASC' | 'DESC';
+}
+
+export interface IViewFilter {
+    readonly id: string;
+    readonly value: any;
 }

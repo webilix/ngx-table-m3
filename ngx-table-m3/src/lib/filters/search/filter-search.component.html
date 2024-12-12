@@ -1,0 +1,24 @@
+<div class="input">
+    <input
+        [ngModel]="query || ''"
+        [ngClass]="data.filter.english ? data.viewConfig.enClass : ''"
+        [style.border-color]="data.viewConfig.borderColor"
+        [style.direction]="data.filter.english ? 'ltr' : 'rtl'"
+        (input)="updateQuery(searchInput.value)"
+        #searchInput
+    />
+</div>
+
+@if (!data.filter.mode) {
+<mat-radio-group (change)="updateMode($event.value)">
+    <mat-radio-button [value]="'FULL'" [checked]="mode === 'FULL'">
+        <div class="title">عبارت کامل</div>
+    </mat-radio-button>
+    <mat-radio-button [value]="'ALL'" [checked]="mode === 'ALL'">
+        <div class="title">همه کلمات</div>
+    </mat-radio-button>
+    <mat-radio-button [value]="'EACH'" [checked]="mode === 'EACH'">
+        <div class="title">هر کدام از کلمات</div>
+    </mat-radio-button>
+</mat-radio-group>
+}

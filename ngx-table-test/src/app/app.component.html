@@ -11,7 +11,7 @@
 
 <content>
     <div class="seperator"></div>
-    <div class="content"><router-outlet /></div>
+    <div class="content" [class.mobile]="isMobile"><router-outlet /></div>
 </content>
 
 @if (isMobile) {

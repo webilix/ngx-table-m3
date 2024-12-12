@@ -1,5 +1,13 @@
 import { InjectionToken } from '@angular/core';
 
+import { Filter } from '../filters';
+
+interface IColumnOrder {
+    readonly type?: 'ORDER' | 'ASC' | 'DESC';
+    readonly initial?: 'ASC' | 'DESC';
+    readonly isDefault?: boolean;
+}
+
 export interface IColumn<T> {
     readonly title: string;
     readonly value: keyof T | ((data: T) => any);
@@ -12,14 +20,10 @@ export interface IColumn<T> {
     readonly onClick?: (data: T) => string[] | (() => void);
     readonly onCopy?: (data: T) => string;
 
-    readonly filter?: {
-        readonly id: string;
-        readonly order?: {
-            readonly type?: 'ORDER' | 'ASC' | 'DESC';
-            readonly initial?: 'ASC' | 'DESC';
-            readonly isDefault?: boolean;
-        };
-    };
+    readonly tools?:
+        | { readonly id: string; readonly order: IColumnOrder }
+        | { readonly id: string; readonly filter: Filter }
+        | { readonly id: string; readonly order: IColumnOrder; readonly filter: Filter };
 }
 
 export abstract class ColumnMethods<C /** COLUMN **/, V /** VALUE **/> {

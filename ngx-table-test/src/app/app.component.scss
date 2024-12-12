@@ -29,6 +29,7 @@ header {
 
             .key {
                 font-size: 10px;
+                line-height: 10px;
             }
         }
 
@@ -55,6 +56,10 @@ content {
         padding-bottom: 1rem;
         width: 1200px;
         max-width: calc(100vw - 2rem);
+        min-height: calc(100vh - var(--header-height) - 2rem);
+    }
+
+    .content.mobile {
         min-height: calc(100vh - var(--header-height) - 50px - 2rem);
     }
 }

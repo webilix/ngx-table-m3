@@ -21,9 +21,13 @@
     },
     "homepage": "https://github.com/webilix/ngx-table-m3#readme",
     "peerDependencies": {
-        "@angular/common": "^19.0.0",
-        "@angular/core": "^19.0.0",
-        "@angular/material": "^19.0.2"
+        "@angular/common": ">=19.0.0",
+        "@angular/core": ">=19.0.0",
+        "@angular/material": ">=19.0.2",
+        "@webilix/helper-library": ">=6.0.2",
+        "@webilix/jalali-date-time": ">=2.0.5",
+        "@webilix/ngx-calendar-m3": ">=1.0.3",
+        "@webilix/ngx-helper-m3": ">=1.0.5"
     },
     "dependencies": {
         "tslib": "^2.3.0"
