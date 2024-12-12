@@ -5,9 +5,13 @@ import { NgxTableColumn } from '../ngx-table.interface';
 import {
     ColumnDateComponent,
     ColumnDateMethods,
+    ColumnDurationComponent,
+    ColumnDurationMethods,
     ColumnMethods,
     ColumnMobileComponent,
     ColumnMobileMethods,
+    ColumnNumberComponent,
+    ColumnNumberMethods,
     ColumnTextComponent,
     ColumnTextMethods,
 } from '.';
@@ -19,6 +23,8 @@ export const ColumnInfo: {
     };
 } = {
     DATE: { methods: new ColumnDateMethods(), component: ColumnDateComponent },
+    DURATION: { methods: new ColumnDurationMethods(), component: ColumnDurationComponent },
     MOBILE: { methods: new ColumnMobileMethods(), component: ColumnMobileComponent },
+    NUMBER: { methods: new ColumnNumberMethods(), component: ColumnNumberComponent },
     TEXT: { methods: new ColumnTextMethods(), component: ColumnTextComponent },
 };

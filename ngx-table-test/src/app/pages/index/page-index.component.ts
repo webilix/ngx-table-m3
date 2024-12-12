@@ -19,6 +19,8 @@ interface IData {
     readonly name: string;
     readonly mobile: string;
     readonly birthDay?: Date;
+    readonly ageYear?: number;
+    readonly ageDay?: any;
     readonly birthPlace?: {
         readonly state: { readonly id: string; readonly title: string };
         readonly city: { readonly id: string; readonly title: string };
@@ -91,6 +93,8 @@ export class PageIndexComponent implements OnInit {
                     filter: { type: 'DATE' },
                 },
             },
+            { type: 'NUMBER', title: 'سن (سال)', value: 'ageYear', fractionDigits: 5 },
+            { type: 'DURATION', title: 'سن (روز)', value: 'ageDay', format: 'DAY' },
             {
                 type: 'TEXT',
                 title: 'استان',
@@ -183,14 +187,24 @@ export class PageIndexComponent implements OnInit {
 
         this.list = Array(Math.floor(Math.random() * 5000))
             .fill('')
-            .map(() => ({
-                type: dataTypes[Math.floor(Math.random() * dataTypes.length)],
-                name: namesList[Math.floor(Math.random() * namesList.length)],
-                mobile: `09${Helper.STRING.getRandom(9, 'numeric')}`,
-                birthDay: Math.random() > 0.3 ? getBirthDay() : undefined,
-                birthPlace: Math.random() > 0.1 ? getCity() : undefined,
-                status: statusList[Math.floor(Math.random() * statusList.length)],
-            }));
+            .map(() => {
+                const birthDay: Date | undefined = Math.random() > 0.3 ? getBirthDay() : undefined;
+                const ageYear: number | undefined = birthDay
+                    ? Math.floor((new Date().getTime() - birthDay.getTime()) / (365 * 24 * 3600 * 1000))
+                    : undefined;
+                const actualAge: number | undefined = 100;
+
+                return {
+                    type: dataTypes[Math.floor(Math.random() * dataTypes.length)],
+                    name: namesList[Math.floor(Math.random() * namesList.length)],
+                    mobile: `09${Helper.STRING.getRandom(9, 'numeric')}`,
+                    birthDay,
+                    ageYear,
+                    ageDay: { from: birthDay },
+                    birthPlace: Math.random() > 0.1 ? getCity() : undefined,
+                    status: statusList[Math.floor(Math.random() * statusList.length)],
+                };
+            });
     }
 
     filterChanged(filter: INgxTableFilter): void {

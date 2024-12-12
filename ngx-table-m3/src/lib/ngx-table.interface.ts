@@ -5,11 +5,13 @@ import {
     IActionStatus,
     IActionUpdate,
     IColumnDate,
+    IColumnDuration,
     IColumnMobile,
+    IColumnNumber,
     IColumnText,
 } from './columns';
 
-export type NgxTableColumn<T> = IColumnDate<T> | IColumnMobile<T> | IColumnText<T>;
+export type NgxTableColumn<T> = IColumnDate<T> | IColumnDuration<T> | IColumnMobile<T> | IColumnNumber<T> | IColumnText<T>;
 
 export type NgxTableAction<T> =
     | 'DIVIDER'
