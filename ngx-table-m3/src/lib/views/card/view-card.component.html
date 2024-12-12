@@ -6,6 +6,7 @@
     [viewConfig]="viewConfig"
     (orderChanged)="orderChanged.next($event)"
     (updateFilter)="updateFilter($event)"
+    (clearFilter)="filterCleared.next()"
 ></view-card-toolbar>
 }
 

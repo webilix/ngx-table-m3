@@ -61,6 +61,21 @@
         </mat-menu>
         }
 
+        <!-- CLEAR -->
+        @if (showClear) {
+        <div
+            class="item"
+            [style.color]="viewConfig.highlightText"
+            [style.border-color]="viewConfig.highlightText"
+            [style.background-color]="viewConfig.highlightBackground"
+            (click)="clearFilter.next()"
+        >
+            <span>لغو فیلترها</span>
+            <mat-icon>filter_alt_off</mat-icon>
+        </div>
+
+        }
+
         <!-- FILTER -->
         @for (item of filterKeys; track $index) {
         <div
@@ -73,7 +88,6 @@
             <mat-icon>filter_alt</mat-icon>
             <span>{{ filters[item].title }}</span>
         </div>
-
         }
     </div>
 </div>

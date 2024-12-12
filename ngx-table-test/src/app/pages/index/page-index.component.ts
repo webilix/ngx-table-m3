@@ -198,16 +198,16 @@ export class PageIndexComponent implements OnInit {
         console.log('ORDER', filter.order?.param);
         Object.keys(filter.filter).forEach((id: string) => console.log(`FILTER ${id}: ${filter.filter[id].param}`));
 
-        setTimeout(
-            () => {
-                this.loading = false;
-                this.setFiltered(filter);
-                this.setPagination(filter);
-                this.setOrder(filter);
-                this.setData();
-            },
-            this.pagination ? 0 : 500,
-        );
+        const update = (): void => {
+            this.loading = false;
+            this.setFiltered(filter);
+            this.setPagination(filter);
+            this.setOrder(filter);
+            this.setData();
+        };
+
+        if (this.pagination) update();
+        else setTimeout(() => update(), 500);
     }
 
     setFiltered(filter: INgxTableFilter): void {

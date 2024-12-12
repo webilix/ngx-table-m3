@@ -21,16 +21,26 @@ export class ViewCardToolbarComponent implements OnChanges {
     @Input({ required: true }) viewConfig!: IViewConfig;
     @Output() orderChanged: EventEmitter<IViewOrder> = new EventEmitter<IViewOrder>();
     @Output() updateFilter: EventEmitter<string> = new EventEmitter<string>();
+    @Output() clearFilter: EventEmitter<void> = new EventEmitter<void>();
 
     public orderKeys: string[] = [];
     public filterKeys: string[] = [];
+    public showClear: boolean = false;
 
     private swipeStart?: number;
     private swipeLeft: number = 0;
 
     ngOnChanges(changes: SimpleChanges): void {
         this.orderKeys = Object.keys(this.orders);
-        this.filterKeys = Object.keys(this.filters);
+
+        const activeKeys: string[] = [];
+        const deactiveKeys: string[] = [];
+        Object.keys(this.filters).forEach((key: string) => {
+            if (this.filters[key].value !== undefined) activeKeys.push(key);
+            else deactiveKeys.push(key);
+        });
+        this.filterKeys = [...activeKeys, ...deactiveKeys];
+        this.showClear = activeKeys.length > 2;
     }
 
     updateOrder(id: string, type: 'ASC' | 'DESC'): void {

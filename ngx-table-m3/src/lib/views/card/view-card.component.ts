@@ -28,6 +28,7 @@ export class ViewCardComponent<T> implements OnChanges {
     @Input({ required: true }) viewConfig!: IViewConfig;
     @Output() orderChanged: EventEmitter<IViewOrder> = new EventEmitter<IViewOrder>();
     @Output() filterChanged: EventEmitter<IViewFilter> = new EventEmitter<IViewFilter>();
+    @Output() filterCleared: EventEmitter<void> = new EventEmitter<void>();
 
     public hasIcon: boolean = false;
     public hasAction: boolean = false;
