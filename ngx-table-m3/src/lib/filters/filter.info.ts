@@ -13,12 +13,12 @@ import {
     FilterSelectMethods,
 } from '.';
 
-interface IFilterInfo {
-    readonly methods: FilterMethods<any, any>;
-    readonly component: ComponentType<any>;
-}
-
-export const FilterInfo: { [key in Filter['type']]: IFilterInfo } = {
+export const FilterInfo: {
+    [key in Filter['type']]: {
+        readonly methods: FilterMethods<any, any>;
+        readonly component: ComponentType<any>;
+    };
+} = {
     DATE: { methods: new FilterDateMethods(), component: FilterDateComponent },
     'MULTI-SELECT': { methods: new FilterMultiSelectMethods(), component: FilterMultiSelectComponent },
     SEARCH: { methods: new FilterSearchMethods(), component: FilterSearchComponent },

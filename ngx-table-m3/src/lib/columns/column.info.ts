@@ -12,12 +12,12 @@ import {
     ColumnTextMethods,
 } from '.';
 
-interface IColumnInfo {
-    readonly methods: ColumnMethods<any, any>;
-    readonly component: ComponentType<any>;
-}
-
-export const ColumnInfo: { [key in NgxTableColumn<any>['type']]: IColumnInfo } = {
+export const ColumnInfo: {
+    [key in NgxTableColumn<any>['type']]: {
+        readonly methods: ColumnMethods<any, any>;
+        readonly component: ComponentType<any>;
+    };
+} = {
     DATE: { methods: new ColumnDateMethods(), component: ColumnDateComponent },
     MOBILE: { methods: new ColumnMobileMethods(), component: ColumnMobileComponent },
     TEXT: { methods: new ColumnTextMethods(), component: ColumnTextComponent },

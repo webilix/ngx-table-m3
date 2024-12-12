@@ -6,7 +6,8 @@
         "start": "ng serve",
         "build": "rimraf dist && ng build ngx-table-m3",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "publish": "npm run build && cd dist/ngx-table-m3/ && npm publish --access public"
     },
     "private": true,
     "dependencies": {

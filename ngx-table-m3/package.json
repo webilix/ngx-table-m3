@@ -1,6 +1,6 @@
 {
     "name": "ngx-table-m3",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "author": "Ali Amirnezhad",
     "description": "Responsive table view component for Angular and Material 3",
     "repository": {
