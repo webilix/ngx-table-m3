@@ -21,24 +21,22 @@
                 [colSpan]="ngxTable.columns.length + (this.hasAction ? 1 : 0)"
                 [style.border-color]="viewConfig.borderColor"
             >
-                <div class="container" [@toolbar]>
-                    <div class="items">
-                        @for (item of activeFilters; track $index) {
-                        <div class="item" [style.border-color]="viewConfig.borderColor">
-                            <div class="title" (click)="updateFilter(item.id)">{{ item.title }}:</div>
-                            <div
-                                class="value"
-                                (click)="updateFilter(item.id)"
-                                [ngClass]="item.english ? viewConfig.enClass : ''"
-                            >
-                                {{ item.value }}
-                            </div>
-                            <div class="icon" (click)="clearFilter(item.id)">
-                                <mat-icon>close</mat-icon>
-                            </div>
+                <div class="toolbar" [@toolbar]>
+                    @for (item of activeFilters; track $index) {
+                    <div class="item" [style.border-color]="viewConfig.borderColor">
+                        <div class="title" (click)="updateFilter(item.id)">{{ item.title }}:</div>
+                        <div
+                            class="value"
+                            (click)="updateFilter(item.id)"
+                            [ngClass]="item.english ? viewConfig.enClass : ''"
+                        >
+                            {{ item.value }}
                         </div>
-                        }
+                        <div class="icon" (click)="clearFilter(item.id)">
+                            <mat-icon>close</mat-icon>
+                        </div>
                     </div>
+                    }
 
                     <!-- CLEAR ALL -->
                     @if (activeFilters.length > 2) {
