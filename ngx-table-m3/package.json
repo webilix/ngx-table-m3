@@ -1,6 +1,6 @@
 {
     "name": "@webilix/ngx-table-m3",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "Ali Amirnezhad",
     "description": "Responsive table view component for Angular and Material 3",
     "repository": {
