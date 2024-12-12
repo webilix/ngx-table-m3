@@ -19,8 +19,10 @@ export interface INgxTableConfig {
         readonly evenRowsBackground?: string;
         readonly cardBackground?: string;
         readonly paginationBackground?: string;
-        readonly highlight?: string;
+        readonly highlightText?: string;
         readonly highlightBackground?: string;
+        readonly inputText?: string;
+        readonly inputBackground?: string;
     };
     readonly action: {
         readonly buttonSize?: string;

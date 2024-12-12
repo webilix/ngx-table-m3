@@ -2,6 +2,8 @@
     <input
         [ngModel]="query || ''"
         [ngClass]="data.filter.english ? data.viewConfig.enClass : ''"
+        [style.color]="data.viewConfig.inputText"
+        [style.background-color]="data.viewConfig.inputBackground"
         [style.border-color]="data.viewConfig.borderColor"
         [style.direction]="data.filter.english ? 'ltr' : 'rtl'"
         (input)="updateQuery(searchInput.value)"

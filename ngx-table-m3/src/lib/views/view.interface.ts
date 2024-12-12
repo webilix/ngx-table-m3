@@ -13,8 +13,10 @@ export interface IViewConfig {
     readonly evenRowsBackgroundColor: string;
     readonly cardBackgroundColor: string;
     readonly paginationBackgroundColor: string;
-    readonly highlight: string;
+    readonly highlightText: string;
     readonly highlightBackground: string;
+    readonly inputText: string;
+    readonly inputBackground: string;
 
     // ACTION
     readonly actionButtonSize: string;

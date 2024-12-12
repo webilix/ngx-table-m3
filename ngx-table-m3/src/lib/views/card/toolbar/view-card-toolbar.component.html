@@ -65,8 +65,8 @@
         @for (item of filterKeys; track $index) {
         <div
             class="item"
-            [style.color]="filters[item].value ? viewConfig.highlight : ''"
-            [style.border-color]="filters[item].value ? viewConfig.highlight : viewConfig.borderColor"
+            [style.color]="filters[item].value ? viewConfig.highlightText : ''"
+            [style.border-color]="filters[item].value ? viewConfig.highlightText : viewConfig.borderColor"
             [style.background-color]="filters[item].value ? viewConfig.highlightBackground : ''"
             (click)="updateFilter.next(item)"
         >
