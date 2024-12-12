@@ -50,8 +50,12 @@ export interface INgxTableFilter {
 }
 
 export interface INgxTablePagination {
-    readonly total: number;
-    readonly item: number;
+    // readonly totalItems: number;
+    // readonly itemPerPage: number;
+    readonly item: {
+        readonly perPage: number;
+        readonly total: number;
+    };
     readonly page: {
         readonly current: number;
         readonly total: number;

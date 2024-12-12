@@ -263,16 +263,15 @@ export class PageIndexComponent implements OnInit {
 
     setPagination(filter: INgxTableFilter): void {
         const total: number = this.filtered.length;
-        const item: number = 25;
-        const pages: number = Math.ceil(total / item);
+        const perPage: number = 25;
+        const pages: number = Math.ceil(total / perPage);
 
         let page: number = filter.page;
         if (page < 1) page = 1;
         else if (page > pages) page = pages;
 
         this.pagination = {
-            total,
-            item,
+            item: { perPage, total },
             page: { current: page, total: pages },
         };
     }
@@ -324,7 +323,7 @@ export class PageIndexComponent implements OnInit {
     setData(): void {
         if (!this.pagination) return;
 
-        const skip: number = (this.pagination.page.current - 1) * this.pagination.item;
-        this.data = this.filtered.slice(skip, skip + this.pagination.item);
+        const skip: number = (this.pagination.page.current - 1) * this.pagination.item.perPage;
+        this.data = this.filtered.slice(skip, skip + this.pagination.item.perPage);
     }
 }

@@ -6,7 +6,7 @@
 >
     <section>
         <div class="title">صفحه {{ pagination.page.current | number }} از {{ pagination.page.total | number }}</div>
-        <div class="total">{{ pagination.total | number }} {{ type }}</div>
+        <div class="total">{{ pagination.item.total | number }} {{ type }}</div>
     </section>
 
     <button

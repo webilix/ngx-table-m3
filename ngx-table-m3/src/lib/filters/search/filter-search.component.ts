@@ -31,7 +31,6 @@ export class FilterSearchComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         if (!this.searchInput) return;
 
-        console.log(this.searchInput);
         const element: HTMLInputElement = this.searchInput.nativeElement;
         element?.focus();
     }
