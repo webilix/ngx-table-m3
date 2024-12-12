@@ -13,7 +13,7 @@
 >
     <div class="toolbar-items" #toolbarContainer>
         <!-- ORDER -->
-        @if (orderKeys.length > 1) {
+        @if (orderKeys.length > 0) {
         <div class="item" [style.border-color]="viewConfig.borderColor" [matMenuTriggerFor]="orderMenu">
             <mat-icon>swap_vert</mat-icon>
             <span>ترتیب نمایش</span>
