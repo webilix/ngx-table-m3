@@ -4,12 +4,12 @@ import { FilterMethods } from '../filter.interface';
 
 export interface IFilterSearchValue {
     readonly query: string;
-    readonly mode: 'FULL' | 'ALL' | 'EACH';
+    readonly mode: 'PHRASE' | 'ALL' | 'EACH';
 }
 
 export interface IFilterSearch {
     readonly type: 'SEARCH';
-    readonly mode?: 'FULL' | 'ALL' | 'EACH';
+    readonly mode?: 'PHRASE' | 'ALL' | 'EACH';
     readonly english?: boolean;
 
     readonly toParam?: (value: IFilterSearchValue) => string;
@@ -29,8 +29,8 @@ export class FilterSearchMethods<T> extends FilterMethods<IFilterSearch, IFilter
         const query: string = value.substring(0, index);
         if (!query || !Helper.IS.string(query)) return undefined;
 
-        const mode: 'FULL' | 'ALL' | 'EACH' = value.substring(index + 1) as 'FULL' | 'ALL' | 'EACH';
-        if (!['FULL', 'EACH', 'ALL'].includes(mode)) return undefined;
+        const mode: 'PHRASE' | 'ALL' | 'EACH' = value.substring(index + 1) as 'PHRASE' | 'ALL' | 'EACH';
+        if (!['PHRASE', 'EACH', 'ALL'].includes(mode)) return undefined;
         if (filter.mode && filter.mode !== mode) return undefined;
 
         return { query, mode };

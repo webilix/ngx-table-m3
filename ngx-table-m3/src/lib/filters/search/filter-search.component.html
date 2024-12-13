@@ -13,7 +13,7 @@
 
 @if (!data.filter.mode) {
 <mat-radio-group (change)="updateMode($event.value)">
-    <mat-radio-button [value]="'FULL'" [checked]="mode === 'FULL'">
+    <mat-radio-button [value]="'PHRASE'" [checked]="mode === 'PHRASE'">
         <div class="title">عبارت کامل</div>
     </mat-radio-button>
     <mat-radio-button [value]="'ALL'" [checked]="mode === 'ALL'">

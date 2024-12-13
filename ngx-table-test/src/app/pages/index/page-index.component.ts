@@ -81,7 +81,7 @@ export class PageIndexComponent implements OnInit {
 
                 tools: {
                     id: 'mobile',
-                    filter: { type: 'SEARCH', english: true, mode: 'FULL' },
+                    filter: { type: 'SEARCH', english: true, mode: 'PHRASE' },
                 },
             },
             {
@@ -243,7 +243,7 @@ export class PageIndexComponent implements OnInit {
             if (filter.filter['name']) {
                 const words: string[] = filter.filter['name'].value.query.split(' ').filter((word: string) => word !== '');
                 switch (filter.filter['name'].value.mode) {
-                    case 'FULL':
+                    case 'PHRASE':
                         if (data.name.indexOf(words.join(' ')) === -1) return false;
                         break;
                     case 'ALL':

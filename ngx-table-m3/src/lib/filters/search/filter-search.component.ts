@@ -26,7 +26,7 @@ export class FilterSearchComponent implements AfterViewInit {
     public onChange: (value?: IFilterSearchValue) => void = inject(FILTER_CHANGE);
 
     public query?: string = this.value?.query;
-    public mode?: 'FULL' | 'ALL' | 'EACH' = this.data.filter.mode || this.value?.mode || 'FULL';
+    public mode?: 'PHRASE' | 'ALL' | 'EACH' = this.data.filter.mode || this.value?.mode || 'PHRASE';
 
     ngAfterViewInit(): void {
         if (!this.searchInput) return;
@@ -39,12 +39,12 @@ export class FilterSearchComponent implements AfterViewInit {
         query = query && Helper.IS.string(query) ? query.trim() : '';
         this.query = query.length === 0 ? undefined : query;
 
-        this.onChange(this.query ? { query: this.query, mode: this.mode || 'FULL' } : undefined);
+        this.onChange(this.query ? { query: this.query, mode: this.mode || 'PHRASE' } : undefined);
     }
 
-    updateMode(mode: 'FULL' | 'ALL' | 'EACH'): void {
+    updateMode(mode: 'PHRASE' | 'ALL' | 'EACH'): void {
         this.mode = mode;
 
-        this.onChange(this.query ? { query: this.query, mode: this.mode || 'FULL' } : undefined);
+        this.onChange(this.query ? { query: this.query, mode: this.mode || 'PHRASE' } : undefined);
     }
 }
