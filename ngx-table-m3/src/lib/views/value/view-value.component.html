@@ -1,9 +1,9 @@
 <!-- EMPTY VALUE -->
-@if (value === undefined) { &nbsp; }
+@if (value === undefined) { }
 
 <!-- SHOW VALUE -->
 @else {
-<div [style.color]="color" [class.card-title]="isCardTitle">
+<div [style.color]="color" [class.card-title]="isCardTitle" [class.card-sub-title]="isCardSubTitle">
     <div
         class="value"
         [style.cursor]="hasClick || copyText ? 'pointer' : 'default'"

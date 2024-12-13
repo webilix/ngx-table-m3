@@ -27,6 +27,7 @@ export class ViewValueComponent<T> implements OnChanges {
     @Input({ required: false }) isDeactive?: boolean;
     @Input({ required: false }) isCard?: boolean;
     @Input({ required: false }) isCardTitle?: boolean;
+    @Input({ required: false }) isCardSubTitle?: boolean;
 
     public columnInfo = ColumnInfo;
     public injector!: Injector;

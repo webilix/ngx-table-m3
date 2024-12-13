@@ -77,6 +77,7 @@ export class PageIndexComponent implements OnInit {
                 value: 'mobile',
                 english: true,
                 onClick: (data) => () => alert(`MOBILE: ${data.mobile}`),
+
                 tools: {
                     id: 'mobile',
                     filter: { type: 'SEARCH', english: true, mode: 'FULL' },
@@ -115,6 +116,8 @@ export class PageIndexComponent implements OnInit {
                 title: 'وضعیت',
                 value: (data) => (data.status === 'ACTIVE' ? 'فعال' : 'غیرفعال'),
                 textAlign: 'LEFT',
+                mode: 'SUBTITLE',
+
                 tools: {
                     id: 'status',
                     filter: {
@@ -269,6 +272,11 @@ export class PageIndexComponent implements OnInit {
 
                 const states: string[] = filter.filter['state'].value;
                 if (!states.includes(data.birthPlace.state.id)) return false;
+            }
+
+            // STATUS
+            if (filter.filter['status']) {
+                if (data.status !== filter.filter['status'].value) return false;
             }
 
             return true;

@@ -7,7 +7,6 @@ export interface IFilterSelect {
     readonly options: {
         readonly id: string;
         readonly title: string;
-        readonly icon?: string;
     }[];
     readonly english?: boolean;
 
