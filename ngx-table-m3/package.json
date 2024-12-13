@@ -1,6 +1,6 @@
 {
     "name": "@webilix/ngx-table-m3",
-    "version": "1.0.4",
+    "version": "0.0.1",
     "author": "Ali Amirnezhad",
     "description": "Responsive table view component for Angular and Material 3",
     "repository": {
@@ -26,8 +26,8 @@
         "@angular/material": ">=19.0.2",
         "@webilix/helper-library": ">=6.0.2",
         "@webilix/jalali-date-time": ">=2.0.5",
-        "@webilix/ngx-calendar-m3": ">=1.0.3",
-        "@webilix/ngx-helper-m3": ">=1.0.6"
+        "@webilix/ngx-calendar-m3": ">=0.0.1",
+        "@webilix/ngx-helper-m3": ">=0.0.1"
     },
     "dependencies": {
         "tslib": "^2.3.0"
