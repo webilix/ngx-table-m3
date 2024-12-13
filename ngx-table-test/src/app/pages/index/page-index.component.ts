@@ -25,6 +25,7 @@ interface IData {
         readonly state: { readonly id: string; readonly title: string };
         readonly city: { readonly id: string; readonly title: string };
     };
+    readonly description?: string;
     readonly status: 'ACTIVE' | 'DEACTIVE';
 }
 
@@ -133,6 +134,7 @@ export class PageIndexComponent implements OnInit {
         rows: {
             icon: (data) => ({ icon: DataInfo[data.type].icon, color: DataInfo[data.type].iconColor }),
             color: (data) => DataInfo[data.type].textColor,
+            description: (data) => data.description,
             isDeactive: (data) => data.status === 'DEACTIVE',
         },
         actions: [
@@ -191,20 +193,23 @@ export class PageIndexComponent implements OnInit {
         this.list = Array(Math.floor(Math.random() * 5000))
             .fill('')
             .map(() => {
+                const name: string = namesList[Math.floor(Math.random() * namesList.length)];
                 const birthDay: Date | undefined = Math.random() > 0.3 ? getBirthDay() : undefined;
                 const ageYear: number | undefined = birthDay
                     ? Math.floor((new Date().getTime() - birthDay.getTime()) / (365 * 24 * 3600 * 1000))
                     : undefined;
-                const actualAge: number | undefined = 100;
+                const description: string | undefined =
+                    Math.random() > 0.9 ? `این توضیحات در ارتباط با کاریر "${name}" در سیستم ثبت شده است.` : undefined;
 
                 return {
                     type: dataTypes[Math.floor(Math.random() * dataTypes.length)],
-                    name: namesList[Math.floor(Math.random() * namesList.length)],
+                    name,
                     mobile: `09${Helper.STRING.getRandom(9, 'numeric')}`,
                     birthDay,
                     ageYear,
                     ageDay: { from: birthDay },
                     birthPlace: Math.random() > 0.1 ? getCity() : undefined,
+                    description,
                     status: statusList[Math.floor(Math.random() * statusList.length)],
                 };
             });

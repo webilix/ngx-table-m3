@@ -43,6 +43,13 @@ export class ViewService {
         return data.map((item) => colorFn(item));
     }
 
+    getDescriptions<T>(ngxTable: INgxTable<T>, data: T[]): (string | undefined)[] {
+        const descriptionFn = ngxTable.rows?.description;
+        if (!descriptionFn) return [];
+
+        return data.map((item) => descriptionFn(item));
+    }
+
     getDeactives<T>(ngxTable: INgxTable<T>, data: T[]): number[] {
         const deactives: number[] = [];
         data.forEach((item: T, index: number) => {

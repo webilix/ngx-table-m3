@@ -106,7 +106,16 @@
     <!-- BODY -->
     <tbody>
         @for (item of data; track $index; let dataIndex = $index) {
-        <tr [style.color]="colors[dataIndex]">
+        <tr
+            [style.color]="colors[dataIndex]"
+            [style.background-color]="
+                viewConfig.alternateRows
+                    ? dataIndex % 2 === 1
+                        ? viewConfig.oddRowsBackgroundColor
+                        : viewConfig.evenRowsBackgroundColor
+                    : ''
+            "
+        >
             <!-- ICON -->
             @if (hasIcon) {
             <td class="icon" [style.border-color]="viewConfig.alternateRows ? '' : viewConfig.borderColor">
@@ -140,6 +149,27 @@
             </td>
             }
         </tr>
-        }
+
+        <!-- DESCRIPTION -->
+        @if (descriptions[dataIndex]) {
+        <tr
+            [style.background-color]="
+                viewConfig.alternateRows
+                    ? dataIndex % 2 === 1
+                        ? viewConfig.oddRowsBackgroundColor
+                        : viewConfig.evenRowsBackgroundColor
+                    : ''
+            "
+        >
+            @if (hasIcon) {
+            <td class="description"></td>
+            }
+            <td
+                class="description"
+                [colSpan]="ngxTable.columns.length + (hasAction ? 1 : 0)"
+                [innerHTML]="descriptions[dataIndex] || '' | ngxHelperMultiLine"
+            ></td>
+        </tr>
+        } }
     </tbody>
 </table>

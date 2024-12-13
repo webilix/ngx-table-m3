@@ -4,6 +4,8 @@ import { NgClass } from '@angular/common';
 
 import { MatIcon } from '@angular/material/icon';
 
+import { NgxHelperMultiLinePipe } from '@webilix/ngx-helper-m3';
+
 import { IFilter } from '../../filters';
 import { INgxTable } from '../../ngx-table.interface';
 import { FilterInfo } from '../../filters/filter.info';
@@ -16,7 +18,7 @@ import { IViewConfig, IViewFilter, IViewOrder } from '..';
 
 @Component({
     selector: 'view-table',
-    imports: [NgClass, MatIcon, ViewActionComponent, ViewValueComponent],
+    imports: [NgClass, MatIcon, NgxHelperMultiLinePipe, ViewActionComponent, ViewValueComponent],
     providers: [FilterService, ViewService],
     templateUrl: './view-table.component.html',
     styleUrl: './view-table.component.scss',
@@ -27,9 +29,6 @@ import { IViewConfig, IViewFilter, IViewOrder } from '..';
     ],
 })
 export class ViewTableComponent<T> implements OnChanges {
-    @HostBinding('style.--oddRowsBackgroundColor') private oddRowsBackgroundColor!: string;
-    @HostBinding('style.--evenRowsBackgroundColor') private evenRowsBackgroundColor!: string;
-
     @Input({ required: true }) ngxTable!: INgxTable<T>;
     @Input({ required: true }) data!: T[];
     @Input({ required: true }) viewConfig!: IViewConfig;
@@ -45,6 +44,7 @@ export class ViewTableComponent<T> implements OnChanges {
 
     public icons: { icon: string; color?: string }[] = [];
     public colors: string[] = [];
+    public descriptions: (string | undefined)[] = [];
     public deactives: number[] = [];
 
     public orders!: Orders;
@@ -54,9 +54,6 @@ export class ViewTableComponent<T> implements OnChanges {
     constructor(private readonly viewService: ViewService, private readonly filterService: FilterService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.oddRowsBackgroundColor = this.viewConfig.alternateRows ? this.viewConfig.oddRowsBackgroundColor : '';
-        this.evenRowsBackgroundColor = this.viewConfig.alternateRows ? this.viewConfig.evenRowsBackgroundColor : '';
-
         this.hasIcon = !!this.ngxTable.rows?.icon;
         this.hasAction = (this.ngxTable.actions || []).length > 0;
 
@@ -65,6 +62,7 @@ export class ViewTableComponent<T> implements OnChanges {
 
         this.icons = this.viewService.getIcons(this.ngxTable, this.data);
         this.colors = this.viewService.getColors(this.ngxTable, this.data);
+        this.descriptions = this.viewService.getDescriptions(this.ngxTable, this.data);
         this.deactives = this.viewService.getDeactives(this.ngxTable, this.data);
 
         this.orders = this.viewService.getOrders(this.ngxTable);

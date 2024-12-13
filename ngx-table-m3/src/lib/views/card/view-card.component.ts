@@ -2,6 +2,8 @@ import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleC
 
 import { MatIcon } from '@angular/material/icon';
 
+import { NgxHelperMultiLinePipe } from '@webilix/ngx-helper-m3';
+
 import { IFilter } from '../../filters';
 import { INgxTable } from '../../ngx-table.interface';
 import { Filters, FilterService } from '../../filters/filter.service';
@@ -15,7 +17,7 @@ import { ViewCardToolbarComponent } from './toolbar/view-card-toolbar.component'
 
 @Component({
     selector: 'view-card',
-    imports: [MatIcon, ViewActionComponent, ViewValueComponent, ViewCardToolbarComponent],
+    imports: [MatIcon, NgxHelperMultiLinePipe, ViewActionComponent, ViewValueComponent, ViewCardToolbarComponent],
     providers: [FilterService, ViewService],
     templateUrl: './view-card.component.html',
     styleUrl: './view-card.component.scss',
@@ -38,6 +40,7 @@ export class ViewCardComponent<T> implements OnChanges {
 
     public icons: { icon: string; color?: string }[] = [];
     public colors: string[] = [];
+    public descriptions: (string | undefined)[] = [];
     public deactives: number[] = [];
 
     public orders!: Orders;
@@ -58,6 +61,7 @@ export class ViewCardComponent<T> implements OnChanges {
 
         this.icons = this.viewService.getIcons(this.ngxTable, this.data);
         this.colors = this.viewService.getColors(this.ngxTable, this.data);
+        this.descriptions = this.viewService.getDescriptions(this.ngxTable, this.data);
         this.deactives = this.viewService.getDeactives(this.ngxTable, this.data);
 
         this.orders = this.viewService.getOrders(this.ngxTable);

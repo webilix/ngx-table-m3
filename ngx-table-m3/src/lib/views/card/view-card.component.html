@@ -77,6 +77,15 @@
                 </div>
             </div>
             } }
+
+            <!-- DESCRIPTION -->
+            @if (descriptions[dataIndex]) {
+            <div
+                class="description"
+                [style.border-color]="viewConfig.borderColor"
+                [innerHTML]="descriptions[dataIndex] || '' | ngxHelperMultiLine"
+            ></div>
+            }
         </content>
         }
     </section>

@@ -89,14 +89,6 @@ table {
     }
 
     tbody {
-        tr:nth-child(odd) {
-            background-color: var(--oddRowsBackgroundColor);
-        }
-
-        tr:nth-child(even) {
-            background-color: var(--evenRowsBackgroundColor);
-        }
-
         td {
             padding: 0.75rem 1rem;
             vertical-align: top;
@@ -109,6 +101,13 @@ table {
 
         td.action {
             padding: 0.25rem 0 0 0;
+        }
+
+        td.description {
+            padding-top: 0;
+            font-size: 85%;
+            line-height: 1.5;
+            text-align: justify;
         }
     }
 }

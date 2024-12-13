@@ -28,6 +28,7 @@ export interface INgxTable<T> {
     readonly rows?: {
         readonly icon?: (data: T) => string | { icon: string; color: string };
         readonly color?: (data: T) => string;
+        readonly description?: (data: T) => string | undefined;
         readonly isDeactive?: (data: T) => boolean;
     };
     readonly actions?: NgxTableAction<T>[];
