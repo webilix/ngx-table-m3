@@ -1,8 +1,12 @@
-mat-checkbox {
+:host {
     display: block;
     padding: 0.5rem;
 
-    .title {
-        cursor: pointer;
+    mat-checkbox {
+        display: block;
+
+        .title {
+            cursor: pointer;
+        }
     }
 }

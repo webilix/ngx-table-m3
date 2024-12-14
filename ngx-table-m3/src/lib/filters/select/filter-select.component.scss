@@ -1,15 +1,15 @@
 :host {
     display: block;
     padding: 0.5rem;
-}
 
-mat-radio-group {
-    display: flex;
-    flex-direction: column;
+    mat-radio-group {
+        display: flex;
+        flex-direction: column;
 
-    mat-radio-button {
-        .title {
-            cursor: pointer;
+        mat-radio-button {
+            .title {
+                cursor: pointer;
+            }
         }
     }
 }
