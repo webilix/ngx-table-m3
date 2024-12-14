@@ -19,7 +19,9 @@
 
     <!-- SUB VALUE -->
     @if (subValue) {
-    <div class="subvalue" [ngClass]="[subValue.isEN ? viewConfig.enClass : '']">{{ subValue.value }}</div>
+    <div class="subvalue" [dir]="subValue.isEN ? 'ltr' : 'rtl'" [ngClass]="[subValue.isEN ? viewConfig.enClass : '']">
+        {{ subValue.value }}
+    </div>
     }
 </div>
 }

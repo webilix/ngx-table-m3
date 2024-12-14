@@ -1,5 +1,6 @@
 <div
     [style.display]="'inline-block'"
+    [dir]="config.isEN ? 'ltr' : 'rtl'"
     [ngClass]="[config.isEN ? config.enClass : '', config.isDeactive ? config.deactiveClass : '']"
 >
     {{ value | ngxHelperDuration : { english: config.isEN, format: column.format } }}
