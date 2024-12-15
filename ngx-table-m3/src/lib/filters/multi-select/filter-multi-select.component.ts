@@ -20,6 +20,8 @@ export class FilterMultiSelectComponent {
     public value?: string[] = inject(FILTER_VALUE);
     public onChange: (value?: string[]) => void = inject(FILTER_CHANGE);
 
+    public searchQuery: string = '';
+
     updateValue(id: string, checked: boolean): void {
         this.value = this.value || [];
 

@@ -19,4 +19,11 @@ export class FilterSelectComponent {
     public data: { filter: IFilterSelect; viewConfig: IViewConfig } = inject(FILTER_DATA);
     public value?: string = inject(FILTER_VALUE);
     public onChange: (value?: string) => void = inject(FILTER_CHANGE);
+
+    public searchQuery: string = '';
+
+    updateValue(id: string): void {
+        this.value = id;
+        this.onChange(this.value);
+    }
 }
