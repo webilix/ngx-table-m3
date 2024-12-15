@@ -28,7 +28,7 @@
             }
 
             <!-- TITLE -->
-            <div class="title" [style.color]="viewConfig.headerTextColor">
+            <div class="title" [style.color]="colors[dataIndex] || viewConfig.headerTextColor">
                 <view-value
                     [column]="ngxTable.columns[this.titleIndex]"
                     [item]="item"

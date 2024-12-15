@@ -153,6 +153,7 @@
         <!-- DESCRIPTION -->
         @if (descriptions[dataIndex]) {
         <tr
+            [style.color]="colors[dataIndex]"
             [style.background-color]="
                 viewConfig.alternateRows
                     ? dataIndex % 2 === 1
