@@ -133,12 +133,8 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
 
             stickyView: this.config?.stickyView
                 ? {
-                      headerTop: this.config.stickyView.headerTop
-                          ? getStickyView(this.config.stickyView.headerTop)
-                          : undefined,
-                      paginationBottom: this.config.stickyView.paginationBottom
-                          ? getStickyView(this.config.stickyView.paginationBottom)
-                          : undefined,
+                      top: this.config.stickyView.top ? getStickyView(this.config.stickyView.top) : undefined,
+                      bottom: this.config.stickyView.bottom ? getStickyView(this.config.stickyView.bottom) : undefined,
                   }
                 : undefined,
         };

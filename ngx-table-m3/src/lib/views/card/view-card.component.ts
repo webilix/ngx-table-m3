@@ -46,7 +46,7 @@ export class ViewCardComponent<T> implements OnChanges {
     public orders!: Orders;
     public filters!: Filters;
     public hasToolbar: boolean = false;
-    public headerTop: string = '';
+    public top: string = '';
 
     public hasContent!: boolean;
 
@@ -68,8 +68,8 @@ export class ViewCardComponent<T> implements OnChanges {
         this.filters = this.filterService.getFilters(this.ngxTable);
         this.hasToolbar = Object.keys(this.orders).length > 0 || Object.keys(this.filters).length > 0;
 
-        const top = this.viewConfig.stickyView?.headerTop?.mobileView;
-        this.headerTop = top ? (this.hasToolbar ? `calc(${top} + var(--toolbarHeight) + 1rem + 2px)` : top) : '';
+        const top = this.viewConfig.stickyView?.top?.mobileView;
+        this.top = top ? (this.hasToolbar ? `calc(${top} + var(--toolbarHeight) + 1rem + 2px)` : top) : '';
 
         this.hasContent = this.ngxTable.columns.some(
             (_, index: number) => index != this.titleIndex && index !== this.subTitleIndex,

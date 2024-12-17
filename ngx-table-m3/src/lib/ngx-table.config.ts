@@ -32,13 +32,13 @@ export interface INgxTableConfig {
         readonly menuTitle?: string;
     };
     readonly stickyView: {
-        readonly headerTop?:
+        readonly top?:
             | string
             | {
                   readonly desktopView: string;
                   readonly mobileView: string;
               };
-        readonly paginationBottom?:
+        readonly bottom?:
             | string
             | {
                   readonly desktopView: string;

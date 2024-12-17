@@ -8,15 +8,15 @@
 @use './theme/material/override';
 
 // Global Styles
+* {
+    font-family: Yekan;
+}
+
 html,
 body {
     color: var(--on-background);
     background-color: var(--background);
     box-sizing: border-box;
-}
-
-* {
-    font-family: Yekan;
 }
 
 body {

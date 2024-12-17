@@ -17,7 +17,6 @@ export interface IViewConfig {
     readonly highlightBackground: string;
     readonly inputText: string;
     readonly inputBackground: string;
-
     // ACTION
     readonly actionButtonSize: string;
     readonly actionButtonColor: string;
@@ -26,14 +25,8 @@ export interface IViewConfig {
     readonly actionMenuTitle: string;
     // STICKY
     readonly stickyView?: {
-        readonly headerTop?: {
-            readonly desktopView: string;
-            readonly mobileView: string;
-        };
-        readonly paginationBottom?: {
-            readonly desktopView: string;
-            readonly mobileView: string;
-        };
+        readonly top?: { readonly desktopView: string; readonly mobileView: string };
+        readonly bottom?: { readonly desktopView: string; readonly mobileView: string };
     };
 }
 

@@ -1,8 +1,8 @@
 <div
     class="toolbar"
     [style.background-color]="viewConfig.paginationBackgroundColor"
-    [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
-    [style.top]="viewConfig.stickyView?.headerTop?.mobileView || undefined"
+    [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
+    [style.top]="viewConfig.stickyView?.top?.mobileView || undefined"
     (mousedown)="swipe($event, 'START', toolbar, toolbarContainer)"
     (mousemove)="swipe($event, 'MOVE', toolbar, toolbarContainer)"
     (mouseup)="swipe($event, 'END', toolbar, toolbarContainer)"
@@ -95,6 +95,6 @@
 <div
     class="seperator"
     [style.background-color]="viewConfig.backgroundColor"
-    [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
-    [style.top]="'calc(' + (viewConfig.stickyView?.headerTop?.mobileView || undefined) + ' + var(--toolbarHeight) + 2px)'"
+    [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
+    [style.top]="'calc(' + (viewConfig.stickyView?.top?.mobileView || undefined) + ' + var(--toolbarHeight) + 2px)'"
 ></div>

@@ -17,8 +17,8 @@
         <header
             [style.border-color]="viewConfig.borderColor"
             [style.background-color]="viewConfig.headerBackgroundColor"
-            [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
-            [style.top]="headerTop"
+            [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
+            [style.top]="top"
         >
             <!-- ICON -->
             @if (hasIcon) {

@@ -4,8 +4,8 @@
     <thead
         [style.color]="viewConfig.headerTextColor"
         [style.background-color]="viewConfig.headerBackgroundColor"
-        [style.position]="viewConfig.stickyView?.headerTop ? 'sticky' : 'static'"
-        [style.top]="viewConfig.stickyView?.headerTop?.desktopView || undefined"
+        [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
+        [style.top]="viewConfig.stickyView?.top?.desktopView || undefined"
     >
         <!-- ACTIVE FILTERS -->
         @if (activeFilters.length > 0) {
