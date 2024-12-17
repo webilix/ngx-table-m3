@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 import { NgxHelperMobilePipe } from '@webilix/ngx-helper-m3';
 
@@ -9,7 +8,7 @@ import { IColumnMobile } from './column-mobile.interface';
 
 @Component({
     host: { selector: 'column-mobile' },
-    imports: [NgClass, NgxHelperMobilePipe],
+    imports: [NgxHelperMobilePipe],
     templateUrl: './column-mobile.component.html',
     styleUrl: './column-mobile.component.scss',
 })

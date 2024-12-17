@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 import { NgxHelperDatePipe } from '@webilix/ngx-helper-m3';
 
@@ -9,7 +8,7 @@ import { IColumnDate } from './column-date.interface';
 
 @Component({
     host: { selector: 'column-date' },
-    imports: [NgClass, NgxHelperDatePipe],
+    imports: [NgxHelperDatePipe],
     templateUrl: './column-date.component.html',
     styleUrl: './column-date.component.scss',
 })

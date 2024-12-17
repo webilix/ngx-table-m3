@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 import { COLUMN_CONFIG, COLUMN_TYPE, COLUMN_VALUE, IColumnConfig } from '../column.interface';
 
@@ -7,7 +6,7 @@ import { IColumnText } from './column-text.interface';
 
 @Component({
     host: { selector: 'column-text' },
-    imports: [NgClass],
+    imports: [],
     templateUrl: './column-text.component.html',
     styleUrl: './column-text.component.scss',
 })

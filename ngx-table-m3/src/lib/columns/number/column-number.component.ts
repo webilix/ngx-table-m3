@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 import { NgxHelperNumberPipe } from '@webilix/ngx-helper-m3';
 
@@ -9,7 +8,7 @@ import { IColumnNumber } from './column-number.interface';
 
 @Component({
     host: { selector: 'column-number' },
-    imports: [NgClass, NgxHelperNumberPipe],
+    imports: [NgxHelperNumberPipe],
     templateUrl: './column-number.component.html',
     styleUrl: './column-number.component.scss',
 })

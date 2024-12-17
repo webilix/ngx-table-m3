@@ -3,5 +3,6 @@
     "dest": "../dist/ngx-table-m3",
     "lib": {
         "entryFile": "src/public-api.ts"
-    }
+    },
+    "assets": ["ngx-table-m3.css"]
 }

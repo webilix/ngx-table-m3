@@ -2,8 +2,6 @@
     <!-- HEADER -->
 
     <thead
-        [style.color]="viewConfig.headerTextColor"
-        [style.background-color]="viewConfig.headerBackgroundColor"
         [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
         [style.top]="viewConfig.stickyView?.top?.desktopView || undefined"
     >
@@ -12,24 +10,16 @@
         <tr>
             <!-- ICON -->
             @if (hasIcon) {
-            <th class="active-filters" [style.border-color]="viewConfig.borderColor"></th>
+            <th class="active-filters"></th>
             }
 
             <!-- TOOLBAR -->
-            <th
-                class="active-filters"
-                [colSpan]="ngxTable.columns.length + (this.hasAction ? 1 : 0)"
-                [style.border-color]="viewConfig.borderColor"
-            >
+            <th class="active-filters" [colSpan]="ngxTable.columns.length + (this.hasAction ? 1 : 0)">
                 <div class="toolbar" [@toolbar]>
                     @for (item of activeFilters; track $index) {
-                    <div class="item" [style.border-color]="viewConfig.borderColor">
+                    <div class="item">
                         <div class="title" (click)="updateFilter(item.id)">{{ item.title }}:</div>
-                        <div
-                            class="value"
-                            (click)="updateFilter(item.id)"
-                            [ngClass]="item.english ? viewConfig.enClass : ''"
-                        >
+                        <div class="value" (click)="updateFilter(item.id)" [class.ngx-table-m3-en]="item.english">
                             {{ item.value }}
                         </div>
                         <div class="icon" (click)="clearFilter(item.id)">
@@ -40,15 +30,9 @@
 
                     <!-- CLEAR ALL -->
                     @if (activeFilters.length > 2) {
-                    <div
-                        class="clear"
-                        [style.border-color]="viewConfig.highlightText"
-                        [style.color]="viewConfig.highlightText"
-                        [style.background-color]="viewConfig.highlightBackground"
-                        (click)="filterCleared.next()"
-                    >
+                    <div class="item clear" (click)="filterCleared.next()">
                         <div class="title">لغو فیلترها</div>
-                        <mat-icon>filter_alt_off</mat-icon>
+                        <div class="icon"><mat-icon>filter_alt_off</mat-icon></div>
                     </div>
                     }
                 </div>
@@ -108,17 +92,12 @@
         @for (item of data; track $index; let dataIndex = $index) {
         <tr
             [style.color]="colors[dataIndex]"
-            [style.background-color]="
-                viewConfig.alternateRows
-                    ? dataIndex % 2 === 1
-                        ? viewConfig.oddRowsBackgroundColor
-                        : viewConfig.evenRowsBackgroundColor
-                    : ''
-            "
+            [class.odd-row]="viewConfig.alternateRows && dataIndex % 2 === 1"
+            [class.even-row]="viewConfig.alternateRows && dataIndex % 2 === 0"
         >
             <!-- ICON -->
             @if (hasIcon) {
-            <td class="icon" [style.border-color]="viewConfig.alternateRows ? '' : viewConfig.borderColor">
+            <td class="icon">
                 <mat-icon [style.color]="icons[$index].color" [style.font-size]="viewConfig.iconSize">
                     {{ icons[$index].icon }}
                 </mat-icon>
@@ -127,7 +106,7 @@
 
             <!-- DATA -->
             @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
-            <td [style.border-color]="viewConfig.alternateRows ? '' : viewConfig.borderColor">
+            <td>
                 <view-value
                     [column]="column"
                     [item]="item"
@@ -139,7 +118,7 @@
 
             <!-- ACTION -->
             @if (hasAction) {
-            <td class="action" [style.border-color]="viewConfig.alternateRows ? '' : viewConfig.borderColor">
+            <td class="action">
                 <view-action
                     [actions]="ngxTable.actions || []"
                     [item]="item"
@@ -154,13 +133,8 @@
         @if (descriptions[dataIndex]) {
         <tr
             [style.color]="colors[dataIndex]"
-            [style.background-color]="
-                viewConfig.alternateRows
-                    ? dataIndex % 2 === 1
-                        ? viewConfig.oddRowsBackgroundColor
-                        : viewConfig.evenRowsBackgroundColor
-                    : ''
-            "
+            [class.odd-row]="viewConfig.alternateRows && dataIndex % 2 === 1"
+            [class.even-row]="viewConfig.alternateRows && dataIndex % 2 === 0"
         >
             @if (hasIcon) {
             <td class="description"></td>

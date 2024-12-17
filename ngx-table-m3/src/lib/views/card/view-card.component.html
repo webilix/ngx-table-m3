@@ -13,22 +13,17 @@
 <!-- DATA -->
 <div class="data">
     @for (item of data; track $index; let dataIndex = $index) {
-    <section [style.border-color]="viewConfig.borderColor">
-        <header
-            [style.border-color]="viewConfig.borderColor"
-            [style.background-color]="viewConfig.headerBackgroundColor"
-            [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
-            [style.top]="top"
-        >
+    <div class="card">
+        <header [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'" [style.top]="top">
             <!-- ICON -->
             @if (hasIcon) {
-            <mat-icon [style.color]="icons[$index].color" [style.font-size]="viewConfig.iconSize">
+            <mat-icon class="icon" [style.color]="icons[$index].color" [style.font-size]="viewConfig.iconSize">
                 {{ icons[$index].icon }}
             </mat-icon>
             }
 
             <!-- TITLE -->
-            <div class="title" [style.color]="colors[dataIndex] || viewConfig.headerTextColor">
+            <div class="title" [style.color]="colors[dataIndex]">
                 <view-value
                     [column]="ngxTable.columns[this.titleIndex]"
                     [item]="item"
@@ -62,11 +57,7 @@
 
         <!-- CONTENT -->
         @if (hasContent) {
-        <content
-            [style.border-color]="viewConfig.borderColor"
-            [style.color]="colors[dataIndex]"
-            [style.backgroundColor]="viewConfig.cardBackgroundColor"
-        >
+        <content [style.color]="colors[dataIndex]">
             @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
             <!-- CHECK TITLE AND SUBTITLE -->
             @if (columnIndex !== titleIndex && columnIndex !== subTitleIndex) {
@@ -80,14 +71,10 @@
 
             <!-- DESCRIPTION -->
             @if (descriptions[dataIndex]) {
-            <div
-                class="description"
-                [style.border-color]="viewConfig.borderColor"
-                [innerHTML]="descriptions[dataIndex] || '' | ngxHelperMultiLine"
-            ></div>
+            <div class="description" [innerHTML]="descriptions[dataIndex] || '' | ngxHelperMultiLine"></div>
             }
         </content>
         }
-    </section>
+    </div>
     }
 </div>

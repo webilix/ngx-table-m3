@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Helper } from '@webilix/helper-library';
+import { NgxHelperLoaderComponent } from '@webilix/ngx-helper-m3';
 
 import {
     IViewConfig,
@@ -23,7 +23,7 @@ import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.int
 @Component({
     selector: 'ngx-table',
     host: { '(window:resize)': 'onResize($event)' },
-    imports: [NgClass, ViewCardComponent, ViewPaginationComponent, ViewTableComponent],
+    imports: [NgxHelperLoaderComponent, ViewCardComponent, ViewPaginationComponent, ViewTableComponent],
     providers: [FilterService, ViewService],
     templateUrl: './ngx-table.component.html',
     styleUrl: './ngx-table.component.scss',
@@ -36,8 +36,6 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
     @Output() filterChanged: EventEmitter<INgxTableFilter> = new EventEmitter<INgxTableFilter>();
 
     public isMobile: boolean = false;
-    public loaderClass!: string;
-    public emptyClass!: string;
     public viewConfig!: IViewConfig;
 
     private filter!: INgxTableFilter;
@@ -93,9 +91,6 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
             columns: this.ngxTable.columns.map((column) => ColumnInfo[column.type].methods.column(column)),
         };
 
-        this.loaderClass = this.config?.cssClasses?.loader || 'ngx-table-loader';
-        this.emptyClass = this.config?.cssClasses?.empty || 'ngx-table-empty';
-
         const getStickyView = (
             config: string | { desktopView: string; mobileView: string },
         ): { desktopView: string; mobileView: string } => {
@@ -108,29 +103,7 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
         this.viewConfig = {
             alternateRows: !!this.config?.alternateRows,
             iconSize: `${this.config?.iconSize || 24}px`,
-
-            enClass: this.config?.cssClasses?.en || 'ngx-table-en',
-            deactiveClass: this.config?.cssClasses?.deactive || 'ngx-table-deactive',
-
-            borderColor: this.config?.colors?.border || 'var(--outline-variant)',
-            backgroundColor: this.config?.colors?.background || 'var(--background)',
-            headerTextColor: this.config?.colors?.headerText || '',
-            headerBackgroundColor: this.config?.colors?.headerBackground || 'var(--surface-container-highest)',
-            oddRowsBackgroundColor: this.config?.colors?.oddRowsBackground || 'var(--surface-container)',
-            evenRowsBackgroundColor: this.config?.colors?.evenRowsBackground || 'var(--background)',
-            cardBackgroundColor: this.config?.colors?.cardBackground || 'var(--surface-container-low)',
-            paginationBackgroundColor: this.config?.colors?.paginationBackground || 'var(--background)',
-            highlightText: this.config?.colors?.highlightText || 'var(--secondary)',
-            highlightBackground: this.config?.colors?.highlightBackground || 'var(--secondary-container)',
-            inputText: this.config?.colors?.inputText || 'var(--on-surface)',
-            inputBackground: this.config?.colors?.inputBackground || 'var(--surface-container-highest)',
-
-            actionButtonSize: this.config?.action?.buttonSize || '90%',
-            actionButtonColor: this.config?.action?.buttonColor || 'var(--primary)',
-            actionMenuColor: this.config?.action?.buttonColor || '',
-            actionWarnColor: this.config?.action?.warnColor || 'var(--error)',
-            actionMenuTitle: this.config?.action?.menuTitle || 'امکانات',
-
+            actionMenuTitle: this.config?.actionMenuTitle || 'امکانات',
             stickyView: this.config?.stickyView
                 ? {
                       top: this.config.stickyView.top ? getStickyView(this.config.stickyView.top) : undefined,

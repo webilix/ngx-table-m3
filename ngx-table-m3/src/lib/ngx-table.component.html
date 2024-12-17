@@ -1,15 +1,17 @@
 @if (loading) {
-<div [ngClass]="loaderClass"></div>
+<div class="ngx-table-m3-loader">
+    <ngx-helper-loader [mode]="'SPINNER'"></ngx-helper-loader>
+</div>
 }
 
 <!-- EMPTY -->
 @if (!loading && data.length === 0 && !hasFilter) {
-<div [ngClass]="emptyClass" [dir]="'rtl'">{{ ngxTable.type }} ثبت نشده است.</div>
+<div class="ngx-table-m3-empty">{{ ngxTable.type }} ثبت نشده است.</div>
 }
 
 <!-- DATA -->
 @if (!loading && (data.length > 0 || hasFilter)) {
-<content>
+<content class="ngx-table-m3">
     <!-- DESKTOP -->
     @if (!isMobile) {
     <view-table
@@ -48,7 +50,7 @@
 
     <!-- EMPTY -->
     @if ( data.length === 0) {
-    <div [ngClass]="emptyClass" [dir]="'rtl'">{{ ngxTable.type }} ثبت نشده است.</div>
+    <div class="ngx-table-m3-empty">{{ ngxTable.type }} ثبت نشده است.</div>
     }
 </content>
 }

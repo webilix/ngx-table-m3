@@ -3,7 +3,7 @@
 
 <!-- SHOW VALUE -->
 @else {
-<div [style.color]="color" [class.card-title]="isCardTitle" [class.card-sub-title]="isCardSubTitle">
+<div class="container" [style.color]="color" [class.card-title]="isCardTitle" [class.card-sub-title]="isCardSubTitle">
     <div
         class="value"
         [style.cursor]="hasClick || copyText ? 'pointer' : 'default'"
@@ -19,9 +19,7 @@
 
     <!-- SUB VALUE -->
     @if (subValue) {
-    <div class="subvalue" [dir]="subValue.isEN ? 'ltr' : 'rtl'" [ngClass]="[subValue.isEN ? viewConfig.enClass : '']">
-        {{ subValue.value }}
-    </div>
+    <div class="sub-value" [class.ngx-table-m3-en]="subValue.isEN">{{ subValue.value }}</div>
     }
 </div>
 }

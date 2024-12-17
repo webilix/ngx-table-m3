@@ -11,6 +11,9 @@
 @use '../../node_modules/@webilix/ngx-helper-m3/ngx-helper-m3.css';
 @use '../../node_modules/@webilix/ngx-calendar-m3/ngx-calendar-m3.css';
 
+// NGX-TABLE-M3
+@use '../../ngx-table-m3/ngx-table-m3.css';
+
 // Global Styles
 * {
     font-family: Yekan;
@@ -52,41 +55,4 @@ body.dark .cdk-overlay-backdrop {
 .mat-bottom-sheet-container-large,
 .mat-bottom-sheet-container-xlarge {
     min-width: 450px !important;
-}
-
-// NGX-TABLE Style
-.ngx-table-loader {
-    width: 30px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    margin: 3rem auto;
-
-    background: radial-gradient(farthest-side, var(--secondary) 94%, #0000) top/5px 5px no-repeat,
-        conic-gradient(#0000 30%, var(--secondary));
-    mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
-    -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
-    animation: ngx-table-loader 1s infinite linear;
-}
-@keyframes ngx-table-loader {
-    100% {
-        transform: rotate(1turn);
-    }
-}
-
-.ngx-table-empty {
-    padding: 3rem 0;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--error);
-}
-
-.ngx-table-en {
-    font-size: 13px;
-    font-family: Roboto, 'Helvetica Neue', sans-serif !important;
-}
-
-.ngx-table-deactive {
-    opacity: 0.6;
-    text-decoration: line-through;
 }

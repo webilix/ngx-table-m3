@@ -1,57 +1,9 @@
-:host {
-    display: block;
-    margin-top: 1rem;
-    z-index: 1;
-
-    content {
-        display: flex;
-        align-items: center;
-
-        margin: 0 auto;
-        padding: 0.5rem 0;
-        background-color: var(--surface-container-low);
-        border-radius: 8px;
-        border: 1px solid var(--surface-container-highest);
-
-        section {
-            display: block;
-            padding-right: 0.75rem;
-
-            .title {
-                font-weight: 500;
-                line-height: 1;
-            }
-
-            .total {
-                font-size: 80%;
-                opacity: 0.75;
-                line-height: 1;
-                margin-top: 0.25rem;
-            }
-        }
-    }
-
-    content.desktop {
-        column-gap: 0.5rem;
-        width: fit-content;
-
-        section {
-            min-width: 250px;
-        }
-    }
-
-    content.mobile {
-        section {
-            flex: 1;
-        }
-    }
-
-    content.shadow {
-        border: 1px solid var(--outline-variant);
-        box-shadow: 0 0 10px 0 var(--outline-variant);
+::ng-deep .ngx-table-m3-pagination {
+    .mat-mdc-menu-content {
+        padding: 0;
     }
 }
 
-::ng-deep .pagination-menu-item {
+::ng-deep .ngx-table-m3-pagination-item {
     text-align: center !important;
 }

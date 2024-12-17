@@ -33,9 +33,7 @@ export abstract class ColumnMethods<C /** COLUMN **/, V /** VALUE **/> {
 
 export interface IColumnConfig {
     readonly isEN: boolean;
-    readonly enClass: string;
     readonly isDeactive: boolean;
-    readonly deactiveClass: string;
 }
 
 export const COLUMN_TYPE: InjectionToken<any> = new InjectionToken('NGX-TABLE-COLUMN-TYPE');

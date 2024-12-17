@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -14,7 +14,7 @@ interface Action<T> {
     readonly title: string;
     readonly icon: string;
     readonly action: (data: T) => string[] | void;
-    readonly color: string;
+    readonly color?: string;
     readonly isDisabled: boolean;
 }
 
@@ -25,6 +25,8 @@ interface Action<T> {
     styleUrl: './view-action.component.scss',
 })
 export class ViewActionComponent<T> implements OnChanges {
+    @HostBinding('className') private className: string = 'ngx-table-m3-action';
+
     @Input({ required: true }) actions!: NgxTableAction<T>[];
     @Input({ required: true }) item!: T;
     @Input({ required: true }) viewConfig!: IViewConfig;
@@ -52,7 +54,6 @@ export class ViewActionComponent<T> implements OnChanges {
 
             let item: Action<T> | undefined = undefined;
             const isDisabled: boolean = !!action.disableOn && action.disableOn(this.item);
-            const color: string = action.standalone ? this.viewConfig.actionButtonColor : this.viewConfig.actionMenuColor;
 
             switch (action.type) {
                 case 'ACTION':
@@ -60,20 +61,20 @@ export class ViewActionComponent<T> implements OnChanges {
                         title: action.title,
                         icon: action.icon,
                         action: action.action,
-                        color: action.color || color,
+                        color: action.color,
                         isDisabled,
                     };
                     break;
 
                 case 'UPDATE':
-                    item = { title: 'ویرایش', icon: 'edit', color, action: action.action, isDisabled };
+                    item = { title: 'ویرایش', icon: 'edit', action: action.action, isDisabled };
                     break;
 
                 case 'DELETE':
                     item = {
                         title: 'حذف',
                         icon: 'delete',
-                        color: this.viewConfig.actionWarnColor,
+                        color: 'var(--error)',
                         action: action.action,
                         isDisabled,
                     };
@@ -84,7 +85,7 @@ export class ViewActionComponent<T> implements OnChanges {
                     item = {
                         title: isDeactive ? 'فعال کردن' : 'غیرفعال کردن',
                         icon: isDeactive ? 'check_box' : 'disabled_by_default',
-                        color: isDeactive ? color : this.viewConfig.actionWarnColor,
+                        color: isDeactive ? undefined : 'var(--error)',
                         action: (data: T) => action.action(data, isDeactive),
                         isDisabled,
                     };
@@ -94,7 +95,6 @@ export class ViewActionComponent<T> implements OnChanges {
                     item = {
                         title: 'گزارش تغییرات',
                         icon: 'published_with_changes',
-                        color,
                         action: action.action,
                         isDisabled,
                     };

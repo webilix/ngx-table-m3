@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { Component, HostBinding, inject } from '@angular/core';
 
 import { MatCheckbox } from '@angular/material/checkbox';
 
@@ -11,11 +10,13 @@ import { IFilterMultiSelect } from './filter-multi-select.interface';
 
 @Component({
     host: { selector: 'filter-multi-select' },
-    imports: [NgClass, MatCheckbox],
+    imports: [MatCheckbox],
     templateUrl: './filter-multi-select.component.html',
     styleUrl: './filter-multi-select.component.scss',
 })
 export class FilterMultiSelectComponent {
+    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
+
     public data: { filter: IFilterMultiSelect; viewConfig: IViewConfig } = inject(FILTER_DATA);
     public value?: string[] = inject(FILTER_VALUE);
     public onChange: (value?: string[]) => void = inject(FILTER_CHANGE);

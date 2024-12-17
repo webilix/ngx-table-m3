@@ -1,6 +1,5 @@
 import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { NgClass } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -18,7 +17,7 @@ import { IViewConfig, IViewFilter, IViewOrder } from '..';
 
 @Component({
     selector: 'view-table',
-    imports: [NgClass, MatIcon, NgxHelperMultiLinePipe, ViewActionComponent, ViewValueComponent],
+    imports: [MatIcon, NgxHelperMultiLinePipe, ViewActionComponent, ViewValueComponent],
     providers: [FilterService, ViewService],
     templateUrl: './view-table.component.html',
     styleUrl: './view-table.component.scss',
@@ -29,6 +28,8 @@ import { IViewConfig, IViewFilter, IViewOrder } from '..';
     ],
 })
 export class ViewTableComponent<T> implements OnChanges {
+    @HostBinding('className') private className: string = 'ngx-table-m3-table-view';
+
     @Input({ required: true }) ngxTable!: INgxTable<T>;
     @Input({ required: true }) data!: T[];
     @Input({ required: true }) viewConfig!: IViewConfig;

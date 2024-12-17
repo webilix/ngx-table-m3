@@ -1,7 +1,8 @@
 <div
     [style.display]="'inline-block'"
-    [dir]="'ltr'"
-    [ngClass]="[config.isEN ? config.enClass : '', config.isDeactive ? config.deactiveClass : '']"
+    [style.direction]="'ltr'"
+    [class.ngx-table-m3-en]="config.isEN"
+    [class.ngx-table-m3-deactive]="config.isDeactive"
 >
     {{ value | ngxHelperMobile }}
 </div>

@@ -1,5 +1,5 @@
 import { Component, HostBinding, Injector, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NgClass, NgComponentOutlet } from '@angular/common';
+import { NgComponentOutlet } from '@angular/common';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
 
@@ -14,11 +14,12 @@ import { IViewConfig } from '../view.interface';
 
 @Component({
     selector: 'view-value',
-    imports: [NgClass, NgComponentOutlet, ClipboardModule, MatIcon],
+    imports: [NgComponentOutlet, ClipboardModule, MatIcon],
     templateUrl: './view-value.component.html',
     styleUrl: './view-value.component.scss',
 })
 export class ViewValueComponent<T> implements OnChanges {
+    @HostBinding('className') private className: string = 'ngx-table-m3-value';
     @HostBinding('style.text-align') private textAlign: string = 'left';
 
     @Input({ required: true }) column!: NgxTableColumn<T>;
@@ -63,9 +64,7 @@ export class ViewValueComponent<T> implements OnChanges {
                         ? this.column.english(this.item)
                         : this.column.english
                     : false,
-            enClass: this.viewConfig.enClass,
             isDeactive: !!this.isDeactive,
-            deactiveClass: this.viewConfig.deactiveClass,
         };
         this.injector = Injector.create({
             providers: [

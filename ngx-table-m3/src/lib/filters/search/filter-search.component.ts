@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
 
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
@@ -14,11 +13,12 @@ import { IFilterSearch, IFilterSearchValue } from './filter-search.interface';
 
 @Component({
     host: { selector: 'filter-search' },
-    imports: [NgClass, FormsModule, MatRadioButton, MatRadioGroup],
+    imports: [FormsModule, MatRadioButton, MatRadioGroup],
     templateUrl: './filter-search.component.html',
     styleUrl: './filter-search.component.scss',
 })
 export class FilterSearchComponent implements AfterViewInit {
+    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
     @ViewChild('searchInput') private searchInput?: ElementRef;
 
     public data: { filter: IFilterSearch; viewConfig: IViewConfig } = inject(FILTER_DATA);

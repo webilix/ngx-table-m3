@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 import { NgxHelperDurationPipe } from '@webilix/ngx-helper-m3';
 
@@ -9,7 +8,7 @@ import { IColumnDuration } from './column-duration.interface';
 
 @Component({
     host: { selector: 'column-duration' },
-    imports: [NgClass, NgxHelperDurationPipe],
+    imports: [NgxHelperDurationPipe],
     templateUrl: './column-duration.component.html',
     styleUrl: './column-duration.component.scss',
 })

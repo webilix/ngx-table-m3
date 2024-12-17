@@ -1,27 +1,26 @@
-<div class="input">
+<div class="search">
     <input
         type="text"
         [ngModel]="query || ''"
-        [ngClass]="data.filter.english ? data.viewConfig.enClass : ''"
-        [style.color]="data.viewConfig.inputText"
-        [style.background-color]="data.viewConfig.inputBackground"
-        [style.border-color]="data.viewConfig.borderColor"
-        [style.direction]="data.filter.english ? 'ltr' : 'rtl'"
+        [placeholder]="'جستجو'"
+        [class.ngx-table-m3-en]="data.filter.english"
         (input)="updateQuery(searchInput.value)"
         #searchInput
     />
 </div>
 
 @if (!data.filter.mode) {
-<mat-radio-group (change)="updateMode($event.value)">
-    <mat-radio-button [value]="'PHRASE'" [checked]="mode === 'PHRASE'">
-        <div class="title">عبارت کامل</div>
-    </mat-radio-button>
-    <mat-radio-button [value]="'ALL'" [checked]="mode === 'ALL'">
-        <div class="title">همه کلمات</div>
-    </mat-radio-button>
-    <mat-radio-button [value]="'EACH'" [checked]="mode === 'EACH'">
-        <div class="title">هر کدام از کلمات</div>
-    </mat-radio-button>
-</mat-radio-group>
+<div class="items">
+    <mat-radio-group (change)="updateMode($event.value)">
+        <mat-radio-button [value]="'PHRASE'" [checked]="mode === 'PHRASE'">
+            <div class="title">عبارت کامل</div>
+        </mat-radio-button>
+        <mat-radio-button [value]="'ALL'" [checked]="mode === 'ALL'">
+            <div class="title">همه کلمات</div>
+        </mat-radio-button>
+        <mat-radio-button [value]="'EACH'" [checked]="mode === 'EACH'">
+            <div class="title">هر کدام از کلمات</div>
+        </mat-radio-button>
+    </mat-radio-group>
+</div>
 }

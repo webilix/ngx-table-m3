@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { Component, HostBinding, inject } from '@angular/core';
 
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
@@ -11,11 +10,13 @@ import { IFilterSelect } from './filter-select.interface';
 
 @Component({
     host: { selector: 'filter-select' },
-    imports: [NgClass, MatRadioButton, MatRadioGroup],
+    imports: [MatRadioButton, MatRadioGroup],
     templateUrl: './filter-select.component.html',
     styleUrl: './filter-select.component.scss',
 })
 export class FilterSelectComponent {
+    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
+
     public data: { filter: IFilterSelect; viewConfig: IViewConfig } = inject(FILTER_DATA);
     public value?: string = inject(FILTER_VALUE);
     public onChange: (value?: string) => void = inject(FILTER_CHANGE);

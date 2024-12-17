@@ -1,7 +1,7 @@
 <div
     [style.display]="'inline-block'"
-    [dir]="config.isEN ? 'ltr' : 'rtl'"
-    [ngClass]="[config.isEN ? config.enClass : '', config.isDeactive ? config.deactiveClass : '']"
+    [class.ngx-table-m3-en]="config.isEN"
+    [class.ngx-table-m3-deactive]="config.isDeactive"
 >
     {{ value }}
 </div>

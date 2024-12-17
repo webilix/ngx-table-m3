@@ -1,16 +1,10 @@
-:host {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    button.desktop {
-        border-radius: 0;
-        z-index: 0;
+::ng-deep .ngx-table-action-menu {
+    .title {
+        font-size: 90% !important;
     }
-}
 
-::ng-deep .ngx-helper-action-menu {
     mat-icon {
+        font-size: 120%;
         margin: 0 0 0 0.75rem !important;
     }
 

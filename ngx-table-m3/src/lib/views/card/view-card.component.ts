@@ -23,7 +23,7 @@ import { ViewCardToolbarComponent } from './toolbar/view-card-toolbar.component'
     styleUrl: './view-card.component.scss',
 })
 export class ViewCardComponent<T> implements OnChanges {
-    @HostBinding('style.--toolbarHeight') private toolbarHeight: string = '32px';
+    @HostBinding('className') private className: string = 'ngx-table-m3-card-view';
 
     @Input({ required: true }) ngxTable!: INgxTable<T>;
     @Input({ required: true }) data!: T[];
@@ -69,7 +69,7 @@ export class ViewCardComponent<T> implements OnChanges {
         this.hasToolbar = Object.keys(this.orders).length > 0 || Object.keys(this.filters).length > 0;
 
         const top = this.viewConfig.stickyView?.top?.mobileView;
-        this.top = top ? (this.hasToolbar ? `calc(${top} + var(--toolbarHeight) + 1rem + 2px)` : top) : '';
+        this.top = top ? (this.hasToolbar ? `calc(${top} + var(--ngx-table-m3-toolbar-height) + 1rem + 2px)` : top) : '';
 
         this.hasContent = this.ngxTable.columns.some(
             (_, index: number) => index != this.titleIndex && index !== this.subTitleIndex,

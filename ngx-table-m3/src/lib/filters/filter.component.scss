@@ -8,17 +8,4 @@
         overflow-y: auto;
         max-height: 60vh;
     }
-
-    footer {
-        display: flex;
-        justify-content: flex-end;
-        padding: 1rem;
-        column-gap: 0.5rem;
-
-        border-top: 1px solid var(--surface-container-highest);
-
-        button.confirm {
-            flex: 1;
-        }
-    }
 }

@@ -1,6 +1,5 @@
 <div
     class="toolbar"
-    [style.background-color]="viewConfig.paginationBackgroundColor"
     [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
     [style.top]="viewConfig.stickyView?.top?.mobileView || undefined"
     (mousedown)="swipe($event, 'START', toolbar, toolbarContainer)"
@@ -14,11 +13,11 @@
     <div class="toolbar-items" #toolbarContainer>
         <!-- ORDER -->
         @if (orderKeys.length > 0) {
-        <div class="item" [style.border-color]="viewConfig.borderColor" [matMenuTriggerFor]="orderMenu">
+        <div class="item" [matMenuTriggerFor]="orderMenu">
             <mat-icon>swap_vert</mat-icon>
             <span>ترتیب نمایش</span>
         </div>
-        <mat-menu #orderMenu="matMenu" [xPosition]="'before'" class="ngx-helper-order-menu">
+        <mat-menu #orderMenu="matMenu" [xPosition]="'before'" class="ngx-table-order-menu">
             @for (item of orderKeys; track $index) {
             <!-- DIVIDER -->
             @if ($index !== 0) {<mat-divider></mat-divider>}
@@ -63,13 +62,7 @@
 
         <!-- CLEAR -->
         @if (showClear) {
-        <div
-            class="item"
-            [style.color]="viewConfig.highlightText"
-            [style.border-color]="viewConfig.highlightText"
-            [style.background-color]="viewConfig.highlightBackground"
-            (click)="clearFilter.next()"
-        >
+        <div class="item clear" (click)="clearFilter.next()">
             <span>لغو فیلترها</span>
             <mat-icon>filter_alt_off</mat-icon>
         </div>
@@ -78,13 +71,7 @@
 
         <!-- FILTER -->
         @for (item of filterKeys; track $index) {
-        <div
-            class="item"
-            [style.color]="filters[item].value ? viewConfig.highlightText : ''"
-            [style.border-color]="filters[item].value ? viewConfig.highlightText : viewConfig.borderColor"
-            [style.background-color]="filters[item].value ? viewConfig.highlightBackground : ''"
-            (click)="updateFilter.next(item)"
-        >
+        <div class="item" [class.active]="filters[item].value" (click)="updateFilter.next(item)">
             <mat-icon>filter_alt</mat-icon>
             <span>{{ filters[item].title }}</span>
         </div>
@@ -94,7 +81,8 @@
 
 <div
     class="seperator"
-    [style.background-color]="viewConfig.backgroundColor"
     [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
-    [style.top]="'calc(' + (viewConfig.stickyView?.top?.mobileView || undefined) + ' + var(--toolbarHeight) + 2px)'"
+    [style.top]="
+        'calc(' + (viewConfig.stickyView?.top?.mobileView || undefined) + ' + var(--ngx-table-m3-toolbar-height) + 2px)'
+    "
 ></div>

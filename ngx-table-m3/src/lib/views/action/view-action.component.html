@@ -5,11 +5,10 @@
 <button
     mat-button
     type="button"
+    class="desktop-view"
     [style.color]="item.isDisabled ? '' : item.color"
-    [style.font-size]="viewConfig.actionButtonSize"
     [disabled]="item.isDisabled"
     (click)="onClick(item.action)"
-    class="desktop"
 >
     {{ item.title }}
 </button>
@@ -17,7 +16,7 @@
 <!-- MOBILE -->
 @else {
 <button mat-icon-button type="button" [disabled]="item.isDisabled" (click)="onClick(item.action)">
-    <mat-icon [style.color]="item.isDisabled ? '' : item.color">{{ item.icon }}</mat-icon>
+    <mat-icon [style.color]="item.isDisabled ? '' : item.color" [class.disabled]="item.isDisabled">{{ item.icon }}</mat-icon>
 </button>
 } }
 
@@ -25,25 +24,18 @@
 @if (this.inMenu.length > 0) {
 <!-- DESKTOP -->
 @if (!isMobile) {
-<button
-    mat-button
-    type="button"
-    [matMenuTriggerFor]="actionMenu"
-    [style.color]="viewConfig.actionButtonColor"
-    [style.font-size]="viewConfig.actionButtonSize"
-    class="desktop"
->
+<button mat-button type="button" class="desktop-view" [matMenuTriggerFor]="actionMenu">
     {{ viewConfig.actionMenuTitle }}
 </button>
 }
 <!-- MOBILE -->
 @else {
 <button mat-icon-button type="button" [matMenuTriggerFor]="actionMenu">
-    <mat-icon [style.color]="viewConfig.actionButtonColor">more_vert</mat-icon>
+    <mat-icon>more_vert</mat-icon>
 </button>
 }
 
-<mat-menu #actionMenu="matMenu" class="ngx-helper-action-menu">
+<mat-menu #actionMenu="matMenu" [xPosition]="'before'" class="ngx-table-action-menu">
     @for (item of inMenu; track $index) {
     <!-- DIVIDER -->
     @if (item === 'DIVIDER') {
@@ -55,11 +47,12 @@
     <button
         mat-menu-item
         type="button"
+        [class.disabled]="item.isDisabled"
         [style.color]="item.isDisabled ? '' : item.color"
         (click)="onClick(item.action)"
         [disabled]="item.isDisabled"
     >
-        <span>{{ item.title }}</span>
+        <span class="title">{{ item.title }}</span>
         <mat-icon [style.color]="item.isDisabled ? '' : item.color">{{ item.icon }}</mat-icon>
     </button>
     } }

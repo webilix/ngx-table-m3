@@ -1,13 +1,9 @@
 @if (data.filter.options.length > 20) {
-<div class="search" [style.border-color]="data.viewConfig.borderColor">
+<div class="filter-items">
     <input
         type="text"
         [placeholder]="'جستجو'"
-        [ngClass]="data.filter.english ? data.viewConfig.enClass : ''"
-        [style.color]="data.viewConfig.inputText"
-        [style.background-color]="data.viewConfig.inputBackground"
-        [style.border-color]="data.viewConfig.borderColor"
-        [style.direction]="data.filter.english ? 'ltr' : 'rtl'"
+        [class.ngx-table-m3-en]="data.filter.english"
         (input)="searchQuery = searchInput.value.trim()"
         #searchInput
     />
@@ -19,9 +15,7 @@
     <!-- CHECK VIEW -->
     @if ((value || []).includes(item.id) || !searchQuery || item.title.includes(searchQuery)) {
     <mat-checkbox [checked]="(value || []).includes(item.id)" (change)="updateValue(item.id, $event.checked)">
-        <div class="title" [ngClass]="data.filter.english ? data.viewConfig.enClass : ''">
-            {{ item.title }}
-        </div>
+        <div class="title" [class.ngx-table-m3-en]="data.filter.english">{{ item.title }}</div>
     </mat-checkbox>
     } }
 </div>

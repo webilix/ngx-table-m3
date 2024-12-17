@@ -27,6 +27,7 @@ import { IViewConfig } from '..';
     styleUrl: './view-pagination.component.scss',
 })
 export class ViewPaginationComponent implements OnInit, OnChanges {
+    @HostBinding('className') private className: string = 'ngx-table-m3-pagination';
     @HostBinding('style.position') private stylePosition!: string;
     @HostBinding('style.bottom') private styleBottom!: string;
 

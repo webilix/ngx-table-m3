@@ -1,13 +1,8 @@
-<content
-    [class.desktop]="!isMobile"
-    [class.mobile]="isMobile"
-    [class.shadow]="hasShadow"
-    [style.backgroundColor]="viewConfig.paginationBackgroundColor"
->
-    <section>
+<content [class.desktop-view]="!isMobile" [class.mobile-view]="isMobile" [class.has-shadow]="hasShadow">
+    <div class="counts">
         <div class="title">صفحه {{ pagination.page.current | number }} از {{ pagination.page.total | number }}</div>
         <div class="total">{{ pagination.item.total | number }} {{ type }}</div>
-    </section>
+    </div>
 
     <button
         mat-icon-button
@@ -27,13 +22,13 @@
     </button>
 
     <button mat-icon-button [matMenuTriggerFor]="pageMenu"><mat-icon>tag</mat-icon></button>
-    <mat-menu #pageMenu="matMenu">
+    <mat-menu #pageMenu="matMenu" class="ngx-table-m3-pagination">
         @for (page of pages; track $index) {
         <button
             mat-menu-item
             type="button"
             [disabled]="page === pagination.page.current"
-            class="pagination-menu-item"
+            class="ngx-table-m3-pagination-item"
             (click)="pageChanged.next(page)"
         >
             {{ page | number }}
