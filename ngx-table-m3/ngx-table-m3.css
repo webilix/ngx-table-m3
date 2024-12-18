@@ -34,34 +34,101 @@
     text-decoration: line-through;
 }
 
-/* DATA VALUES */
-.ngx-table-m3-value {
-    .container {
-        display: block;
+/* FILTER VIEWS */
+.ngx-table-m3-filter {
+    display: block;
+    position: relative;
 
-        .value {
-            display: inline-flex;
-            align-items: center;
+    input {
+        padding: 0.75rem 0.5rem;
+        border-radius: 8px;
+        border-width: 0;
+        border-bottom: 1px solid var(--outline-variant);
+        outline: none;
+        width: 100%;
 
-            mat-icon {
-                font-size: 100%;
-                padding: 0 0.5rem;
+        box-sizing: border-box;
+        color: var(--on-surface);
+        background-color: var(--surface-container-highest);
+    }
+
+    input::placeholder {
+        font-family: Yekan;
+        text-align: right;
+        direction: rtl;
+    }
+
+    .filter-search {
+        margin: 1rem 1rem 0 1rem;
+    }
+
+    .filter-items {
+        padding: 0.5rem;
+
+        mat-checkbox {
+            display: block;
+
+            .title {
+                cursor: pointer;
             }
         }
 
-        .sub-value {
-            font-size: 85%;
-            font-weight: normal;
-            opacity: 0.5;
+        mat-radio-group {
+            display: flex;
+            flex-direction: column;
+
+            mat-radio-button {
+                .title {
+                    cursor: pointer;
+                }
+            }
         }
     }
 
-    .card-title {
-        font-weight: 500;
+    .filter-item-search {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+
+        input {
+            border-radius: 0;
+        }
     }
 
-    .card-sub-title {
-        font-size: 85%;
+    .filter-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+        column-gap: 0.5rem;
+
+        button.confirm {
+            flex: 1;
+        }
+    }
+}
+
+/* ROW ACTIONS */
+.ngx-table-m3-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    button {
+        font-size: 90%;
+        color: var(--primary);
+    }
+
+    button.desktop-view {
+        border-radius: 0;
+        z-index: 0;
+    }
+
+    mat-icon {
+        color: var(--primary);
+    }
+
+    mat-icon.disabled {
+        color: unset;
     }
 }
 
@@ -71,7 +138,7 @@
     margin-top: 1rem;
     z-index: 1;
 
-    content {
+    .pagination-content {
         display: flex;
         align-items: center;
 
@@ -99,7 +166,7 @@
         }
     }
 
-    .desktop-view {
+    .pagination-content.desktop-view {
         column-gap: 0.5rem;
         width: fit-content;
 
@@ -108,117 +175,46 @@
         }
     }
 
-    .mobile-view {
+    .pagination-content.mobile-view {
         .counts {
             flex: 1;
         }
     }
 
-    .has-shadow {
+    .pagination-content.has-shadow {
         border: 1px solid var(--outline-variant);
         box-shadow: 0 0 10px 0 var(--outline-variant);
     }
 }
 
-/* ROW ACTIONS */
-.ngx-table-m3-action {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+/* DATA VALUES */
+.ngx-table-m3-value {
+    .value-container {
+        display: block;
 
-    button {
-        font-size: 90%;
-        color: var(--primary);
-    }
+        .value {
+            display: inline-flex;
+            align-items: center;
 
-    button.desktop-view {
-        border-radius: 0;
-        z-index: 0;
-    }
-
-    mat-icon {
-        color: var(--primary);
-    }
-
-    mat-icon.disabled {
-        color: unset;
-    }
-
-    .ngx-table-action-menu-item {
-        background-color: red !important;
-    }
-}
-
-/* FILTER VIEWS */
-.ngx-table-m3-filter {
-    display: block;
-    position: relative;
-
-    input {
-        padding: 0.75rem 0.5rem;
-        border-radius: 8px;
-        border-width: 0;
-        border-bottom: 1px solid var(--outline-variant);
-        outline: none;
-        width: 100%;
-
-        box-sizing: border-box;
-        color: var(--on-surface);
-        background-color: var(--surface-container-highest);
-    }
-
-    input::placeholder {
-        font-family: Yekan;
-        text-align: right;
-        direction: rtl;
-    }
-
-    .search {
-        margin: 1rem 1rem 0 1rem;
-    }
-
-    .items {
-        padding: 0.5rem;
-
-        mat-checkbox {
-            display: block;
-
-            .title {
-                cursor: pointer;
+            mat-icon {
+                font-size: 100%;
+                padding: 0 0.5rem;
             }
         }
 
-        mat-radio-group {
-            display: flex;
-            flex-direction: column;
-
-            mat-radio-button {
-                .title {
-                    cursor: pointer;
-                }
-            }
+        .sub-value {
+            font-size: 85%;
+            font-weight: normal;
+            opacity: 0.5;
         }
     }
 
-    .filter-items {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-
-        input {
-            border-radius: 0;
-        }
+    .value-container.card-title {
+        font-weight: 500;
     }
 
-    footer {
-        display: flex;
-        justify-content: flex-end;
-        padding: 1rem;
-        column-gap: 0.5rem;
-
-        button.confirm {
-            flex: 1;
-        }
+    .value-container.card-sub-title {
+        font-size: 85%;
     }
 }
 
@@ -348,7 +344,7 @@
 
 /* CARD VIEW */
 .ngx-table-m3 .ngx-table-m3-card-view {
-    .data {
+    .card-container {
         display: flex;
         flex-direction: column;
         row-gap: 1rem;
@@ -356,7 +352,7 @@
         .card {
             border-bottom: 1px solid var(--outline-variant);
 
-            header {
+            .card-header {
                 display: flex;
                 align-items: flex-start;
                 column-gap: 0.75rem;
@@ -377,7 +373,7 @@
                 }
             }
 
-            content {
+            .card-content {
                 display: block;
                 padding: 1rem 0 0.5rem 0;
                 border: 1px solid var(--outline-variant);
@@ -417,7 +413,7 @@
 }
 
 .ngx-table-m3 .ngx-table-m3-card-view-toolbar {
-    .toolbar {
+    .toolbar-container {
         z-index: 2;
         height: calc(var(--ngx-table-m3-toolbar-height) + 2px);
         background-color: var(--background);
@@ -462,7 +458,7 @@
         }
     }
 
-    .seperator {
+    .toolbar-seperator {
         z-index: 2;
         height: 1rem;
         background-color: var(--background);

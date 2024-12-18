@@ -52,10 +52,10 @@ export class ViewCardToolbarComponent implements OnChanges {
     swipe(
         event: MouseEvent | TouchEvent,
         action: 'START' | 'MOVE' | 'END',
-        toolbar: HTMLElement,
         container: HTMLElement,
+        items: HTMLElement,
     ): void {
-        if (toolbar.offsetWidth > container.offsetWidth) return;
+        if (container.offsetWidth > items.offsetWidth) return;
         const clientX: number = event instanceof MouseEvent ? event.clientX : event.changedTouches[0].clientX;
 
         switch (action) {
@@ -72,11 +72,10 @@ export class ViewCardToolbarComponent implements OnChanges {
                 let left: number = clientX - this.swipeStart;
 
                 if (left <= 0) left = 0;
-                else if (left > container.offsetWidth - toolbar.offsetWidth)
-                    left = container.offsetWidth - toolbar.offsetWidth;
+                else if (left > items.offsetWidth - container.offsetWidth) left = items.offsetWidth - container.offsetWidth;
 
                 this.swipeLeft = left;
-                container.style.left = `${left}px`;
+                items.style.left = `${left}px`;
                 break;
         }
     }

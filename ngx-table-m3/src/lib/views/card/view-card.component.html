@@ -11,10 +11,10 @@
 }
 
 <!-- DATA -->
-<div class="data">
+<div class="card-container">
     @for (item of data; track $index; let dataIndex = $index) {
     <div class="card">
-        <header [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'" [style.top]="top">
+        <div class="card-header" [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'" [style.top]="top">
             <!-- ICON -->
             @if (hasIcon) {
             <mat-icon class="icon" [style.color]="icons[$index].color" [style.font-size]="viewConfig.iconSize">
@@ -53,11 +53,11 @@
                 [isMobile]="true"
             ></view-action>
             }
-        </header>
+        </div>
 
         <!-- CONTENT -->
         @if (hasContent) {
-        <content [style.color]="colors[dataIndex]">
+        <div class="card-content" [style.color]="colors[dataIndex]">
             @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
             <!-- CHECK TITLE AND SUBTITLE -->
             @if (columnIndex !== titleIndex && columnIndex !== subTitleIndex) {
@@ -73,7 +73,7 @@
             @if (descriptions[dataIndex]) {
             <div class="description" [innerHTML]="descriptions[dataIndex] || '' | ngxHelperMultiLine"></div>
             }
-        </content>
+        </div>
         }
     </div>
     }

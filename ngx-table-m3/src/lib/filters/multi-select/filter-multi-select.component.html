@@ -1,5 +1,5 @@
 @if (data.filter.options.length > 20) {
-<div class="filter-items">
+<div class="filter-item-search">
     <input
         type="text"
         [placeholder]="'جستجو'"
@@ -10,7 +10,7 @@
 </div>
 }
 
-<div class="items">
+<div class="filter-items">
     @for (item of data.filter.options; track $index) {
     <!-- CHECK VIEW -->
     @if ((value || []).includes(item.id) || !searchQuery || item.title.includes(searchQuery)) {

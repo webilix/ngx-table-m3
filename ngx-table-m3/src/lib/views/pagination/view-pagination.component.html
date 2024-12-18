@@ -1,4 +1,9 @@
-<content [class.desktop-view]="!isMobile" [class.mobile-view]="isMobile" [class.has-shadow]="hasShadow">
+<div
+    class="pagination-content"
+    [class.desktop-view]="!isMobile"
+    [class.mobile-view]="isMobile"
+    [class.has-shadow]="hasShadow"
+>
     <div class="counts">
         <div class="title">صفحه {{ pagination.page.current | number }} از {{ pagination.page.total | number }}</div>
         <div class="total">{{ pagination.item.total | number }} {{ type }}</div>
@@ -47,4 +52,4 @@
     <button mat-icon-button type="button" [disabled]="pagination.page.current === 1" (click)="pageChanged.next(1)">
         <mat-icon>keyboard_double_arrow_left</mat-icon>
     </button>
-</content>
+</div>

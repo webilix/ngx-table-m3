@@ -1,4 +1,4 @@
-<div class="search">
+<div class="filter-search">
     <input
         type="text"
         [ngModel]="query || ''"
@@ -10,7 +10,7 @@
 </div>
 
 @if (!data.filter.mode) {
-<div class="items">
+<div class="filter-items">
     <mat-radio-group (change)="updateMode($event.value)">
         <mat-radio-button [value]="'PHRASE'" [checked]="mode === 'PHRASE'">
             <div class="title">عبارت کامل</div>

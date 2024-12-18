@@ -1,16 +1,16 @@
 <div
-    class="toolbar"
+    class="toolbar-container"
     [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
     [style.top]="viewConfig.stickyView?.top?.mobileView || undefined"
-    (mousedown)="swipe($event, 'START', toolbar, toolbarContainer)"
-    (mousemove)="swipe($event, 'MOVE', toolbar, toolbarContainer)"
-    (mouseup)="swipe($event, 'END', toolbar, toolbarContainer)"
-    (touchstart)="swipe($event, 'START', toolbar, toolbarContainer)"
-    (touchmove)="swipe($event, 'MOVE', toolbar, toolbarContainer)"
-    (touchend)="swipe($event, 'END', toolbar, toolbarContainer)"
-    #toolbar
+    (mousedown)="swipe($event, 'START', toolbarContainer, toolbarItems)"
+    (mousemove)="swipe($event, 'MOVE', toolbarContainer, toolbarItems)"
+    (mouseup)="swipe($event, 'END', toolbarContainer, toolbarItems)"
+    (touchstart)="swipe($event, 'START', toolbarContainer, toolbarItems)"
+    (touchmove)="swipe($event, 'MOVE', toolbarContainer, toolbarItems)"
+    (touchend)="swipe($event, 'END', toolbarContainer, toolbarItems)"
+    #toolbarContainer
 >
-    <div class="toolbar-items" #toolbarContainer>
+    <div class="toolbar-items" #toolbarItems>
         <!-- ORDER -->
         @if (orderKeys.length > 0) {
         <div class="item" [matMenuTriggerFor]="orderMenu">
@@ -80,7 +80,7 @@
 </div>
 
 <div
-    class="seperator"
+    class="toolbar-seperator"
     [style.position]="viewConfig.stickyView?.top ? 'sticky' : 'static'"
     [style.top]="
         'calc(' + (viewConfig.stickyView?.top?.mobileView || undefined) + ' + var(--ngx-table-m3-toolbar-height) + 2px)'
