@@ -5,12 +5,17 @@
 }
 
 <!-- EMPTY -->
-@if (!loading && data.length === 0 && !hasFilter) {
+@if (!loading && ngxTable.columns.length <= 0 ) {
+<div class="ngx-table-m3-empty">ستون‌های جدول به صورت صحیح مشخص نشده است.</div>
+}
+
+<!-- EMPTY -->
+@if (!loading && ngxTable.columns.length > 0 && data.length === 0 && !hasFilter) {
 <div class="ngx-table-m3-empty">{{ ngxTable.type }} ثبت نشده است.</div>
 }
 
 <!-- DATA -->
-@if (!loading && (data.length > 0 || hasFilter)) {
+@if (!loading && ngxTable.columns.length > 0 && (data.length > 0 || hasFilter)) {
 <content class="ngx-table-m3">
     <!-- DESKTOP -->
     @if (!isMobile) {
