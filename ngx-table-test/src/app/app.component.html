@@ -1,6 +1,7 @@
 <header>
     <div class="header">
         <div class="library en">ngx-table-m3</div>
+        <button mat-button (click)="togglePage()">{{ page === 'INDEX' ? 'GROUP' : 'INDEX' }}</button>
         <div [style.flex]="1"></div>
         <div class="icon">
             <mat-icon>{{ colorMode === 'LIGHT' ? 'dark_mode' : 'light_mode' }}</mat-icon>

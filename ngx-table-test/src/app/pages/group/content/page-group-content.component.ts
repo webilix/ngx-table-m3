@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
+import { INgxHelperPageGroupItem, NGX_HELPER_PAGE_GROUP_ITEM } from '@webilix/ngx-helper-m3';
 import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } from '@webilix/ngx-table-m3';
 
-import { AppService } from '../../app.service';
+import { AppService } from '../../../app.service';
 
-import { DataService, IData } from '../data.service';
+import { DataService, IData } from '../../data.service';
 
 @Component({
-    host: { selector: 'page-index' },
+    host: { selector: 'page-group-content' },
     imports: [NgxTableComponent],
-    templateUrl: './page-index.component.html',
-    styleUrl: './page-index.component.scss',
+    templateUrl: './page-group-content.component.html',
+    styleUrl: './page-group-content.component.scss',
 })
-export class PageIndexComponent implements OnInit {
+export class PageGroupContentComponent implements OnInit {
+    public page: INgxHelperPageGroupItem = inject(NGX_HELPER_PAGE_GROUP_ITEM);
+
     public ngxTable!: INgxTable<IData>;
 
     public loading: boolean = true;
@@ -26,19 +29,18 @@ export class PageIndexComponent implements OnInit {
 
     ngOnInit(): void {
         this.ngxTable = this.dataService.getTable(
-            ['/'],
-            ['TYPE', 'NAME', 'MOBILE', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY', 'STATUS'],
+            ['/group'],
+            this.page.id === 'info'
+                ? ['TYPE', 'NAME', 'MOBILE', 'STATUS']
+                : this.page.id === 'birth'
+                ? ['NAME', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY']
+                : [],
         );
         this.list = this.dataService.getData();
-
-        this.appService.setPage('INDEX');
     }
 
     filterChanged(filter: INgxTableFilter): void {
-        console.clear();
-        console.log('ORDER', filter.order?.param);
-        Object.keys(filter.filter).forEach((id: string) => console.log(`FILTER ${id}: ${filter.filter[id].param}`));
-
+        console.log(filter);
         const update = (): void => {
             this.loading = false;
             this.filtered = this.dataService.filtereData(this.list, filter);
