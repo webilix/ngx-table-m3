@@ -106,6 +106,11 @@ export class ViewActionComponent<T> implements OnChanges {
         });
 
         while (this.inMenu[this.inMenu.length - 1] === 'DIVIDER') this.inMenu.splice(this.inMenu.length - 1, 1);
+
+        if (this.inMenu.length === 1 && this.inMenu[0] !== 'DIVIDER') {
+            this.inRow.push(this.inMenu[0]);
+            this.inMenu = [];
+        }
     }
 
     onClick(action: (data: T) => string[] | void): void {
