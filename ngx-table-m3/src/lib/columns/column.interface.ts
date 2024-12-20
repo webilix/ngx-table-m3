@@ -13,7 +13,7 @@ export interface IColumn<T> {
     readonly value: keyof T | ((data: T) => any);
     readonly subValue?: keyof T | ((data: T) => string | { value: string; english: true } | undefined);
     readonly english?: ((data: T) => boolean) | boolean;
-    readonly color?: string | ((data: T) => string);
+    readonly color?: string | ((data: T) => string | null | undefined);
     readonly textAlign?: 'RIGHT' | 'CENTER' | 'LEFT';
     readonly mode?: 'TITLE' | 'SUBTITLE';
 

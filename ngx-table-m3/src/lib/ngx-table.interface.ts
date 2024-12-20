@@ -26,9 +26,9 @@ export interface INgxTable<T> {
     readonly type: string;
     readonly columns: NgxTableColumn<T>[];
     readonly rows?: {
-        readonly icon?: (data: T) => string | { icon: string; color: string };
-        readonly color?: (data: T) => string;
-        readonly description?: (data: T) => string | undefined;
+        readonly icon?: (data: T) => string | { icon: string; color: string | null | undefined };
+        readonly color?: (data: T) => string | null | undefined;
+        readonly description?: (data: T) => string | null | undefined;
         readonly isDeactive?: (data: T) => boolean;
     };
     readonly actions?: NgxTableAction<T>[];
@@ -53,8 +53,6 @@ export interface INgxTableFilter {
 }
 
 export interface INgxTablePagination {
-    // readonly totalItems: number;
-    // readonly itemPerPage: number;
     readonly item: {
         readonly perPage: number;
         readonly total: number;

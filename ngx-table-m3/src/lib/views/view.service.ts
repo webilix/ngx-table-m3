@@ -32,7 +32,7 @@ export class ViewService {
 
         return data.map((item) => {
             const icon = iconFn(item);
-            return typeof icon === 'string' ? { icon } : icon;
+            return typeof icon === 'string' ? { icon } : { icon: icon.icon, color: icon.color || undefined };
         });
     }
 
@@ -40,14 +40,14 @@ export class ViewService {
         const colorFn = ngxTable.rows?.color;
         if (!colorFn) return [];
 
-        return data.map((item) => colorFn(item));
+        return data.map((item) => colorFn(item) || '');
     }
 
     getDescriptions<T>(ngxTable: INgxTable<T>, data: T[]): (string | undefined)[] {
         const descriptionFn = ngxTable.rows?.description;
         if (!descriptionFn) return [];
 
-        return data.map((item) => descriptionFn(item));
+        return data.map((item) => descriptionFn(item) || undefined);
     }
 
     getDeactives<T>(ngxTable: INgxTable<T>, data: T[]): number[] {

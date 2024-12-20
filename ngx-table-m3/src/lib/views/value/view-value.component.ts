@@ -51,7 +51,7 @@ export class ViewValueComponent<T> implements OnChanges {
         this.subValue = this.getSubValue();
         this.color = this.column.color
             ? typeof this.column.color === 'function'
-                ? this.column.color(this.item)
+                ? this.column.color(this.item) || undefined
                 : this.column.color
             : undefined;
         this.hasClick = !!this.column.onClick;

@@ -8,11 +8,11 @@ import { namesList } from './names';
 
 export type DataType = 'MANAGER' | 'ADMIN' | 'USER';
 export const DataInfo: {
-    [key in DataType]: { title: string; icon: string; order: number; textColor: string; iconColor: string };
+    [key in DataType]: { title: string; icon: string; order: number; textColor?: string; iconColor: string | null };
 } = {
     MANAGER: { title: 'مدیر اصلی', icon: 'badge', order: 1, textColor: 'var(--error)', iconColor: 'var(--error)' },
-    ADMIN: { title: 'مدیر', icon: 'account_box', order: 2, textColor: '', iconColor: 'var(--secondary)' },
-    USER: { title: 'عضو', icon: 'account_circle', order: 3, textColor: '', iconColor: '' },
+    ADMIN: { title: 'مدیر', icon: 'account_box', order: 2, iconColor: 'var(--secondary)' },
+    USER: { title: 'عضو', icon: 'account_circle', order: 3, iconColor: null },
 };
 
 export interface IData {
@@ -26,7 +26,7 @@ export interface IData {
         readonly state: { readonly id: string; readonly title: string };
         readonly city: { readonly id: string; readonly title: string };
     };
-    readonly description?: string;
+    readonly description?: string | null;
     readonly status: 'ACTIVE' | 'DEACTIVE';
 }
 
@@ -223,8 +223,12 @@ export class DataService {
                 const ageYear: number | undefined = birthDay
                     ? Math.floor((new Date().getTime() - birthDay.getTime()) / (365 * 24 * 3600 * 1000))
                     : undefined;
-                const description: string | undefined =
-                    Math.random() > 0.9 ? `این توضیحات در ارتباط با کاریر "${name}" در سیستم ثبت شده است.` : undefined;
+                const description: string | null | undefined =
+                    Math.random() > 0.9
+                        ? `این توضیحات در ارتباط با کاریر "${name}" در سیستم ثبت شده است.`
+                        : Math.random() > 0.5
+                        ? null
+                        : undefined;
 
                 return {
                     type: dataTypes[Math.floor(Math.random() * dataTypes.length)],
