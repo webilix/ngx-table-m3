@@ -1,0 +1,7 @@
+<div
+    [style.display]="'inline-block'"
+    [class.ngx-table-m3-en]="config.isEN"
+    [class.ngx-table-m3-deactive]="config.isDeactive"
+>
+    {{ value | ngxHelperFileSize : { english: config.isEN } }}
+</div>

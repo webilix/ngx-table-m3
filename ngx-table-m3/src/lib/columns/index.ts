@@ -4,6 +4,9 @@ export * from './date/column-date.interface';
 export * from './duration/column-duration.component';
 export * from './duration/column-duration.interface';
 
+export * from './file-size/column-file-size.component';
+export * from './file-size/column-file-size.interface';
+
 export * from './mobile/column-mobile.component';
 export * from './mobile/column-mobile.interface';
 

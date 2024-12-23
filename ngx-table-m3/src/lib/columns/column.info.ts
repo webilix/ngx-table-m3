@@ -7,6 +7,8 @@ import {
     ColumnDateMethods,
     ColumnDurationComponent,
     ColumnDurationMethods,
+    ColumnFileSizeComponent,
+    ColumnFileSizeMethods,
     ColumnMethods,
     ColumnMobileComponent,
     ColumnMobileMethods,
@@ -24,6 +26,7 @@ export const ColumnInfo: {
 } = {
     DATE: { methods: new ColumnDateMethods(), component: ColumnDateComponent },
     DURATION: { methods: new ColumnDurationMethods(), component: ColumnDurationComponent },
+    'FILE-SIZE': { methods: new ColumnFileSizeMethods(), component: ColumnFileSizeComponent },
     MOBILE: { methods: new ColumnMobileMethods(), component: ColumnMobileComponent },
     NUMBER: { methods: new ColumnNumberMethods(), component: ColumnNumberComponent },
     TEXT: { methods: new ColumnTextMethods(), component: ColumnTextComponent },

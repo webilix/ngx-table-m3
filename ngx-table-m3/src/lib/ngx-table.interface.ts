@@ -6,12 +6,19 @@ import {
     IActionUpdate,
     IColumnDate,
     IColumnDuration,
+    IColumnFileSize,
     IColumnMobile,
     IColumnNumber,
     IColumnText,
 } from './columns';
 
-export type NgxTableColumn<T> = IColumnDate<T> | IColumnDuration<T> | IColumnMobile<T> | IColumnNumber<T> | IColumnText<T>;
+export type NgxTableColumn<T> =
+    | IColumnDate<T>
+    | IColumnDuration<T>
+    | IColumnFileSize<T>
+    | IColumnMobile<T>
+    | IColumnNumber<T>
+    | IColumnText<T>;
 
 export type NgxTableAction<T> =
     | 'DIVIDER'

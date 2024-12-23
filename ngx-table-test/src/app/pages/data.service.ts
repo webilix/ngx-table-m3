@@ -26,6 +26,7 @@ export interface IData {
         readonly state: { readonly id: string; readonly title: string };
         readonly city: { readonly id: string; readonly title: string };
     };
+    readonly fileSize?: number;
     readonly description?: string | null;
     readonly status: 'ACTIVE' | 'DEACTIVE';
 }
@@ -34,7 +35,18 @@ export interface IData {
 export class DataService {
     getTable(
         route: string[],
-        columns: ('TYPE' | 'NAME' | 'MOBILE' | 'BIRTH-DAY' | 'AGE-YEAR' | 'AGE-DAY' | 'STATE' | 'CITY' | 'STATUS')[],
+        columns: (
+            | 'TYPE'
+            | 'NAME'
+            | 'MOBILE'
+            | 'BIRTH-DAY'
+            | 'AGE-YEAR'
+            | 'AGE-DAY'
+            | 'STATE'
+            | 'CITY'
+            | 'FILE-SIZE'
+            | 'STATUS'
+        )[],
     ): INgxTable<IData> {
         const table: INgxTable<IData> = {
             route,
@@ -174,6 +186,10 @@ export class DataService {
             table.columns.push({ type: 'TEXT', title: 'شهر', value: (data) => data.birthPlace?.city.title });
         }
 
+        if (columns.includes('FILE-SIZE')) {
+            table.columns.push({ type: 'FILE-SIZE', value: 'fileSize', english: true });
+        }
+
         if (columns.includes('STATUS')) {
             table.columns.push({
                 type: 'TEXT',
@@ -238,6 +254,7 @@ export class DataService {
                     ageYear,
                     ageDay: { from: birthDay },
                     birthPlace: Math.random() > 0.1 ? getCity() : undefined,
+                    fileSize: Math.random() > 0.5 ? Math.ceil(Math.random() * 1024 * 1024) : undefined,
                     description,
                     status: statusList[Math.floor(Math.random() * statusList.length)],
                 };

@@ -49,7 +49,11 @@
             <!-- COLUMNS -->
             @for (column of ngxTable.columns; track $index) {
             <th [style.text-align]="(column.textAlign || 'RIGHT').toLowerCase()">
-                <div class="column">
+                <div
+                    class="column"
+                    [class.flex-end]="column.textAlign === 'LEFT'"
+                    [class.flex-center]="column.textAlign === 'CENTER'"
+                >
                     <div class="title">{{ column.title }}</div>
 
                     <!-- ORDER -->

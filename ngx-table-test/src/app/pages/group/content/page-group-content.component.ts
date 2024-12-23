@@ -31,7 +31,7 @@ export class PageGroupContentComponent implements OnInit {
         this.ngxTable = this.dataService.getTable(
             ['/group'],
             this.page.id === 'info'
-                ? ['TYPE', 'NAME', 'MOBILE', 'STATUS']
+                ? ['TYPE', 'NAME', 'MOBILE', 'FILE-SIZE', 'STATUS']
                 : this.page.id === 'birth'
                 ? ['NAME', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY']
                 : [],

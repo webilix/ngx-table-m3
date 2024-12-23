@@ -231,11 +231,20 @@
                 .column {
                     display: flex;
                     align-items: center;
+                    justify-content: flex-start;
                     column-gap: 0.5rem;
 
                     mat-icon {
                         font-size: 100%;
                     }
+                }
+
+                .column.flex-center {
+                    justify-content: center;
+                }
+
+                .column.flex-end {
+                    justify-content: flex-end;
                 }
             }
 

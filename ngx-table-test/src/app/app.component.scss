@@ -24,6 +24,10 @@ header {
             font-size: 20px;
         }
 
+        button {
+            color: var(--on-primary);
+        }
+
         .icon {
             text-align: center;
 
@@ -80,6 +84,10 @@ body.dark {
         header {
             color: var(--on-primary-container);
             background-color: var(--primary-container);
+
+            button {
+                color: var(--on-primary-container);
+            }
 
             mat-icon {
                 color: var(--on-primary-container);
