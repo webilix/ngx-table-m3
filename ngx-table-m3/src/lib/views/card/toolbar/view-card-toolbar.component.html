@@ -17,7 +17,7 @@
             <mat-icon>swap_vert</mat-icon>
             <span>ترتیب نمایش</span>
         </div>
-        <mat-menu #orderMenu="matMenu" [xPosition]="'before'" class="ngx-table-order-menu">
+        <mat-menu #orderMenu="matMenu" [xPosition]="'after'" class="ngx-table-order-menu">
             @for (item of orderKeys; track $index) {
             <!-- DIVIDER -->
             @if ($index !== 0) {<mat-divider></mat-divider>}
