@@ -329,9 +329,9 @@ export class DataService {
                         const equal: number = +filter.filter['age'].value.query;
                         if (data.ageYear !== equal) return false;
                         break;
-                    case 'LOWER':
-                        const lower: number = +filter.filter['age'].value.query;
-                        if (data.ageYear >= lower) return false;
+                    case 'LESS':
+                        const less: number = +filter.filter['age'].value.query;
+                        if (data.ageYear >= less) return false;
                         break;
                     case 'GREATER':
                         const greater: number = +filter.filter['age'].value.query;

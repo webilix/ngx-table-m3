@@ -30,7 +30,7 @@ export class FilterNumberComponent implements AfterViewInit {
 
     public modes: { type: Mode; title: string }[] = [
         { type: 'EQUAL', title: 'برابر با' },
-        { type: 'LOWER', title: 'کمتر از' },
+        { type: 'LESS', title: 'کمتر از' },
         { type: 'GREATER', title: 'بیشتر از' },
         { type: 'BETWEEN', title: 'در محدوده' },
     ];
@@ -41,7 +41,7 @@ export class FilterNumberComponent implements AfterViewInit {
     public fromQuery?: string = this.mode === 'BETWEEN' && this.query ? this.query.split(':')[0] : undefined;
     public toQuery?: string = this.mode === 'BETWEEN' && this.query ? this.query.split(':')[1] : undefined;
     public numberQuery?: string =
-        this.mode === 'EQUAL' || this.mode === 'LOWER' || this.mode === 'GREATER' ? this.query : undefined;
+        this.mode === 'EQUAL' || this.mode === 'LESS' || this.mode === 'GREATER' ? this.query : undefined;
 
     public inputTransformFn = (value: any): string => Helper.STRING.changeNumbers(value.toString(), 'EN');
 

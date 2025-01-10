@@ -2,8 +2,8 @@ import { Helper } from '@webilix/helper-library';
 
 import { FilterMethods } from '../filter.interface';
 
-type Mode = 'EQUAL' | 'GREATER' | 'LOWER' | 'BETWEEN';
-const modeList: Mode[] = ['EQUAL', 'GREATER', 'LOWER', 'BETWEEN'];
+type Mode = 'EQUAL' | 'GREATER' | 'LESS' | 'BETWEEN';
+const modeList: Mode[] = ['EQUAL', 'GREATER', 'LESS', 'BETWEEN'];
 
 export interface IFilterNumberValue {
     readonly query: string;
@@ -42,7 +42,7 @@ export class FilterNumberMethods<T> extends FilterMethods<IFilterNumber, IFilter
         switch (mode) {
             case 'EQUAL':
             case 'GREATER':
-            case 'LOWER':
+            case 'LESS':
                 if (!isNumeric(query) || isNaN(+query)) return undefined;
                 break;
 
@@ -66,7 +66,7 @@ export class FilterNumberMethods<T> extends FilterMethods<IFilterNumber, IFilter
             case 'EQUAL':
                 title = value.query;
                 break;
-            case 'LOWER':
+            case 'LESS':
                 title = `کمتر از ${value.query}`;
                 break;
             case 'GREATER':
