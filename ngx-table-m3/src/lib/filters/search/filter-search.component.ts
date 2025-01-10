@@ -28,7 +28,7 @@ export class FilterSearchComponent implements AfterViewInit {
     public onChange: (value?: IFilterSearchValue) => void = inject(FILTER_CHANGE);
 
     public query?: string = this.value?.query;
-    public mode?: Mode = this.data.filter.mode || this.value?.mode || 'PHRASE';
+    public mode: Mode = this.data.filter.mode || this.value?.mode || 'PHRASE';
 
     ngAfterViewInit(): void {
         if (!this.searchInput) return;

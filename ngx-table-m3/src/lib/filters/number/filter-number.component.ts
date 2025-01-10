@@ -35,7 +35,7 @@ export class FilterNumberComponent implements AfterViewInit {
         { type: 'BETWEEN', title: 'در محدوده' },
     ];
 
-    public mode?: Mode = this.value?.mode;
+    public mode?: Mode = this.data.filter.mode || this.value?.mode;
     public query?: string = this.value?.query;
 
     public fromQuery?: string = this.mode === 'BETWEEN' && this.query ? this.query.split(':')[0] : undefined;

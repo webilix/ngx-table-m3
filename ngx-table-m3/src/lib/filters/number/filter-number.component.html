@@ -1,4 +1,5 @@
 <div class="filter-number">
+    @if (!this.data.filter.mode) {
     <div class="modes">
         @for (item of modes; track $index) {
         <div class="mode" [class.selected]="item.type === mode" (click)="setMode(item.type)">
@@ -6,6 +7,7 @@
         </div>
         }
     </div>
+    }
 
     <!-- INPUTS -->
     <div class="inputs" [style.display]="mode ? 'flex' : 'none'">
