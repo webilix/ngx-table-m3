@@ -158,7 +158,13 @@ export class DataService {
         }
 
         if (columns.includes('AGE-YEAR')) {
-            table.columns.push({ type: 'NUMBER', title: 'سن (سال)', value: 'ageYear', fractionDigits: 5 });
+            table.columns.push({
+                type: 'NUMBER',
+                title: 'سن (سال)',
+                value: 'ageYear',
+                fractionDigits: 5,
+                tools: { id: 'age', filter: { type: 'NUMBER' } },
+            });
         }
 
         if (columns.includes('AGE-DAY')) {
@@ -312,6 +318,30 @@ export class DataService {
                 const birthDay: number = data.birthDay.getTime();
                 const { from, to } = jalali.periodDay(1, filter.filter['birthDay'].value);
                 if (birthDay < from.getTime() || birthDay > to.getTime()) return false;
+            }
+
+            // AGE
+            if (filter.filter['age']) {
+                if (!data.ageYear) return false;
+
+                switch (filter.filter['age'].value.mode) {
+                    case 'EQUAL':
+                        const equal: number = +filter.filter['age'].value.query;
+                        if (data.ageYear !== equal) return false;
+                        break;
+                    case 'LOWER':
+                        const lower: number = +filter.filter['age'].value.query;
+                        if (data.ageYear >= lower) return false;
+                        break;
+                    case 'GREATER':
+                        const greater: number = +filter.filter['age'].value.query;
+                        if (data.ageYear <= greater) return false;
+                        break;
+                    case 'BETWEEN':
+                        const [from, to] = filter.filter['age'].value.query.split(':').map((q: string) => +q);
+                        if (data.ageYear < from || data.ageYear > to) return false;
+                        break;
+                }
             }
 
             // STATE

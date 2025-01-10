@@ -1,0 +1,63 @@
+<div class="filter-number">
+    <div class="modes">
+        @for (item of modes; track $index) {
+        <div class="mode" [class.selected]="item.type === mode" (click)="setMode(item.type)">
+            {{ item.title }}
+        </div>
+        }
+    </div>
+
+    <!-- INPUTS -->
+    <div class="inputs" [style.display]="mode ? 'flex' : 'none'">
+        <!-- BETWEEN -->
+        <input
+            type="text"
+            [inputMode]="'numeric'"
+            [ngModel]="fromQuery"
+            [placeholder]="'حداقل'"
+            class="ngx-table-m3-en"
+            [mask]="'separator.0'"
+            thousandSeparator=","
+            decimalMarker="."
+            [allowNegativeNumbers]="true"
+            [maxLength]="15"
+            [inputTransformFn]="inputTransformFn"
+            [style.display]="mode === 'BETWEEN' ? 'initial' : 'none'"
+            (input)="setQuery(fromInput.value, toInput.value)"
+            #fromInput
+        />
+        <input
+            type="text"
+            [inputMode]="'numeric'"
+            [ngModel]="toQuery"
+            [placeholder]="'حداکتر'"
+            class="ngx-table-m3-en"
+            [mask]="'separator.0'"
+            thousandSeparator=","
+            decimalMarker="."
+            [allowNegativeNumbers]="true"
+            [maxLength]="15"
+            [inputTransformFn]="inputTransformFn"
+            [style.display]="mode === 'BETWEEN' ? 'initial' : 'none'"
+            (input)="setQuery(fromInput.value, toInput.value)"
+            #toInput
+        />
+        <!-- OTHERS -->
+        <input
+            type="text"
+            [inputMode]="'numeric'"
+            [ngModel]="numberQuery"
+            [placeholder]="'مقدار'"
+            class="ngx-table-m3-en"
+            [mask]="'separator.0'"
+            thousandSeparator=","
+            decimalMarker="."
+            [allowNegativeNumbers]="true"
+            [maxLength]="15"
+            [inputTransformFn]="inputTransformFn"
+            [style.display]="mode !== 'BETWEEN' ? 'initial' : 'none'"
+            (input)="setQuery(numberInput.value, '')"
+            #numberInput
+        />
+    </div>
+</div>

@@ -58,6 +58,42 @@
         direction: rtl;
     }
 
+    .filter-number {
+        padding-top: 1rem;
+
+        .modes {
+            display: flex;
+            align-items: center;
+            column-gap: 1rem;
+            padding: 0 1rem 1rem 1rem;
+
+            .mode {
+                flex-grow: 1;
+
+                cursor: pointer;
+                font-size: 90%;
+                padding: 0.5rem 0;
+                text-align: center;
+                border-radius: 8px;
+                border: 1px solid var(--outline-variant);
+            }
+
+            .mode.selected {
+                color: var(--secondary);
+                border-color: var(--secondary);
+            }
+        }
+
+        .inputs {
+            display: flex;
+            align-items: center;
+            column-gap: 1rem;
+
+            padding: 0 1rem 1rem 1rem;
+            box-sizing: border-box;
+        }
+    }
+
     .filter-search {
         margin: 1rem 1rem 0 1rem;
     }

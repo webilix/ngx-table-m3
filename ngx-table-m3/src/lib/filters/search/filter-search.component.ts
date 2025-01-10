@@ -11,6 +11,8 @@ import { FILTER_CHANGE, FILTER_DATA, FILTER_VALUE } from '../filter.interface';
 
 import { IFilterSearch, IFilterSearchValue } from './filter-search.interface';
 
+type Mode = IFilterSearchValue['mode'];
+
 @Component({
     host: { selector: 'filter-search' },
     imports: [FormsModule, MatRadioButton, MatRadioGroup],
@@ -26,7 +28,7 @@ export class FilterSearchComponent implements AfterViewInit {
     public onChange: (value?: IFilterSearchValue) => void = inject(FILTER_CHANGE);
 
     public query?: string = this.value?.query;
-    public mode?: 'PHRASE' | 'ALL' | 'EACH' = this.data.filter.mode || this.value?.mode || 'PHRASE';
+    public mode?: Mode = this.data.filter.mode || this.value?.mode || 'PHRASE';
 
     ngAfterViewInit(): void {
         if (!this.searchInput) return;
@@ -42,7 +44,7 @@ export class FilterSearchComponent implements AfterViewInit {
         this.onChange(this.query ? { query: this.query, mode: this.mode || 'PHRASE' } : undefined);
     }
 
-    updateMode(mode: 'PHRASE' | 'ALL' | 'EACH'): void {
+    updateMode(mode: Mode): void {
         this.mode = mode;
 
         this.onChange(this.query ? { query: this.query, mode: this.mode || 'PHRASE' } : undefined);

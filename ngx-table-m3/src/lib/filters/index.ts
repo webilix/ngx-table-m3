@@ -4,6 +4,9 @@ export * from './date/filter-date.interface';
 export * from './multi-select/filter-multi-select.component';
 export * from './multi-select/filter-multi-select.interface';
 
+export * from './number/filter-number.component';
+export * from './number/filter-number.interface';
+
 export * from './search/filter-search.component';
 export * from './search/filter-search.interface';
 

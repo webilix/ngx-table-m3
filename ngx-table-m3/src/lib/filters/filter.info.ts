@@ -7,6 +7,8 @@ import {
     FilterMethods,
     FilterMultiSelectComponent,
     FilterMultiSelectMethods,
+    FilterNumberComponent,
+    FilterNumberMethods,
     FilterSearchComponent,
     FilterSearchMethods,
     FilterSelectComponent,
@@ -21,6 +23,7 @@ export const FilterInfo: {
 } = {
     DATE: { methods: new FilterDateMethods(), component: FilterDateComponent },
     'MULTI-SELECT': { methods: new FilterMultiSelectMethods(), component: FilterMultiSelectComponent },
+    NUMBER: { methods: new FilterNumberMethods(), component: FilterNumberComponent },
     SEARCH: { methods: new FilterSearchMethods(), component: FilterSearchComponent },
     SELECT: { methods: new FilterSelectMethods(), component: FilterSelectComponent },
 };

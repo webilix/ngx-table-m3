@@ -2,14 +2,17 @@ import { Helper } from '@webilix/helper-library';
 
 import { FilterMethods } from '../filter.interface';
 
+type Mode = 'PHRASE' | 'ALL' | 'EACH';
+const modeList: Mode[] = ['PHRASE', 'ALL', 'EACH'];
+
 export interface IFilterSearchValue {
     readonly query: string;
-    readonly mode: 'PHRASE' | 'ALL' | 'EACH';
+    readonly mode: Mode;
 }
 
 export interface IFilterSearch {
     readonly type: 'SEARCH';
-    readonly mode?: 'PHRASE' | 'ALL' | 'EACH';
+    readonly mode?: Mode;
     readonly english?: boolean;
 
     readonly toParam?: (value: IFilterSearchValue) => string;
@@ -29,8 +32,8 @@ export class FilterSearchMethods<T> extends FilterMethods<IFilterSearch, IFilter
         const query: string = value.substring(0, index);
         if (!query || !Helper.IS.string(query)) return undefined;
 
-        const mode: 'PHRASE' | 'ALL' | 'EACH' = value.substring(index + 1) as 'PHRASE' | 'ALL' | 'EACH';
-        if (!['PHRASE', 'EACH', 'ALL'].includes(mode)) return undefined;
+        const mode: Mode = value.substring(index + 1) as Mode;
+        if (!modeList.includes(mode)) return undefined;
         if (filter.mode && filter.mode !== mode) return undefined;
 
         return { query, mode };

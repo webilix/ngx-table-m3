@@ -2,9 +2,9 @@ import { InjectionToken } from '@angular/core';
 
 import { IViewConfig } from '../views';
 
-import { IFilterDate, IFilterMultiSelect, IFilterSearch, IFilterSelect } from '.';
+import { IFilterDate, IFilterMultiSelect, IFilterNumber, IFilterSearch, IFilterSelect } from '.';
 
-export type Filter = IFilterDate | IFilterMultiSelect | IFilterSearch | IFilterSelect;
+export type Filter = IFilterDate | IFilterMultiSelect | IFilterNumber | IFilterSearch | IFilterSelect;
 
 export interface IFilter {
     readonly filter: Filter;
