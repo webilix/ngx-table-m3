@@ -27,7 +27,7 @@ export class PageIndexComponent implements OnInit {
     ngOnInit(): void {
         this.ngxTable = this.dataService.getTable(
             ['/'],
-            ['TYPE', 'NAME', 'MOBILE', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY', 'FILE-SIZE', 'STATUS'],
+            ['TYPE', 'NAME', 'MOBILE', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'PERIOD', 'STATE', 'CITY', 'FILE-SIZE', 'STATUS'],
         );
         this.list = this.dataService.getData();
 

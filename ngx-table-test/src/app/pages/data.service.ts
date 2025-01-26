@@ -22,6 +22,7 @@ export interface IData {
     readonly birthDay?: Date;
     readonly ageYear?: number;
     readonly ageDay?: any;
+    readonly educationPeriod?: { from: Date; to: Date };
     readonly birthPlace?: {
         readonly state: { readonly id: string; readonly title: string };
         readonly city: { readonly id: string; readonly title: string };
@@ -42,6 +43,7 @@ export class DataService {
             | 'BIRTH-DAY'
             | 'AGE-YEAR'
             | 'AGE-DAY'
+            | 'PERIOD'
             | 'STATE'
             | 'CITY'
             | 'FILE-SIZE'
@@ -171,6 +173,10 @@ export class DataService {
             table.columns.push({ type: 'DURATION', title: 'سن (روز)', value: 'ageDay', format: 'DAY' });
         }
 
+        if (columns.includes('PERIOD')) {
+            table.columns.push({ type: 'PERIOD', title: 'دوره زمانی', value: 'educationPeriod' });
+        }
+
         if (columns.includes('STATE')) {
             table.columns.push({
                 type: 'TEXT',
@@ -259,6 +265,13 @@ export class DataService {
                     birthDay,
                     ageYear,
                     ageDay: { from: birthDay },
+                    educationPeriod:
+                        Math.random() > 0.5
+                            ? {
+                                  from: new Date(),
+                                  to: new Date(new Date().getTime() - Math.floor(Math.random() * 2000) * 24 * 3600 * 1000),
+                              }
+                            : undefined,
                     birthPlace: Math.random() > 0.1 ? getCity() : undefined,
                     fileSize: Math.random() > 0.5 ? Math.ceil(Math.random() * 1024 * 1024) : undefined,
                     description,

@@ -13,6 +13,9 @@ export * from './mobile/column-mobile.interface';
 export * from './number/column-number.component';
 export * from './number/column-number.interface';
 
+export * from './period/column-period.component';
+export * from './period/column-period.interface';
+
 export * from './text/column-text.component';
 export * from './text/column-text.interface';
 

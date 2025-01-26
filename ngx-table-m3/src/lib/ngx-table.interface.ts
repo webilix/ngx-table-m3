@@ -9,6 +9,7 @@ import {
     IColumnFileSize,
     IColumnMobile,
     IColumnNumber,
+    IColumnPeriod,
     IColumnText,
 } from './columns';
 
@@ -18,6 +19,7 @@ export type NgxTableColumn<T> =
     | IColumnFileSize<T>
     | IColumnMobile<T>
     | IColumnNumber<T>
+    | IColumnPeriod<T>
     | IColumnText<T>;
 
 export type NgxTableAction<T> =

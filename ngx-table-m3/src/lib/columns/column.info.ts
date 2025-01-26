@@ -14,6 +14,8 @@ import {
     ColumnMobileMethods,
     ColumnNumberComponent,
     ColumnNumberMethods,
+    ColumnPeriodComponent,
+    ColumnPeriodMethods,
     ColumnTextComponent,
     ColumnTextMethods,
 } from '.';
@@ -29,5 +31,6 @@ export const ColumnInfo: {
     'FILE-SIZE': { methods: new ColumnFileSizeMethods(), component: ColumnFileSizeComponent },
     MOBILE: { methods: new ColumnMobileMethods(), component: ColumnMobileComponent },
     NUMBER: { methods: new ColumnNumberMethods(), component: ColumnNumberComponent },
+    PERIOD: { methods: new ColumnPeriodMethods(), component: ColumnPeriodComponent },
     TEXT: { methods: new ColumnTextMethods(), component: ColumnTextComponent },
 };
