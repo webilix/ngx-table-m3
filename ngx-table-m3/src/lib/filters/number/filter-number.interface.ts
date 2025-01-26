@@ -64,17 +64,17 @@ export class FilterNumberMethods<T> extends FilterMethods<IFilterNumber, IFilter
         let title: string = '';
         switch (value.mode) {
             case 'EQUAL':
-                title = value.query;
+                title = Helper.NUMBER.format(+value.query);
                 break;
             case 'LESS':
-                title = `کمتر از ${value.query}`;
+                title = `کمتر از ${Helper.NUMBER.format(+value.query)}`;
                 break;
             case 'GREATER':
-                title = `بیشتر از ${value.query}`;
+                title = `بیشتر از ${Helper.NUMBER.format(+value.query)}`;
                 break;
             case 'BETWEEN':
                 const [from, to] = value.query.split(':');
-                title = `${from} تا ${to}`;
+                title = `${Helper.NUMBER.format(+from)} تا ${Helper.NUMBER.format(+to)}`;
         }
         return { value: title, english: false };
     }
