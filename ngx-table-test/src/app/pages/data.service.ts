@@ -29,27 +29,30 @@ export interface IData {
     };
     readonly fileSize?: number;
     readonly description?: string | null;
+    readonly weight?: number;
     readonly status: 'ACTIVE' | 'DEACTIVE';
 }
 
+type Column =
+    // USER
+    | 'TYPE'
+    | 'NAME'
+    | 'MOBILE'
+    | 'STATUS'
+    // BIRTH
+    | 'BIRTH-DAY'
+    | 'AGE-YEAR'
+    | 'AGE-DAY'
+    | 'STATE'
+    | 'CITY'
+    // OTHERS
+    | 'PERIOD'
+    | 'FILE-SIZE'
+    | 'WEIGHT';
+
 @Injectable({ providedIn: 'root' })
 export class DataService {
-    getTable(
-        route: string[],
-        columns: (
-            | 'TYPE'
-            | 'NAME'
-            | 'MOBILE'
-            | 'BIRTH-DAY'
-            | 'AGE-YEAR'
-            | 'AGE-DAY'
-            | 'PERIOD'
-            | 'STATE'
-            | 'CITY'
-            | 'FILE-SIZE'
-            | 'STATUS'
-        )[],
-    ): INgxTable<IData> {
+    getTable(route: string[], columns: Column[]): INgxTable<IData> {
         const table: INgxTable<IData> = {
             route,
             type: 'عضو',
@@ -202,6 +205,10 @@ export class DataService {
             table.columns.push({ type: 'FILE-SIZE', value: 'fileSize', english: true });
         }
 
+        if (columns.includes('WEIGHT')) {
+            table.columns.push({ type: 'WEIGHT', value: 'weight' });
+        }
+
         if (columns.includes('STATUS')) {
             table.columns.push({
                 type: 'TEXT',
@@ -239,6 +246,13 @@ export class DataService {
 
         const getBirthDay = (): Date =>
             new Date(new Date().getTime() - Math.floor(Math.random() * (365 * 30) + 365 * 18) * 24 * 3600 * 1000);
+        const getWeight = (): number =>
+            Math.ceil(
+                Math.random() *
+                    Array(Math.floor(Math.random() * 5) + 1)
+                        .fill(1000)
+                        .reduce((m, v) => m * v, 1),
+            );
 
         const dataTypes: DataType[] = ['MANAGER', ...Array(5).fill('ADMIN'), ...Array(24).fill('USER')];
         const statusList: ('ACTIVE' | 'DEACTIVE')[] = [...Array(5).fill('ACTIVE'), 'DEACTIVE'];
@@ -274,6 +288,7 @@ export class DataService {
                             : undefined,
                     birthPlace: Math.random() > 0.1 ? getCity() : undefined,
                     fileSize: Math.random() > 0.5 ? Math.ceil(Math.random() * 1024 * 1024) : undefined,
+                    weight: Math.random() > 0.5 ? getWeight() : undefined,
                     description,
                     status: statusList[Math.floor(Math.random() * statusList.length)],
                 };

@@ -1,0 +1,8 @@
+<div
+    [style.display]="'inline-block'"
+    [style.direction]="config.isEN ? 'ltr' : 'rtl'"
+    [class.ngx-table-m3-en]="config.isEN"
+    [class.ngx-table-m3-deactive]="config.isDeactive"
+>
+    {{ value | ngxHelperWeight : { short:column.short, english: config.isEN, } }}
+</div>

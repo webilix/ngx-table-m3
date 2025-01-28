@@ -11,6 +11,7 @@ import {
     IColumnNumber,
     IColumnPeriod,
     IColumnText,
+    IColumnWeight,
 } from './columns';
 
 export type NgxTableColumn<T> =
@@ -20,7 +21,8 @@ export type NgxTableColumn<T> =
     | IColumnMobile<T>
     | IColumnNumber<T>
     | IColumnPeriod<T>
-    | IColumnText<T>;
+    | IColumnText<T>
+    | IColumnWeight<T>;
 
 export type NgxTableAction<T> =
     | 'DIVIDER'

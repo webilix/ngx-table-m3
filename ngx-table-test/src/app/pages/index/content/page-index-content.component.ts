@@ -3,17 +3,15 @@ import { Component, inject, OnInit } from '@angular/core';
 import { INgxHelperPageGroupItem, NGX_HELPER_PAGE_GROUP_ITEM } from '@webilix/ngx-helper-m3';
 import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } from '@webilix/ngx-table-m3';
 
-import { AppService } from '../../../app.service';
-
 import { DataService, IData } from '../../data.service';
 
 @Component({
-    host: { selector: 'page-group-content' },
+    host: { selector: 'index-content' },
     imports: [NgxTableComponent],
-    templateUrl: './page-group-content.component.html',
-    styleUrl: './page-group-content.component.scss',
+    templateUrl: './page-index-content.component.html',
+    styleUrl: './page-index-content.component.scss',
 })
-export class PageGroupContentComponent implements OnInit {
+export class PageIndexContentComponent implements OnInit {
     public page: INgxHelperPageGroupItem = inject(NGX_HELPER_PAGE_GROUP_ITEM);
 
     public ngxTable!: INgxTable<IData>;
@@ -25,15 +23,17 @@ export class PageGroupContentComponent implements OnInit {
     private list: IData[] = [];
     private filtered: IData[] = [];
 
-    constructor(private readonly appService: AppService, private readonly dataService: DataService) {}
+    constructor(private readonly dataService: DataService) {}
 
     ngOnInit(): void {
         this.ngxTable = this.dataService.getTable(
             ['/group'],
-            this.page.id === 'info'
-                ? ['TYPE', 'NAME', 'MOBILE', 'FILE-SIZE', 'PERIOD', 'STATUS']
+            this.page.id === 'user'
+                ? ['TYPE', 'NAME', 'MOBILE', 'STATUS']
                 : this.page.id === 'birth'
                 ? ['NAME', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY']
+                : this.page.id === 'others'
+                ? ['NAME', 'PERIOD', 'FILE-SIZE', 'WEIGHT']
                 : [],
         );
         this.list = this.dataService.getData();

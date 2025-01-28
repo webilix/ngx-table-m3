@@ -18,6 +18,8 @@ import {
     ColumnPeriodMethods,
     ColumnTextComponent,
     ColumnTextMethods,
+    ColumnWeightComponent,
+    ColumnWeightMethods,
 } from '.';
 
 export const ColumnInfo: {
@@ -33,4 +35,5 @@ export const ColumnInfo: {
     NUMBER: { methods: new ColumnNumberMethods(), component: ColumnNumberComponent },
     PERIOD: { methods: new ColumnPeriodMethods(), component: ColumnPeriodComponent },
     TEXT: { methods: new ColumnTextMethods(), component: ColumnTextComponent },
+    WEIGHT: { methods: new ColumnWeightMethods(), component: ColumnWeightComponent },
 };

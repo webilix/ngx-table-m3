@@ -19,6 +19,9 @@ export * from './period/column-period.interface';
 export * from './text/column-text.component';
 export * from './text/column-text.interface';
 
+export * from './weight/column-weight.component';
+export * from './weight/column-weight.interface';
+
 export * from './column.action';
 export * from './column.info';
 export * from './column.interface';
