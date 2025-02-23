@@ -192,6 +192,7 @@ export class DataService {
                     filter: {
                         type: 'MULTI-SELECT',
                         options: Helper.STATE.states.map((state) => ({ id: state.id, title: state.title })),
+                        maxItem: 10,
                     },
                 },
             });
@@ -225,6 +226,7 @@ export class DataService {
                             { id: 'ACTIVE', title: 'فعال' },
                             { id: 'DEACTIVE', title: 'غیرفعال' },
                         ],
+                        maxItem: 1,
                     },
                 },
             });

@@ -4,18 +4,16 @@
         type="text"
         [placeholder]="'جستجو'"
         [class.ngx-table-m3-en]="data.filter.english"
-        (input)="searchQuery = searchInput.value.trim()"
+        (input)="setOptions(searchInput.value.trim())"
         #searchInput
     />
 </div>
 }
 
 <div class="filter-items">
-    @for (item of data.filter.options; track $index) {
-    <!-- CHECK VIEW -->
-    @if ((value || []).includes(item.id) || !searchQuery || item.title.includes(searchQuery)) {
+    @for (item of options; track $index) {
     <mat-checkbox [checked]="(value || []).includes(item.id)" (change)="updateValue(item.id, $event.checked)">
         <div class="title" [class.ngx-table-m3-en]="data.filter.english">{{ item.title }}</div>
     </mat-checkbox>
-    } }
+    }
 </div>

@@ -27,7 +27,7 @@ export class PageIndexContentComponent implements OnInit {
 
     ngOnInit(): void {
         this.ngxTable = this.dataService.getTable(
-            ['/group'],
+            ['/'],
             this.page.id === 'user'
                 ? ['TYPE', 'NAME', 'MOBILE', 'STATUS']
                 : this.page.id === 'birth'

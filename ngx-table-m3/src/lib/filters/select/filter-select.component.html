@@ -4,7 +4,7 @@
         type="text"
         [placeholder]="'جستجو'"
         [class.ngx-table-m3-en]="data.filter.english"
-        (input)="searchQuery = searchInput.value.trim()"
+        (input)="setOptions(searchInput.value.trim())"
         #searchInput
     />
 </div>
@@ -12,12 +12,10 @@
 
 <div class="filter-items">
     <mat-radio-group (change)="updateValue($event.value)">
-        @for (item of data.filter.options; track $index) {
-        <!-- CHECK VIEW -->
-        @if (value === item.id || !searchQuery || item.title.includes(searchQuery)) {
+        @for (item of options; track $index) {
         <mat-radio-button [value]="item.id" [checked]="item.id === value">
             <div class="title" [class.ngx-table-m3-en]="data.filter.english">{{ item.title }}</div>
         </mat-radio-button>
-        } }
+        }
     </mat-radio-group>
 </div>

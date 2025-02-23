@@ -9,6 +9,7 @@ export interface IFilterSelect {
         readonly title: string;
     }[];
     readonly english?: boolean;
+    readonly maxItem?: number;
 
     readonly toParam?: (value: string) => string;
 }
