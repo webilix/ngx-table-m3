@@ -62,7 +62,7 @@
             <!-- CHECK TITLE AND SUBTITLE -->
             @if (columnIndex !== titleIndex && columnIndex !== subTitleIndex) {
             <div class="item">
-                <div class="title">{{ column.title }}:</div>
+                <div class="title">{{ column.title }}{{ !!column.title ? ' :' : '' }}</div>
                 <div class="value">
                     <view-value [column]="column" [item]="item" [viewConfig]="viewConfig" [isCard]="true"></view-value>
                 </div>
