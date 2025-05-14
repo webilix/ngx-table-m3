@@ -24,11 +24,11 @@
         "@angular/common": ">=19.2.10",
         "@angular/core": ">=19.2.10",
         "@angular/material": ">=19.2.15",
-        "@webilix/helper-library": ">=6.0.2",
-        "@webilix/jalali-date-time": ">=2.0.5",
-        "@webilix/ngx-calendar-m3": ">=0.0.11",
-        "@webilix/ngx-helper-m3": ">=0.0.24",
-        "ngx-mask": ">=19.0.6"
+        "@webilix/helper-library": ">=6.1.2",
+        "@webilix/jalali-date-time": ">=2.0.6",
+        "@webilix/ngx-calendar-m3": ">=0.0.13",
+        "@webilix/ngx-helper-m3": ">=0.0.27",
+        "ngx-mask": ">=19.0.7"
     },
     "dependencies": {
         "tslib": "^2.3.0"
