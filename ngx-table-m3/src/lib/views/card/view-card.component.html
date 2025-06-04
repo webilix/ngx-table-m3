@@ -33,7 +33,7 @@
                     [isCardTitle]="true"
                 ></view-value>
                 <!-- SUB TITLE -->
-                @if (subTitleIndex) {
+                @if (subTitleIndex !== undefined) {
                 <view-value
                     [column]="ngxTable.columns[this.subTitleIndex]"
                     [item]="item"
