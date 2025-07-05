@@ -37,10 +37,13 @@ export interface INgxTable<T> {
     readonly type: string;
     readonly columns: NgxTableColumn<T>[];
     readonly rows?: {
-        readonly icon?: (data: T) => string | { icon: string; color: string | null | undefined };
-        readonly color?: (data: T) => string | null | undefined;
-        readonly description?: (data: T) => string | null | undefined;
-        readonly isDeactive?: (data: T) => boolean;
+        readonly icon?: (
+            data: T,
+            index: number,
+        ) => string | { icon: string; color: string | null | undefined } | { emoji: string };
+        readonly color?: (data: T, index: number) => string | null | undefined;
+        readonly description?: (data: T, index: number) => string | null | undefined;
+        readonly isDeactive?: (data: T, index: number) => boolean;
     };
     readonly actions?: NgxTableAction<T>[];
 

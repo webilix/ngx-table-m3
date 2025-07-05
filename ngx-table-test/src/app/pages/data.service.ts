@@ -58,7 +58,10 @@ export class DataService {
             type: 'عضو',
             columns: [],
             rows: {
-                icon: (data) => ({ icon: DataInfo[data.type].icon, color: DataInfo[data.type].iconColor }),
+                icon: (data, index) =>
+                    index % 5 === 4
+                        ? { emoji: Math.random() < 0.5 ? '💻' : '🤩' }
+                        : { icon: DataInfo[data.type].icon, color: DataInfo[data.type].iconColor },
                 color: (data) => DataInfo[data.type].textColor,
                 description: (data) => data.description,
                 isDeactive: (data) => data.status === 'DEACTIVE',

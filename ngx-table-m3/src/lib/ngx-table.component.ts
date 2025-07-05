@@ -103,6 +103,7 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
         this.viewConfig = {
             alternateRows: !!this.config?.alternateRows,
             iconSize: `${this.config?.iconSize || 24}px`,
+            emojiSize: `${this.config?.emojiSize || 19}px`,
             actionMenuTitle: this.config?.actionMenuTitle || 'امکانات',
             stickyView: this.config?.stickyView
                 ? {

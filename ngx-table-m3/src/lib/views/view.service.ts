@@ -30,9 +30,23 @@ export class ViewService {
         const iconFn = ngxTable.rows?.icon;
         if (!iconFn) return [];
 
-        return data.map((item) => {
-            const icon = iconFn(item);
-            return typeof icon === 'string' ? { icon } : { icon: icon.icon, color: icon.color || undefined };
+        return data.map((item, index: number) => {
+            const icon = iconFn(item, index);
+            return typeof icon === 'string'
+                ? { icon }
+                : 'emoji' in icon
+                ? { icon: '' }
+                : { icon: icon.icon, color: icon.color || undefined };
+        });
+    }
+
+    getEmojis<T>(ngxTable: INgxTable<T>, data: T[]): string[] {
+        const iconFn = ngxTable.rows?.icon;
+        if (!iconFn) return [];
+
+        return data.map((item, index: number) => {
+            const icon = iconFn(item, index);
+            return typeof icon === 'string' ? '' : 'emoji' in icon ? icon.emoji : '';
         });
     }
 
@@ -40,20 +54,20 @@ export class ViewService {
         const colorFn = ngxTable.rows?.color;
         if (!colorFn) return [];
 
-        return data.map((item) => colorFn(item) || '');
+        return data.map((item, index: number) => colorFn(item, index) || '');
     }
 
     getDescriptions<T>(ngxTable: INgxTable<T>, data: T[]): (string | undefined)[] {
         const descriptionFn = ngxTable.rows?.description;
         if (!descriptionFn) return [];
 
-        return data.map((item) => descriptionFn(item) || undefined);
+        return data.map((item, index: number) => descriptionFn(item, index) || undefined);
     }
 
     getDeactives<T>(ngxTable: INgxTable<T>, data: T[]): number[] {
         const deactives: number[] = [];
         data.forEach((item: T, index: number) => {
-            if (ngxTable.rows?.isDeactive?.(item)) deactives.push(index);
+            if (ngxTable.rows?.isDeactive?.(item, index)) deactives.push(index);
         });
 
         return deactives;

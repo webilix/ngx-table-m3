@@ -4,6 +4,7 @@ export interface INgxTableConfig {
     readonly mobileWidth: number;
     readonly alternateRows: boolean;
     readonly iconSize: number;
+    readonly emojiSize: number;
     readonly actionMenuTitle?: string;
     readonly stickyView: {
         readonly top?: string | { readonly desktopView: string; readonly mobileView: string };

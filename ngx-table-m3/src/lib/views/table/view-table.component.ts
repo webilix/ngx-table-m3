@@ -44,6 +44,7 @@ export class ViewTableComponent<T> implements OnChanges {
     public subTitleIndex?: number;
 
     public icons: { icon: string; color?: string }[] = [];
+    public emojis: string[] = [];
     public colors: string[] = [];
     public descriptions: (string | undefined)[] = [];
     public deactives: number[] = [];
@@ -62,6 +63,7 @@ export class ViewTableComponent<T> implements OnChanges {
         this.subTitleIndex = this.viewService.getSubTitleIndex(this.ngxTable);
 
         this.icons = this.viewService.getIcons(this.ngxTable, this.data);
+        this.emojis = this.viewService.getEmojis(this.ngxTable, this.data);
         this.colors = this.viewService.getColors(this.ngxTable, this.data);
         this.descriptions = this.viewService.getDescriptions(this.ngxTable, this.data);
         this.deactives = this.viewService.getDeactives(this.ngxTable, this.data);

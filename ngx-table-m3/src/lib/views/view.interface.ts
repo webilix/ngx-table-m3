@@ -1,6 +1,7 @@
 export interface IViewConfig {
     readonly alternateRows: boolean;
     readonly iconSize: string;
+    readonly emojiSize: string;
     readonly actionMenuTitle: string;
     readonly stickyView?: {
         readonly top?: { readonly desktopView: string; readonly mobileView: string };

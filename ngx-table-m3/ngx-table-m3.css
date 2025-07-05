@@ -356,6 +356,10 @@
                     padding-left: 0;
                 }
 
+                td.emoji {
+                    padding-top: 1rem;
+                }
+
                 td.action {
                     padding: 0.25rem 0 0 0;
                 }
@@ -409,6 +413,10 @@
                 border-bottom-width: 0;
 
                 .icon {
+                    padding: 0.5rem 0;
+                }
+
+                .emoji {
                     padding: 0.5rem 0;
                 }
 

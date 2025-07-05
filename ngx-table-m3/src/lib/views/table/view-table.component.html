@@ -101,12 +101,18 @@
         >
             <!-- ICON -->
             @if (hasIcon) {
+            <!-- MATERIAL ICON -->
+            @if (icons[$index].icon) {
             <td class="icon">
                 <mat-icon [style.color]="icons[$index].color" [style.font-size]="viewConfig.iconSize">
                     {{ icons[$index].icon }}
                 </mat-icon>
             </td>
             }
+            <!-- EMOJI  -->
+            @else {
+            <td class="emoji" [style.font-size]="viewConfig.emojiSize">{{ emojis[$index] || '' }}</td>
+            } }
 
             <!-- DATA -->
             @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
