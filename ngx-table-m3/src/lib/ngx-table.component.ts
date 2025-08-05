@@ -105,6 +105,7 @@ export class NgxTableComponent<T> implements OnInit, OnChanges {
             iconSize: `${this.config?.iconSize || 24}px`,
             emojiSize: `${this.config?.emojiSize || 19}px`,
             actionMenuTitle: this.config?.actionMenuTitle || 'امکانات',
+            minimalCardView: !!this.config?.minimalCardView,
             stickyView: this.config?.stickyView
                 ? {
                       top: this.config.stickyView.top ? getStickyView(this.config.stickyView.top) : undefined,

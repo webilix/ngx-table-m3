@@ -3,6 +3,7 @@ export interface IViewConfig {
     readonly iconSize: string;
     readonly emojiSize: string;
     readonly actionMenuTitle: string;
+    readonly minimalCardView: boolean;
     readonly stickyView?: {
         readonly top?: { readonly desktopView: string; readonly mobileView: string };
         readonly bottom?: { readonly desktopView: string; readonly mobileView: string };

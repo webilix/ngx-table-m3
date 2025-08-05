@@ -11,6 +11,7 @@ import { COLUMN_CONFIG, COLUMN_TYPE, COLUMN_VALUE, ColumnInfo, IColumnConfig } f
 import { NgxTableColumn } from '../../ngx-table.interface';
 
 import { IViewConfig } from '../view.interface';
+import { ViewService } from '../view.service';
 
 @Component({
     selector: 'view-value',
@@ -42,12 +43,12 @@ export class ViewValueComponent<T> implements OnChanges {
     public isCopied: boolean = false;
     private copyTimeout: any;
 
-    constructor(private readonly router: Router) {}
+    constructor(private readonly router: Router, private readonly viewService: ViewService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         this.textAlign = this.isCard ? 'right' : (this.column.textAlign || 'RIGHT').toLocaleLowerCase();
 
-        this.value = this.getValue();
+        this.value = this.viewService.getValue(this.column, this.item);
         this.subValue = this.getSubValue();
         this.color = this.column.color
             ? typeof this.column.color === 'function'
@@ -74,14 +75,6 @@ export class ViewValueComponent<T> implements OnChanges {
                 { provide: COLUMN_CONFIG, useValue: columnConfig },
             ],
         });
-    }
-
-    getValue(): any {
-        const value: any =
-            typeof this.column.value === 'function' ? this.column.value(this.item) : this.item[this.column.value];
-        if (Helper.IS.empty(value)) return undefined;
-
-        return ColumnInfo[this.column.type].methods.value(value, this.column);
     }
 
     getSubValue(): { value: string; isEN: boolean } | undefined {

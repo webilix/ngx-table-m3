@@ -62,11 +62,11 @@
         </div>
 
         <!-- CONTENT -->
-        @if (hasContent) {
+        @if (hasContent && showContent(dataIndex)) {
         <div class="card-content" [style.color]="colors[dataIndex]">
             @for (column of ngxTable.columns; track $index; let columnIndex = $index) {
-            <!-- CHECK TITLE AND SUBTITLE -->
-            @if (columnIndex !== titleIndex && columnIndex !== subTitleIndex) {
+            <!-- CHECK TITLE AND SUBTITLE AND VALUE -->
+            @if (columnIndex !== titleIndex && columnIndex !== subTitleIndex && showItem(column, item)) {
             <div class="item">
                 <div class="title">{{ column.title }}{{ !!column.title ? ' :' : '' }}</div>
                 <div class="value">

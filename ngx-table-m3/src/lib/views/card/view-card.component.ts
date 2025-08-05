@@ -5,13 +5,14 @@ import { MatIcon } from '@angular/material/icon';
 import { NgxHelperMultiLinePipe } from '@webilix/ngx-helper-m3';
 
 import { IFilter } from '../../filters';
-import { INgxTable } from '../../ngx-table.interface';
+import { INgxTable, NgxTableColumn } from '../../ngx-table.interface';
 import { Filters, FilterService } from '../../filters/filter.service';
 
 import { ViewActionComponent } from '../action/view-action.component';
 import { ViewValueComponent } from '../value/view-value.component';
+
+import { IViewConfig, IViewFilter, IViewOrder } from '../view.interface';
 import { Orders, ViewService } from '../view.service';
-import { IViewConfig, IViewFilter, IViewOrder } from '..';
 
 import { ViewCardToolbarComponent } from './toolbar/view-card-toolbar.component';
 
@@ -73,9 +74,9 @@ export class ViewCardComponent<T> implements OnChanges {
         const top = this.viewConfig.stickyView?.top?.mobileView;
         this.top = top ? (this.hasToolbar ? `calc(${top} + var(--ngx-table-m3-toolbar-height) + 1rem + 2px)` : top) : '';
 
-        this.hasContent = this.ngxTable.columns.some(
-            (_, index: number) => index != this.titleIndex && index !== this.subTitleIndex,
-        );
+        this.hasContent =
+            this.descriptions.some((d) => !!d) ||
+            this.ngxTable.columns.some((_, index: number) => index != this.titleIndex && index !== this.subTitleIndex);
     }
 
     updateFilter(id: string): void {
@@ -88,5 +89,21 @@ export class ViewCardComponent<T> implements OnChanges {
             this.filters[id] = filter;
             this.filterChanged.next({ id, value: filter.value });
         });
+    }
+
+    showContent(dataInndex: number): boolean {
+        if (!this.viewConfig.minimalCardView) return true;
+
+        const hasColumn: boolean = this.ngxTable.columns.some(
+            (column, index: number) =>
+                index != this.titleIndex && index !== this.subTitleIndex && this.showItem(column, this.data[dataInndex]),
+        );
+        return !!this.descriptions[dataInndex] || hasColumn;
+    }
+
+    showItem<T>(column: NgxTableColumn<T>, item: T): boolean {
+        if (!this.viewConfig.minimalCardView) return true;
+
+        return !!this.viewService.getValue(column, item);
     }
 }

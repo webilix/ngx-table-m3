@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { INgxTable } from '../ngx-table.interface';
+import { Helper } from '@webilix/helper-library';
+
+import { ColumnInfo } from '../columns';
+import { INgxTable, NgxTableColumn } from '../ngx-table.interface';
 
 type OrderType = 'ASC' | 'DESC';
 interface IOrder {
@@ -24,6 +27,13 @@ export class ViewService {
     getSubTitleIndex<T>(ngxTable: INgxTable<T>): number | undefined {
         const index: number = ngxTable.columns.findIndex((l) => 'mode' in l && l.mode === 'SUBTITLE');
         return index === -1 ? undefined : index;
+    }
+
+    getValue<T>(column: NgxTableColumn<T>, item: T): any {
+        const value: any = typeof column.value === 'function' ? column.value(item) : item[column.value];
+        if (Helper.IS.empty(value)) return undefined;
+
+        return ColumnInfo[column.type].methods.value(value, column);
     }
 
     getIcons<T>(ngxTable: INgxTable<T>, data: T[]): { icon: string; color?: string }[] {
