@@ -10,6 +10,7 @@ import {
     IColumnMobile,
     IColumnNumber,
     IColumnPeriod,
+    IColumnTag,
     IColumnText,
     IColumnWeight,
 } from './columns';
@@ -21,6 +22,7 @@ export type NgxTableColumn<T> =
     | IColumnMobile<T>
     | IColumnNumber<T>
     | IColumnPeriod<T>
+    | IColumnTag<T>
     | IColumnText<T>
     | IColumnWeight<T>;
 

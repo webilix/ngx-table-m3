@@ -16,6 +16,8 @@ import {
     ColumnNumberMethods,
     ColumnPeriodComponent,
     ColumnPeriodMethods,
+    ColumnTagComponent,
+    ColumnTagMethods,
     ColumnTextComponent,
     ColumnTextMethods,
     ColumnWeightComponent,
@@ -34,6 +36,7 @@ export const ColumnInfo: {
     MOBILE: { methods: new ColumnMobileMethods(), component: ColumnMobileComponent },
     NUMBER: { methods: new ColumnNumberMethods(), component: ColumnNumberComponent },
     PERIOD: { methods: new ColumnPeriodMethods(), component: ColumnPeriodComponent },
+    TAG: { methods: new ColumnTagMethods(), component: ColumnTagComponent },
     TEXT: { methods: new ColumnTextMethods(), component: ColumnTextComponent },
     WEIGHT: { methods: new ColumnWeightMethods(), component: ColumnWeightComponent },
 };

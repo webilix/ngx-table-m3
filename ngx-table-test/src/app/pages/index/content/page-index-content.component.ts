@@ -33,7 +33,7 @@ export class PageIndexContentComponent implements OnInit {
                 : this.page.id === 'birth'
                 ? ['NAME', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY']
                 : this.page.id === 'others'
-                ? ['NAME', 'PERIOD', 'FILE-SIZE', 'WEIGHT']
+                ? ['NAME', 'PERIOD', 'FILE-SIZE', 'WEIGHT', 'TAG']
                 : [],
         );
         this.list = this.dataService.getData();

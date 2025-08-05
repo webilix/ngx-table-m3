@@ -1,0 +1,8 @@
+<div [style.display]="'inline-block'" [class.ngx-table-m3-deactive]="config.isDeactive">
+    @for (item of value; track $index) {
+    <div class="tag" [class.tag-action]="!!column.onTagClick" (click)="onTagClick(item.id)">
+        @if (column.onTagClick) { <mat-icon>open_in_new</mat-icon> }
+        <div class="title">{{ item.title }}</div>
+    </div>
+    }
+</div>

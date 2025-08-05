@@ -17,12 +17,12 @@ export class ViewService {
     constructor(private readonly activatedRoute: ActivatedRoute) {}
 
     getTitleIndex<T>(ngxTable: INgxTable<T>): number {
-        const index: number = ngxTable.columns.findIndex((l) => l.mode === 'TITLE');
+        const index: number = ngxTable.columns.findIndex((l) => 'mode' in l && l.mode === 'TITLE');
         return index === -1 ? 0 : index;
     }
 
     getSubTitleIndex<T>(ngxTable: INgxTable<T>): number | undefined {
-        const index: number = ngxTable.columns.findIndex((l) => l.mode === 'SUBTITLE');
+        const index: number = ngxTable.columns.findIndex((l) => 'mode' in l && l.mode === 'SUBTITLE');
         return index === -1 ? undefined : index;
     }
 

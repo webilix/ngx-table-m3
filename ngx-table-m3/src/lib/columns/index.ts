@@ -16,6 +16,9 @@ export * from './number/column-number.interface';
 export * from './period/column-period.component';
 export * from './period/column-period.interface';
 
+export * from './tag/column-tag.component';
+export * from './tag/column-tag.interface';
+
 export * from './text/column-text.component';
 export * from './text/column-text.interface';
 

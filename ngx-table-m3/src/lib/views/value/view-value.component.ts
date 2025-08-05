@@ -54,8 +54,9 @@ export class ViewValueComponent<T> implements OnChanges {
                 ? this.column.color(this.item) || undefined
                 : this.column.color
             : undefined;
-        this.hasClick = !!this.column.onClick;
-        this.copyText = !this.hasClick && this.column.onCopy ? this.column.onCopy(this.item) : undefined;
+        this.hasClick = 'onClick' in this.column && !!this.column.onClick;
+        this.copyText =
+            !this.hasClick && 'onCopy' in this.column && this.column.onCopy ? this.column.onCopy(this.item) : undefined;
 
         const columnConfig: IColumnConfig = {
             isEN:
@@ -84,7 +85,7 @@ export class ViewValueComponent<T> implements OnChanges {
     }
 
     getSubValue(): { value: string; isEN: boolean } | undefined {
-        if (!this.column.subValue) return undefined;
+        if (!('subValue' in this.column) || !this.column.subValue) return undefined;
 
         if (typeof this.column.subValue === 'function') {
             const subValue = this.column.subValue(this.item);
@@ -103,7 +104,7 @@ export class ViewValueComponent<T> implements OnChanges {
     }
 
     onClick(): void {
-        if (!this.column.onClick) return;
+        if (!('onClick' in this.column) || !this.column.onClick) return;
 
         const onClick = this.column.onClick(this.item);
         if (typeof onClick === 'function') onClick();

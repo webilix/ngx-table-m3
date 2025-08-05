@@ -30,6 +30,7 @@ export interface IData {
     readonly fileSize?: number;
     readonly description?: string | null;
     readonly weight?: number;
+    readonly tag?: { id: string; title: string }[];
     readonly status: 'ACTIVE' | 'DEACTIVE';
 }
 
@@ -48,7 +49,8 @@ type Column =
     // OTHERS
     | 'PERIOD'
     | 'FILE-SIZE'
-    | 'WEIGHT';
+    | 'WEIGHT'
+    | 'TAG';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
@@ -235,8 +237,13 @@ export class DataService {
             });
         }
 
-        if (columns.includes('NAME')) {
-            table.columns.push();
+        if (columns.includes('TAG')) {
+            table.columns.push({
+                type: 'TAG',
+                value: 'tag',
+                title: 'دوستان (تگ)',
+                onTagClick: (id: string) => console.log(`TAG: ${id}`),
+            });
         }
 
         return table;
@@ -258,6 +265,11 @@ export class DataService {
                         .fill(1000)
                         .reduce((m, v) => m * v, 1),
             );
+        const getTag = (): { id: string; title: string }[] => {
+            const count: number = Math.random() < 0.5 ? 1 : Math.random() < 0.5 ? 2 : 3;
+            const names: string[] = [...Array(count)].map(() => namesList[Math.floor(Math.random() * namesList.length)]);
+            return names.map((name) => ({ id: name, title: name }));
+        };
 
         const dataTypes: DataType[] = ['MANAGER', ...Array(5).fill('ADMIN'), ...Array(24).fill('USER')];
         const statusList: ('ACTIVE' | 'DEACTIVE')[] = [...Array(5).fill('ACTIVE'), 'DEACTIVE'];
@@ -294,6 +306,7 @@ export class DataService {
                     birthPlace: Math.random() > 0.1 ? getCity() : undefined,
                     fileSize: Math.random() > 0.5 ? Math.ceil(Math.random() * 1024 * 1024) : undefined,
                     weight: Math.random() > 0.5 ? getWeight() : undefined,
+                    tag: Math.random() > 0.5 ? getTag() : undefined,
                     description,
                     status: statusList[Math.floor(Math.random() * statusList.length)],
                 };
