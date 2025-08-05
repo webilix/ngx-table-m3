@@ -1,6 +1,7 @@
 .tag {
     display: flex;
     align-items: center;
+    column-gap: 0.5rem;
 
     .title {
         flex: 1;
@@ -9,6 +10,7 @@
 
     mat-icon {
         font-size: 85%;
+        padding: 0;
     }
 }
 

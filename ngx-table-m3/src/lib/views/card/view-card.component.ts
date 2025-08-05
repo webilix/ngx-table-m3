@@ -104,6 +104,6 @@ export class ViewCardComponent<T> implements OnChanges {
     showItem<T>(column: NgxTableColumn<T>, item: T): boolean {
         if (!this.viewConfig.minimalCardView) return true;
 
-        return !!this.viewService.getValue(column, item);
+        return this.viewService.getValue(column, item) !== undefined;
     }
 }
