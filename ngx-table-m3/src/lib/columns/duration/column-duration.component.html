@@ -1,5 +1,6 @@
 <div
     [style.display]="'inline-block'"
+    [style.direction]="config.isEN || column.format === 'FULL' ? 'ltr' : 'rtl'"
     [class.ngx-table-m3-en]="config.isEN"
     [class.ngx-table-m3-deactive]="config.isDeactive"
 >
