@@ -25,7 +25,7 @@ interface Action<T> {
     styleUrl: './view-action.component.scss',
 })
 export class ViewActionComponent<T> implements OnChanges {
-    @HostBinding('className') private className: string = 'ngx-table-m3-action';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-action';
 
     @Input({ required: true }) actions!: NgxTableAction<T>[];
     @Input({ required: true }) item!: T;

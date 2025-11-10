@@ -1,5 +1,4 @@
 import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -21,14 +20,9 @@ import { IViewConfig, IViewFilter, IViewOrder } from '..';
     providers: [FilterService, ViewService],
     templateUrl: './view-table.component.html',
     styleUrl: './view-table.component.scss',
-    animations: [
-        trigger('toolbar', [
-            transition(':enter', [style({ opacity: 0, height: 0 }), animate('150ms', style({ opacity: 1, height: '*' }))]),
-        ]),
-    ],
 })
 export class ViewTableComponent<T> implements OnChanges {
-    @HostBinding('className') private className: string = 'ngx-table-m3-table-view';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-table-view';
 
     @Input({ required: true }) ngxTable!: INgxTable<T>;
     @Input({ required: true }) data!: T[];

@@ -15,7 +15,7 @@
 
             <!-- TOOLBAR -->
             <th class="active-filters" [colSpan]="ngxTable.columns.length + (this.hasAction ? 1 : 0)">
-                <div class="toolbar" [@toolbar]>
+                <div class="toolbar">
                     @for (item of activeFilters; track $index) {
                     <div class="item">
                         <div class="title" (click)="updateFilter(item.id)">{{ item.title }}:</div>

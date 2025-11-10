@@ -18,7 +18,7 @@ import { FILTER_CHANGE, FILTER_DATA, FILTER_VALUE, IFilter } from './filter.inte
     styleUrl: './filter.component.scss',
 })
 export class FilterComponent implements OnInit {
-    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-filter';
 
     public data: { filter: IFilter; viewConfig: IViewConfig } = inject(NGX_HELPER_CONTAINER_DATA);
     public closeContainer: (response?: any) => void = inject(NGX_HELPER_CONTAINER_CLOSE);

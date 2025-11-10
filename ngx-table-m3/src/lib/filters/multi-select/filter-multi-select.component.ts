@@ -15,7 +15,7 @@ import { IFilterMultiSelect } from './filter-multi-select.interface';
     styleUrl: './filter-multi-select.component.scss',
 })
 export class FilterMultiSelectComponent implements OnInit {
-    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-filter';
 
     public data: { filter: IFilterMultiSelect; viewConfig: IViewConfig } = inject(FILTER_DATA);
     public value?: string[] = inject(FILTER_VALUE);

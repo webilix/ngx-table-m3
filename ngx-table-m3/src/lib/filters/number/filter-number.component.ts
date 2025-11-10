@@ -20,9 +20,9 @@ type Mode = IFilterNumberValue['mode'];
     styleUrl: './filter-number.component.scss',
 })
 export class FilterNumberComponent implements AfterViewInit {
-    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
-    @ViewChild('fromInput') private fromInput?: ElementRef;
-    @ViewChild('numberInput') private numberInput?: ElementRef;
+    @HostBinding('className') protected className: string = 'ngx-table-m3-filter';
+    @ViewChild('fromInput') protected fromInput?: ElementRef;
+    @ViewChild('numberInput') protected numberInput?: ElementRef;
 
     public data: { filter: IFilterNumber; viewConfig: IViewConfig } = inject(FILTER_DATA);
     public value?: IFilterNumberValue = inject(FILTER_VALUE);

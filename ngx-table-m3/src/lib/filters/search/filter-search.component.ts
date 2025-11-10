@@ -20,8 +20,8 @@ type Mode = IFilterSearchValue['mode'];
     styleUrl: './filter-search.component.scss',
 })
 export class FilterSearchComponent implements AfterViewInit {
-    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
-    @ViewChild('searchInput') private searchInput?: ElementRef;
+    @HostBinding('className') protected className: string = 'ngx-table-m3-filter';
+    @ViewChild('searchInput') protected searchInput?: ElementRef;
 
     public data: { filter: IFilterSearch; viewConfig: IViewConfig } = inject(FILTER_DATA);
     public value?: IFilterSearchValue = inject(FILTER_VALUE);

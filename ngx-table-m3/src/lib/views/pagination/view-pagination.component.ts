@@ -21,15 +21,15 @@ import { IViewConfig } from '..';
 
 @Component({
     selector: 'view-pagination',
-    host: { '(window:scroll)': 'onScroll($event)' },
+    host: { '(window:scroll)': 'onScroll()' },
     imports: [DecimalPipe, MatIconButton, MatIcon, MatMenuModule],
     templateUrl: './view-pagination.component.html',
     styleUrl: './view-pagination.component.scss',
 })
 export class ViewPaginationComponent implements OnInit, OnChanges {
-    @HostBinding('className') private className: string = 'ngx-table-m3-pagination';
-    @HostBinding('style.position') private stylePosition!: string;
-    @HostBinding('style.bottom') private styleBottom!: string;
+    @HostBinding('className') protected className: string = 'ngx-table-m3-pagination';
+    @HostBinding('style.position') protected stylePosition!: string;
+    @HostBinding('style.bottom') protected styleBottom!: string;
 
     @Input({ required: true }) type!: string;
     @Input({ required: true }) pagination!: INgxTablePagination;

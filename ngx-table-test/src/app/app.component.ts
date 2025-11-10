@@ -7,13 +7,13 @@ type ColorMode = 'LIGHT' | 'DARK';
 
 @Component({
     selector: 'app-root',
-    host: { '(window:keydown)': 'onKeydown($event)', '(window:resize)': 'onResize($event)' },
+    host: { '(window:keydown)': 'onKeydown($event)', '(window:resize)': 'onResize()' },
     imports: [RouterOutlet, MatIcon],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-    @HostBinding('style.--header-height') headerHeight: string = '95px';
+    @HostBinding('style.--header-height') protected headerHeight: string = '95px';
 
     public isMobile!: boolean;
     public colorMode!: ColorMode;

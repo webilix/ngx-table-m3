@@ -24,7 +24,7 @@ import { ViewCardToolbarComponent } from './toolbar/view-card-toolbar.component'
     styleUrl: './view-card.component.scss',
 })
 export class ViewCardComponent<T> implements OnChanges {
-    @HostBinding('className') private className: string = 'ngx-table-m3-card-view';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-card-view';
 
     @Input({ required: true }) ngxTable!: INgxTable<T>;
     @Input({ required: true }) data!: T[];

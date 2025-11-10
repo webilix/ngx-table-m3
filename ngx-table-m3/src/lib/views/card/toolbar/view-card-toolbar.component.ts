@@ -16,7 +16,7 @@ import { Orders } from '../../view.service';
     styleUrl: './view-card-toolbar.component.scss',
 })
 export class ViewCardToolbarComponent implements OnChanges {
-    @HostBinding('className') private className: string = 'ngx-table-m3-card-view-toolbar';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-card-view-toolbar';
 
     @Input({ required: true }) orders!: Orders;
     @Input({ required: true }) filters!: Filters;

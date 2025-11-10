@@ -15,7 +15,7 @@ import { IFilterSelect } from './filter-select.interface';
     styleUrl: './filter-select.component.scss',
 })
 export class FilterSelectComponent implements OnInit {
-    @HostBinding('className') private className: string = 'ngx-table-m3-filter';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-filter';
 
     public data: { filter: IFilterSelect; viewConfig: IViewConfig } = inject(FILTER_DATA);
     public value?: string = inject(FILTER_VALUE);

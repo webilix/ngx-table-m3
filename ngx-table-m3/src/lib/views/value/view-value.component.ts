@@ -20,8 +20,8 @@ import { ViewService } from '../view.service';
     styleUrl: './view-value.component.scss',
 })
 export class ViewValueComponent<T> implements OnChanges {
-    @HostBinding('className') private className: string = 'ngx-table-m3-value';
-    @HostBinding('style.text-align') private textAlign: string = 'left';
+    @HostBinding('className') protected className: string = 'ngx-table-m3-value';
+    @HostBinding('style.text-align') protected textAlign: string = 'left';
 
     @Input({ required: true }) column!: NgxTableColumn<T>;
     @Input({ required: true }) item!: T;
