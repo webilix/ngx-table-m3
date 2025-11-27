@@ -22,7 +22,7 @@ import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.int
 
 @Component({
     selector: 'ngx-table',
-    host: { '(window:resize)': 'onResize($event)' },
+    host: { '(window:resize)': 'onResize()' },
     imports: [NgxHelperLoaderComponent, ViewCardComponent, ViewPaginationComponent, ViewTableComponent],
     providers: [FilterService, ViewService],
     templateUrl: './ngx-table.component.html',
