@@ -22,18 +22,18 @@
         "@angular/router": "^21.0.1",
         "@webilix/helper-library": "^6.1.7",
         "@webilix/jalali-date-time": "^2.0.9",
-        "@webilix/ngx-calendar-m3": "^0.0.25",
-        "@webilix/ngx-helper-m3": "^0.0.45",
+        "@webilix/ngx-calendar-m3": "^0.0.27",
+        "@webilix/ngx-helper-m3": "^0.0.47",
         "ngx-mask": "^20.0.3",
         "rxjs": "~7.8.2",
         "tslib": "^2.8.1",
-        "zone.js": "~0.15.1"
+        "zone.js": "~0.16.0"
     },
     "devDependencies": {
         "@angular/build": "^21.0.1",
         "@angular/cli": "^21.0.1",
         "@angular/compiler-cli": "^21.0.1",
-        "@types/jasmine": "~5.1.12",
+        "@types/jasmine": "~5.1.13",
         "jasmine-core": "~5.12.1",
         "karma": "~6.4.4",
         "karma-chrome-launcher": "~3.2.0",
