@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostBinding,
+    inject,
+    OnInit,
+    ViewChild,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MaskitoOptions } from '@maskito/core';
 import { MaskitoDirective } from '@maskito/angular';
@@ -18,6 +27,7 @@ type Mode = IFilterNumberValue['mode'];
     host: { selector: 'filter-number' },
     imports: [FormsModule, MaskitoDirective],
     templateUrl: './filter-number.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './filter-number.component.scss',
 })
 export class FilterNumberComponent implements OnInit, AfterViewInit {

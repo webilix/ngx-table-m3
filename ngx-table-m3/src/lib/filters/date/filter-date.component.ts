@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxCalendarDateComponent } from '@webilix/ngx-calendar-m3';
 
@@ -12,6 +12,7 @@ import { IFilterDate } from './filter-date.interface';
     host: { selector: 'filter-date' },
     imports: [NgxCalendarDateComponent],
     templateUrl: './filter-date.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './filter-date.component.scss',
 })
 export class FilterDateComponent {

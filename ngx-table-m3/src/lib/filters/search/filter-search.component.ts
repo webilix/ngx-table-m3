@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, inject, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostBinding,
+    inject,
+    ViewChild,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
@@ -17,6 +25,7 @@ type Mode = IFilterSearchValue['mode'];
     host: { selector: 'filter-search' },
     imports: [FormsModule, MatRadioButton, MatRadioGroup],
     templateUrl: './filter-search.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './filter-search.component.scss',
 })
 export class FilterSearchComponent implements AfterViewInit {

@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, OnInit } from '@angular/core';
+import { Component, HostBinding, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
@@ -12,6 +12,7 @@ import { IFilterSelect } from './filter-select.interface';
     host: { selector: 'filter-select' },
     imports: [MatRadioButton, MatRadioGroup],
     templateUrl: './filter-select.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './filter-select.component.scss',
 })
 export class FilterSelectComponent implements OnInit {

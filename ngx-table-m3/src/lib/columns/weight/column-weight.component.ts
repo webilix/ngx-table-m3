@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxHelperWeightPipe } from '@webilix/ngx-helper-m3';
 
@@ -10,6 +10,7 @@ import { IColumnWeight } from './column-weight.interface';
     host: { selector: 'column-weight' },
     imports: [NgxHelperWeightPipe],
     templateUrl: './column-weight.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-weight.component.scss',
 })
 export class ColumnWeightComponent<T> {

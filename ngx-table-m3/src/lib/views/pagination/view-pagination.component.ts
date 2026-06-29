@@ -9,6 +9,7 @@ import {
     OnInit,
     Output,
     SimpleChanges,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { MatIconButton } from '@angular/material/button';
@@ -24,6 +25,7 @@ import { IViewConfig } from '..';
     host: { '(window:scroll)': 'onScroll()' },
     imports: [DecimalPipe, MatIconButton, MatIcon, MatMenuModule],
     templateUrl: './view-pagination.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './view-pagination.component.scss',
 })
 export class ViewPaginationComponent implements OnInit, OnChanges {

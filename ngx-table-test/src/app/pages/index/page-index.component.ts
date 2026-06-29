@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { INgxHelperPageGroup, NgxHelperPageGroupComponent } from '@webilix/ngx-helper-m3';
 
@@ -8,6 +8,7 @@ import { PageIndexContentComponent } from './content/page-index-content.componen
     host: { selector: 'page-index' },
     imports: [NgxHelperPageGroupComponent],
     templateUrl: './page-index.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './page-index.component.scss',
 })
 export class PageIndexComponent {

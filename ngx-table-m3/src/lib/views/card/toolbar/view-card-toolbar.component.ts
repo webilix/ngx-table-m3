@@ -1,4 +1,13 @@
-import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -13,6 +22,7 @@ import { Orders } from '../../view.service';
     selector: 'view-card-toolbar',
     imports: [MatDivider, MatIcon, MatMenuModule],
     templateUrl: './view-card-toolbar.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './view-card-toolbar.component.scss',
 })
 export class ViewCardToolbarComponent implements OnChanges {

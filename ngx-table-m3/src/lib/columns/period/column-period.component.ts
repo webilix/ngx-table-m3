@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxHelperPeriodPipe } from '@webilix/ngx-helper-m3';
 
@@ -10,6 +10,7 @@ import { IColumnPeriod } from './column-period.interface';
     host: { selector: 'column-period' },
     imports: [NgxHelperPeriodPipe],
     templateUrl: './column-period.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-period.component.scss',
 })
 export class ColumnPeriodComponent<T> {

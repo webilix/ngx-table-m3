@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, Injector, OnInit } from '@angular/core';
+import { Component, HostBinding, inject, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 
 import { MatButton } from '@angular/material/button';
@@ -15,6 +15,7 @@ import { FILTER_CHANGE, FILTER_DATA, FILTER_VALUE, IFilter } from './filter.inte
     host: { '(window:keydown)': 'onKeydown($event)' },
     imports: [MatButton, NgComponentOutlet],
     templateUrl: './filter.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './filter.component.scss',
 })
 export class FilterComponent implements OnInit {

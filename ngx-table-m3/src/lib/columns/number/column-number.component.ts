@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxHelperNumberPipe } from '@webilix/ngx-helper-m3';
 
@@ -10,6 +10,7 @@ import { IColumnNumber } from './column-number.interface';
     host: { selector: 'column-number' },
     imports: [NgxHelperNumberPipe],
     templateUrl: './column-number.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-number.component.scss',
 })
 export class ColumnNumberComponent<T> {

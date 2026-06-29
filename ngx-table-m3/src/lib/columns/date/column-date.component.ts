@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxHelperDatePipe } from '@webilix/ngx-helper-m3';
 
@@ -10,6 +10,7 @@ import { IColumnDate } from './column-date.interface';
     host: { selector: 'column-date' },
     imports: [NgxHelperDatePipe],
     templateUrl: './column-date.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-date.component.scss',
 })
 export class ColumnDateComponent<T> {

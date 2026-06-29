@@ -1,4 +1,4 @@
-import { Component, HostBinding, Injector, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, HostBinding, Injector, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { ViewService } from '../view.service';
     selector: 'view-value',
     imports: [NgComponentOutlet, ClipboardModule, MatIcon],
     templateUrl: './view-value.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './view-value.component.scss',
 })
 export class ViewValueComponent<T> implements OnChanges {
@@ -43,7 +44,10 @@ export class ViewValueComponent<T> implements OnChanges {
     public isCopied: boolean = false;
     private copyTimeout: any;
 
-    constructor(private readonly router: Router, private readonly viewService: ViewService) {}
+    constructor(
+        private readonly router: Router,
+        private readonly viewService: ViewService,
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         this.textAlign = this.isCard ? 'right' : (this.column.textAlign || 'RIGHT').toLocaleLowerCase();

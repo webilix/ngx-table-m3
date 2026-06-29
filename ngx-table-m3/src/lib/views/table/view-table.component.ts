@@ -1,4 +1,13 @@
-import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -19,6 +28,7 @@ import { IViewConfig, IViewFilter, IViewOrder } from '..';
     imports: [MatIcon, NgxHelperMultiLinePipe, ViewActionComponent, ViewValueComponent],
     providers: [FilterService, ViewService],
     templateUrl: './view-table.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './view-table.component.scss',
 })
 export class ViewTableComponent<T> implements OnChanges {
@@ -47,7 +57,10 @@ export class ViewTableComponent<T> implements OnChanges {
     public filters!: Filters;
     public activeFilters: { id: string; title: string; value: string; english: boolean }[] = [];
 
-    constructor(private readonly viewService: ViewService, private readonly filterService: FilterService) {}
+    constructor(
+        private readonly viewService: ViewService,
+        private readonly filterService: FilterService,
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         this.hasIcon = !!this.ngxTable.rows?.icon;

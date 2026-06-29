@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxHelperFileSizePipe } from '@webilix/ngx-helper-m3';
 
@@ -10,6 +10,7 @@ import { IColumnFileSize } from './column-file-size.interface';
     host: { selector: 'column-file-size' },
     imports: [NgxHelperFileSizePipe],
     templateUrl: './column-file-size.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-file-size.component.scss',
 })
 export class ColumnFileSizeComponent<T> {

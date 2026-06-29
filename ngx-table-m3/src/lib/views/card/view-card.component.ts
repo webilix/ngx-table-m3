@@ -1,4 +1,13 @@
-import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -21,6 +30,7 @@ import { ViewCardToolbarComponent } from './toolbar/view-card-toolbar.component'
     imports: [MatIcon, NgxHelperMultiLinePipe, ViewActionComponent, ViewValueComponent, ViewCardToolbarComponent],
     providers: [FilterService, ViewService],
     templateUrl: './view-card.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './view-card.component.scss',
 })
 export class ViewCardComponent<T> implements OnChanges {
@@ -52,7 +62,10 @@ export class ViewCardComponent<T> implements OnChanges {
 
     public hasContent!: boolean;
 
-    constructor(private readonly filterService: FilterService, private readonly viewService: ViewService) {}
+    constructor(
+        private readonly filterService: FilterService,
+        private readonly viewService: ViewService,
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         this.hasIcon = !!this.ngxTable.rows?.icon;

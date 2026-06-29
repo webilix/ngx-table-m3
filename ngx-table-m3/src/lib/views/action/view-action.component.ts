@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, HostBinding, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -22,6 +22,7 @@ interface Action<T> {
     selector: 'view-action',
     imports: [MatButton, MatDivider, MatIconButton, MatIcon, MatMenuModule],
     templateUrl: './view-action.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './view-action.component.scss',
 })
 export class ViewActionComponent<T> implements OnChanges {

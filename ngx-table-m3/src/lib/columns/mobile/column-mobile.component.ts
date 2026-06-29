@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxHelperMobilePipe } from '@webilix/ngx-helper-m3';
 
@@ -10,6 +10,7 @@ import { IColumnMobile } from './column-mobile.interface';
     host: { selector: 'column-mobile' },
     imports: [NgxHelperMobilePipe],
     templateUrl: './column-mobile.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-mobile.component.scss',
 })
 export class ColumnMobileComponent<T> {

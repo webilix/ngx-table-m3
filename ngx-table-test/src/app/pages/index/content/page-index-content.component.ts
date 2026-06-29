@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { INgxHelperPageGroupItem, NGX_HELPER_PAGE_GROUP_ITEM } from '@webilix/ngx-helper-m3';
 import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } from '@webilix/ngx-table-m3';
@@ -9,6 +9,7 @@ import { DataService, IData } from '../../data.service';
     host: { selector: 'index-content' },
     imports: [NgxTableComponent],
     templateUrl: './page-index-content.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './page-index-content.component.scss',
 })
 export class PageIndexContentComponent implements OnInit {
@@ -31,10 +32,10 @@ export class PageIndexContentComponent implements OnInit {
             this.page.id === 'user'
                 ? ['TYPE', 'NAME', 'MOBILE', 'STATUS']
                 : this.page.id === 'birth'
-                ? ['NAME', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY']
-                : this.page.id === 'others'
-                ? ['NAME', 'PERIOD', 'FILE-SIZE', 'WEIGHT', 'TAG']
-                : [],
+                  ? ['NAME', 'BIRTH-DAY', 'AGE-YEAR', 'AGE-DAY', 'STATE', 'CITY']
+                  : this.page.id === 'others'
+                    ? ['NAME', 'PERIOD', 'FILE-SIZE', 'WEIGHT', 'TAG']
+                    : [],
         );
         this.list = this.dataService.getData();
     }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatIcon } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { IColumnTag } from './column-tag.interface';
     host: { selector: 'column-tag' },
     imports: [MatIcon],
     templateUrl: './column-tag.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-tag.component.scss',
 })
 export class ColumnTagComponent<T> {

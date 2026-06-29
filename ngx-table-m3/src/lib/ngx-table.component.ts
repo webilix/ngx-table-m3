@@ -1,4 +1,15 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Inject,
+    Input,
+    OnChanges,
+    OnInit,
+    Optional,
+    Output,
+    SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Helper } from '@webilix/helper-library';
@@ -26,6 +37,7 @@ import { INgxTable, INgxTableFilter, INgxTablePagination } from './ngx-table.int
     imports: [NgxHelperLoaderComponent, ViewCardComponent, ViewPaginationComponent, ViewTableComponent],
     providers: [FilterService, ViewService],
     templateUrl: './ngx-table.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './ngx-table.component.scss',
 })
 export class NgxTableComponent<T> implements OnInit, OnChanges {

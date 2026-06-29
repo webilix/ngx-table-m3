@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgxHelperDurationPipe } from '@webilix/ngx-helper-m3';
 
@@ -10,6 +10,7 @@ import { IColumnDuration } from './column-duration.interface';
     host: { selector: 'column-duration' },
     imports: [NgxHelperDurationPipe],
     templateUrl: './column-duration.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-duration.component.scss',
 })
 export class ColumnDurationComponent<T> {

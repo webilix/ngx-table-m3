@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, RendererFactory2 } from '@angular/core';
+import { Component, HostBinding, OnInit, RendererFactory2, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, Router, RouterOutlet } from '@angular/router';
 
 import { MatIcon } from '@angular/material/icon';
@@ -10,6 +10,7 @@ type ColorMode = 'LIGHT' | 'DARK';
     host: { '(window:keydown)': 'onKeydown($event)', '(window:resize)': 'onResize()' },
     imports: [RouterOutlet, MatIcon],
     templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
@@ -18,7 +19,10 @@ export class AppComponent implements OnInit {
     public isMobile!: boolean;
     public colorMode!: ColorMode;
 
-    constructor(private readonly router: Router, private readonly rendererFactory: RendererFactory2) {
+    constructor(
+        private readonly router: Router,
+        private readonly rendererFactory: RendererFactory2,
+    ) {
         this.router.events.forEach((event) => {
             if (event instanceof NavigationError || event instanceof NavigationEnd || event instanceof NavigationCancel)
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });

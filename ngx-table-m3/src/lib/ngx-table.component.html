@@ -1,61 +1,61 @@
 @if (loading) {
-<div class="ngx-table-m3-loader">
-    <ngx-helper-loader [mode]="'SPINNER'"></ngx-helper-loader>
-</div>
+    <div class="ngx-table-m3-loader">
+        <ngx-helper-loader [mode]="'SPINNER'"></ngx-helper-loader>
+    </div>
 }
 
 <!-- EMPTY -->
-@if (!loading && ngxTable.columns.length <= 0 ) {
-<div class="ngx-table-m3-empty">ستون‌های جدول به صورت صحیح مشخص نشده است.</div>
+@if (!loading && ngxTable.columns.length <= 0) {
+    <div class="ngx-table-m3-empty">ستون‌های جدول به صورت صحیح مشخص نشده است.</div>
 }
 
 <!-- EMPTY -->
 @if (!loading && ngxTable.columns.length > 0 && data.length === 0 && !hasFilter) {
-<div class="ngx-table-m3-empty">{{ ngxTable.type }} ثبت نشده است.</div>
+    <div class="ngx-table-m3-empty">{{ ngxTable.type }} ثبت نشده است.</div>
 }
 
 <!-- DATA -->
 @if (!loading && ngxTable.columns.length > 0 && (data.length > 0 || hasFilter)) {
-<content class="ngx-table-m3">
-    <!-- DESKTOP -->
-    @if (!isMobile) {
-    <view-table
-        [ngxTable]="ngxTable"
-        [data]="data"
-        [viewConfig]="viewConfig"
-        (orderChanged)="orderChanged($event)"
-        (filterChanged)="filterItemChanged($event)"
-        (filterCleared)="filterCleared()"
-    ></view-table>
-    }
+    <content class="ngx-table-m3">
+        <!-- DESKTOP -->
+        @if (!isMobile) {
+            <view-table
+                [ngxTable]="ngxTable"
+                [data]="data"
+                [viewConfig]="viewConfig"
+                (orderChanged)="orderChanged($event)"
+                (filterChanged)="filterItemChanged($event)"
+                (filterCleared)="filterCleared()"
+            ></view-table>
+        }
 
-    <!-- MOBILE -->
-    @if (isMobile) {
-    <view-card
-        [ngxTable]="ngxTable"
-        [data]="data"
-        [viewConfig]="viewConfig"
-        (orderChanged)="orderChanged($event)"
-        (filterChanged)="filterItemChanged($event)"
-        (filterCleared)="filterCleared()"
-    ></view-card>
-    }
+        <!-- MOBILE -->
+        @if (isMobile) {
+            <view-card
+                [ngxTable]="ngxTable"
+                [data]="data"
+                [viewConfig]="viewConfig"
+                (orderChanged)="orderChanged($event)"
+                (filterChanged)="filterItemChanged($event)"
+                (filterCleared)="filterCleared()"
+            ></view-card>
+        }
 
-    <!-- PAGINATION -->
-    @if (pagination && pagination.page.total> 1) {
-    <view-pagination
-        [type]="ngxTable.type"
-        [pagination]="pagination"
-        [viewConfig]="viewConfig"
-        [isMobile]="isMobile"
-        [stickyBottom]="viewConfig.stickyView?.bottom"
-        (pageChanged)="pageChanged($event)"
-    ></view-pagination>
-    }
+        <!-- PAGINATION -->
+        @if (pagination && pagination.page.total > 1) {
+            <view-pagination
+                [type]="ngxTable.type"
+                [pagination]="pagination"
+                [viewConfig]="viewConfig"
+                [isMobile]="isMobile"
+                [stickyBottom]="$safeNavigationMigration(viewConfig.stickyView?.bottom)"
+                (pageChanged)="pageChanged($event)"
+            ></view-pagination>
+        }
 
-    <!-- EMPTY -->
-    @if ( data.length === 0) {
-    <div class="ngx-table-m3-empty">{{ ngxTable.type }} ثبت نشده است.</div>
-    }
-</content>
+        <!-- EMPTY -->
+        @if (data.length === 0) {
+            <div class="ngx-table-m3-empty">{{ ngxTable.type }} ثبت نشده است.</div>
+        }
+    </content>
 }

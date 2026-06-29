@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { COLUMN_CONFIG, COLUMN_TYPE, COLUMN_VALUE, IColumnConfig } from '../column.interface';
 
@@ -8,6 +8,7 @@ import { IColumnText } from './column-text.interface';
     host: { selector: 'column-text' },
     imports: [],
     templateUrl: './column-text.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './column-text.component.scss',
 })
 export class ColumnTextComponent<T> {

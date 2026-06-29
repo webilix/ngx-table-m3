@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, OnInit } from '@angular/core';
+import { Component, HostBinding, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatCheckbox } from '@angular/material/checkbox';
 
@@ -12,6 +12,7 @@ import { IFilterMultiSelect } from './filter-multi-select.interface';
     host: { selector: 'filter-multi-select' },
     imports: [MatCheckbox],
     templateUrl: './filter-multi-select.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './filter-multi-select.component.scss',
 })
 export class FilterMultiSelectComponent implements OnInit {
