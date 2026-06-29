@@ -1,4 +1,14 @@
-import { Component, HostBinding, Injector, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Injector,
+    Input,
+    OnChanges,
+    SimpleChanges,
+    ChangeDetectionStrategy,
+    WritableSignal,
+    signal,
+} from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
@@ -41,7 +51,7 @@ export class ViewValueComponent<T> implements OnChanges {
     public hasClick!: boolean;
     public copyText?: string;
 
-    public isCopied: boolean = false;
+    public isCopied: WritableSignal<boolean> = signal(false);
     private copyTimeout: any;
 
     constructor(
@@ -112,9 +122,9 @@ export class ViewValueComponent<T> implements OnChanges {
         if (!this.copyText) return;
         if (this.copyTimeout) clearTimeout(this.copyTimeout);
 
-        this.isCopied = true;
+        this.isCopied.update(() => true);
         this.copyTimeout = setTimeout(() => {
-            this.isCopied = false;
+            this.isCopied.update(() => false);
             this.copyTimeout = undefined;
         }, 2000);
     }

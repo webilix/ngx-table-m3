@@ -1,7 +1,7 @@
 <ngx-table
-    [loading]="loading"
+    [loading]="loading()"
     [ngxTable]="ngxTable"
-    [data]="data"
-    [pagination]="pagination"
+    [data]="data()"
+    [pagination]="pagination()"
     (filterChanged)="filterChanged($event)"
 ></ngx-table>

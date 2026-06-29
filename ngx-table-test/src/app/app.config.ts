@@ -1,5 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { provideNgxHelperConfig } from '@webilix/ngx-helper-m3';
@@ -9,9 +8,8 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideZonelessChangeDetection(),
         provideRouter(routes),
-        provideAnimationsAsync(),
 
         // NGX-TABLE
         provideNgxHelperConfig({

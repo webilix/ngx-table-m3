@@ -18,7 +18,6 @@
         "@angular/forms": "^22.0.4",
         "@angular/material": "^22.0.2",
         "@angular/platform-browser": "^22.0.4",
-        "@angular/platform-browser-dynamic": "^22.0.4",
         "@angular/router": "^22.0.4",
         "@maskito/angular": "^5.3.1",
         "@maskito/core": "^5.3.1",
@@ -28,8 +27,7 @@
         "@webilix/ngx-calendar-m3": "^0.0.32",
         "@webilix/ngx-helper-m3": "^0.0.56",
         "rxjs": "~7.8.2",
-        "tslib": "^2.8.1",
-        "zone.js": "~0.16.2"
+        "tslib": "^2.8.1"
     },
     "devDependencies": {
         "@angular/build": "^22.0.4",
@@ -45,5 +43,13 @@
         "karma-jasmine-html-reporter": "~2.2.0",
         "ng-packagr": "^22.0.0",
         "typescript": "~6.0.3"
+    },
+    "allowScripts": {
+        "@parcel/watcher@2.5.6": true,
+        "canvas@3.2.3": true,
+        "esbuild@0.27.7": true,
+        "esbuild@0.28.1": true,
+        "lmdb@3.5.4": true,
+        "msgpackr-extract@3.0.4": true
     }
 }

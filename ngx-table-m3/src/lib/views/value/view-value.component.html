@@ -1,25 +1,34 @@
 <!-- EMPTY VALUE -->
-@if (value === undefined) { }
+@if (value === undefined) {}
 
 <!-- SHOW VALUE -->
 @else {
-<div class="value-container" [style.color]="color" [class.card-title]="isCardTitle" [class.card-sub-title]="isCardSubTitle">
     <div
-        class="value"
-        [style.cursor]="hasClick || copyText ? 'pointer' : 'default'"
-        (click)="hasClick ? onClick() : copyText ? onCopy() : null"
-        [cdkCopyToClipboard]="copyText || ''"
+        class="value-container"
+        [style.color]="color"
+        [class.card-title]="isCardTitle"
+        [class.card-sub-title]="isCardSubTitle"
     >
-        <ng-container *ngComponentOutlet="columnInfo[column.type].component; injector: injector"></ng-container>
-        <!-- CLICK -->
-        @if (hasClick) { <mat-icon>open_in_new</mat-icon> }
-        <!-- COPY -->
-        @if (copyText) { <mat-icon>{{ isCopied ? 'done_all' : 'copy' }}</mat-icon> }
-    </div>
+        <div
+            class="value"
+            [style.cursor]="hasClick || copyText ? 'pointer' : 'default'"
+            (click)="hasClick ? onClick() : copyText ? onCopy() : null"
+            [cdkCopyToClipboard]="copyText || ''"
+        >
+            <ng-container *ngComponentOutlet="columnInfo[column.type].component; injector: injector"></ng-container>
+            <!-- CLICK -->
+            @if (hasClick) {
+                <mat-icon>open_in_new</mat-icon>
+            }
+            <!-- COPY -->
+            @if (copyText) {
+                <mat-icon>{{ isCopied() ? 'done_all' : 'copy' }}</mat-icon>
+            }
+        </div>
 
-    <!-- SUB VALUE -->
-    @if (subValue) {
-    <div class="sub-value" [class.ngx-table-m3-en]="subValue.isEN">{{ subValue.value }}</div>
-    }
-</div>
+        <!-- SUB VALUE -->
+        @if (subValue) {
+            <div class="sub-value" [class.ngx-table-m3-en]="subValue.isEN">{{ subValue.value }}</div>
+        }
+    </div>
 }

@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy, WritableSignal, signal } from '@angular/core';
+import { timer } from 'rxjs';
 
 import { INgxHelperPageGroupItem, NGX_HELPER_PAGE_GROUP_ITEM } from '@webilix/ngx-helper-m3';
 import { INgxTable, INgxTableFilter, INgxTablePagination, NgxTableComponent } from '@webilix/ngx-table-m3';
@@ -17,12 +18,12 @@ export class PageIndexContentComponent implements OnInit {
 
     public ngxTable!: INgxTable<IData>;
 
-    public loading: boolean = true;
-    public data: IData[] = [];
-    public pagination?: INgxTablePagination;
+    public loading: WritableSignal<boolean> = signal(true);
+    public data: WritableSignal<IData[]> = signal([]);
+    public pagination: WritableSignal<INgxTablePagination | null> = signal(null);
 
-    private list: IData[] = [];
-    private filtered: IData[] = [];
+    private list: WritableSignal<IData[]> = signal([]);
+    private filtered: WritableSignal<IData[]> = signal([]);
 
     constructor(private readonly dataService: DataService) {}
 
@@ -37,27 +38,28 @@ export class PageIndexContentComponent implements OnInit {
                     ? ['NAME', 'PERIOD', 'FILE-SIZE', 'WEIGHT', 'TAG']
                     : [],
         );
-        this.list = this.dataService.getData();
+        this.list.update(() => this.dataService.getData());
     }
 
     filterChanged(filter: INgxTableFilter): void {
         console.log(filter);
         const update = (): void => {
-            this.loading = false;
-            this.filtered = this.dataService.filtereData(this.list, filter);
-            this.pagination = this.dataService.getPagination(this.filtered.length, filter.page);
-            this.filtered = this.dataService.orderList(this.filtered, filter);
+            this.loading.update(() => false);
+            this.filtered.update(() => this.dataService.filtereData(this.list(), filter));
+            this.pagination.update(() => this.dataService.getPagination(this.filtered().length, filter.page));
+            this.filtered.update(() => this.dataService.orderList(this.filtered(), filter));
             this.setData();
         };
 
-        if (this.pagination) update();
-        else setTimeout(() => update(), 500);
+        if (this.pagination()) update();
+        else timer(500).subscribe(() => update());
     }
 
     setData(): void {
-        if (!this.pagination) return;
+        const pagination = this.pagination();
+        if (!pagination) return;
 
-        const skip: number = (this.pagination.page.current - 1) * this.pagination.item.perPage;
-        this.data = this.filtered.slice(skip, skip + this.pagination.item.perPage);
+        const skip: number = (pagination.page.current - 1) * pagination.item.perPage;
+        this.data.update(() => this.filtered().slice(skip, skip + pagination.item.perPage));
     }
 }

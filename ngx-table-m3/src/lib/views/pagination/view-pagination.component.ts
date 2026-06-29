@@ -11,6 +11,7 @@ import {
     SimpleChanges,
     ChangeDetectionStrategy,
 } from '@angular/core';
+import { timer } from 'rxjs';
 
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -46,7 +47,7 @@ export class ViewPaginationComponent implements OnInit, OnChanges {
     constructor(private readonly elementRef: ElementRef) {}
 
     ngOnInit(): void {
-        setTimeout(this.onScroll.bind(this), 0);
+        timer(0).subscribe(this.onScroll.bind(this));
     }
 
     ngOnChanges(changes: SimpleChanges): void {

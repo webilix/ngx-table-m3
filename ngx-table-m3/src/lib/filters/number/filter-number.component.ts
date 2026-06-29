@@ -9,6 +9,7 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { timer } from 'rxjs';
 import { MaskitoOptions } from '@maskito/core';
 import { MaskitoDirective } from '@maskito/angular';
 import { maskitoNumber } from '@maskito/kit';
@@ -89,11 +90,11 @@ export class FilterNumberComponent implements OnInit, AfterViewInit {
         this.mode = mode;
         this.updateQuery();
 
-        setTimeout(() => {
+        timer(100).subscribe(() => {
             const elementRef: ElementRef | undefined = this.mode === 'BETWEEN' ? this.fromInput : this.numberInput;
             const element: HTMLInputElement | undefined = elementRef?.nativeElement;
             element?.focus();
-        }, 100);
+        });
     }
 
     isNumeric(value: string): boolean {

@@ -21,10 +21,7 @@
                 },
                 "test": {
                     "builder": "@angular/build:karma",
-                    "options": {
-                        "tsConfig": "ngx-table-m3/tsconfig.spec.json",
-                        "polyfills": ["zone.js", "zone.js/testing"]
-                    }
+                    "options": { "tsConfig": "ngx-table-m3/tsconfig.spec.json" }
                 }
             }
         },
@@ -41,7 +38,6 @@
                         "outputPath": "dist/ngx-table-test",
                         "index": "ngx-table-test/src/index.html",
                         "browser": "ngx-table-test/src/main.ts",
-                        "polyfills": ["zone.js"],
                         "tsConfig": "ngx-table-test/tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [{ "glob": "**/*", "input": "ngx-table-test/public" }],
@@ -76,7 +72,6 @@
                 "test": {
                     "builder": "@angular/build:karma",
                     "options": {
-                        "polyfills": ["zone.js", "zone.js/testing"],
                         "tsConfig": "ngx-table-test/tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [{ "glob": "**/*", "input": "ngx-table-test/public" }],
