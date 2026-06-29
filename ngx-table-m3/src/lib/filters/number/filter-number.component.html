@@ -1,12 +1,12 @@
 <div class="filter-number">
     @if (!this.data.filter.mode) {
-    <div class="modes">
-        @for (item of modes; track $index) {
-        <div class="mode" [class.selected]="item.type === mode" (click)="setMode(item.type)">
-            {{ item.title }}
+        <div class="modes">
+            @for (item of modes; track $index) {
+                <div class="mode" [class.selected]="item.type === mode" (click)="setMode(item.type)">
+                    {{ item.title }}
+                </div>
+            }
         </div>
-        }
-    </div>
     }
 
     <!-- INPUTS -->
@@ -18,13 +18,8 @@
             [ngModel]="fromQuery"
             [placeholder]="'حداقل'"
             class="ngx-table-m3-en"
-            [mask]="'separator.0'"
-            thousandSeparator=","
-            decimalMarker="."
-            [allowNegativeNumbers]="true"
-            [maxLength]="15"
-            [inputTransformFn]="inputTransformFn"
             [style.display]="mode === 'BETWEEN' ? 'initial' : 'none'"
+            [maskito]="maskitoOptions"
             (input)="setQuery(fromInput.value, toInput.value)"
             #fromInput
         />
@@ -34,13 +29,8 @@
             [ngModel]="toQuery"
             [placeholder]="'حداکتر'"
             class="ngx-table-m3-en"
-            [mask]="'separator.0'"
-            thousandSeparator=","
-            decimalMarker="."
-            [allowNegativeNumbers]="true"
-            [maxLength]="15"
-            [inputTransformFn]="inputTransformFn"
             [style.display]="mode === 'BETWEEN' ? 'initial' : 'none'"
+            [maskito]="maskitoOptions"
             (input)="setQuery(fromInput.value, toInput.value)"
             #toInput
         />
@@ -51,13 +41,8 @@
             [ngModel]="numberQuery"
             [placeholder]="'مقدار'"
             class="ngx-table-m3-en"
-            [mask]="'separator.0'"
-            thousandSeparator=","
-            decimalMarker="."
-            [allowNegativeNumbers]="true"
-            [maxLength]="15"
-            [inputTransformFn]="inputTransformFn"
             [style.display]="mode !== 'BETWEEN' ? 'initial' : 'none'"
+            [maskito]="maskitoOptions"
             (input)="setQuery(numberInput.value, '')"
             #numberInput
         />

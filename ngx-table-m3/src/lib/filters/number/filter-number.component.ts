@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { MaskitoOptions } from '@maskito/core';
+import { MaskitoDirective } from '@maskito/angular';
+import { maskitoNumber } from '@maskito/kit';
 
 import { Helper } from '@webilix/helper-library';
 
@@ -14,12 +16,11 @@ type Mode = IFilterNumberValue['mode'];
 
 @Component({
     host: { selector: 'filter-number' },
-    imports: [FormsModule, NgxMaskDirective],
-    providers: [provideNgxMask()],
+    imports: [FormsModule, MaskitoDirective],
     templateUrl: './filter-number.component.html',
     styleUrl: './filter-number.component.scss',
 })
-export class FilterNumberComponent implements AfterViewInit {
+export class FilterNumberComponent implements OnInit, AfterViewInit {
     @HostBinding('className') protected className: string = 'ngx-table-m3-filter';
     @ViewChild('fromInput') protected fromInput?: ElementRef;
     @ViewChild('numberInput') protected numberInput?: ElementRef;
@@ -43,7 +44,28 @@ export class FilterNumberComponent implements AfterViewInit {
     public numberQuery?: string =
         this.mode === 'EQUAL' || this.mode === 'LESS' || this.mode === 'GREATER' ? this.query : undefined;
 
-    public inputTransformFn = (value: any): string => Helper.STRING.changeNumbers(value.toString(), 'EN');
+    protected maskitoOptions!: MaskitoOptions;
+
+    ngOnInit(): void {
+        const numberOptions: MaskitoOptions = maskitoNumber({
+            thousandSeparator: ',',
+            // Fraction Digits
+            decimalSeparator: '.',
+            maximumFractionDigits: 10,
+            // Allow Negatives
+            minusSign: '-',
+            min: -999_999_999_999_999,
+            max: 999_999_999_999_999,
+        });
+        this.maskitoOptions = {
+            ...numberOptions,
+            preprocessors: [
+                // CHANGE PERSIAN NUMBERS
+                ({ elementState, data }) => ({ elementState, data: Helper.STRING.changeNumbers(data.toString(), 'EN') }),
+                ...(numberOptions.preprocessors || []),
+            ],
+        };
+    }
 
     ngAfterViewInit(): void {
         if (!this.mode) return;

@@ -28,7 +28,9 @@
         "@webilix/jalali-date-time": ">=2.0.9",
         "@webilix/ngx-calendar-m3": ">=0.0.29",
         "@webilix/ngx-helper-m3": ">=0.0.52",
-        "ngx-mask": ">=20.0.3"
+        "@maskito/angular": ">=5.3.1",
+        "@maskito/core": ">=5.3.1",
+        "@maskito/kit": ">=5.3.1"
     },
     "dependencies": {
         "tslib": "^2.3.0"
